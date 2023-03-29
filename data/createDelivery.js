@@ -26,12 +26,12 @@ async function createFile() {
     const width = faker.datatype.number({ min: 1, max: 100 });
     const height = faker.datatype.number({ min: 1, max: 100 });
     const street_address = faker.address.streetAddress(true);
-    const zipCode = faker.address.zipCode('#####');
+    const zipCode = faker.address.zipCodeByState();
     const city = faker.address.city();
     const fullAddress = `${street_address} ${zipCode} ${city}`;
     const departure_address = fullAddress.toString();
     const final_address = faker.address.streetAddress(true);
-    const zipCodeFinal = faker.address.zipCode('#####');
+    const zipCodeFinal = faker.address.zipCodeByState();
     const cityFinal = faker.address.city();
     const finalAddress = `${final_address} ${zipCodeFinal} ${cityFinal}`;
     const arrival_address = finalAddress.toString();
