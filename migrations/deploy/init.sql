@@ -30,8 +30,8 @@ CREATE TABLE "user" (
     "phone_number" TEXT NOT NULL,
     "carrier" BOOLEAN NOT NULL,
     "identity_verified" BOOLEAN NOT NULL,
-    "created_at" TIMESTAMPZ NOT NULL DEFAULT NOW(),
-    "updated_at" TIMESTAMPZ
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ
 );
 
 CREATE TABLE "delivery" (
@@ -41,14 +41,16 @@ CREATE TABLE "delivery" (
     "volume" INT NOT NULL,
     "length" INT NOT NULL,
     "width" INT NOT NULL,
-    "height" INT INT NOT NULL,
+    "height" INT NOT NULL,
     "departure_address" TEXT NOT NULL,
     "arrival_address" TEXT NOT NULL,
-    "departure_date" TIMESTAMPZ NOT NULL,
-    "arrival_date" TIMESTAMPZ NOT NULL,
-    "price" POSTNUM NOT NULL,
-    "creator_id " INT REFERENCES user(id),
-    "carrier_id " INT REFERENCES user(id),
-    "created_at" TIMESTAMPZ NOT NULL DEFAULT NOW(),
-    "updated_at" TIMESTAMPZ
-) COMMIT;
+    "departure_date" TIMESTAMPTZ NOT NULL,
+    "arrival_date" TIMESTAMPTZ NOT NULL,
+    "price" POSNUM NOT NULL,
+    "creator_id " INT REFERENCES "user"("id"),
+    "carrier_id " INT REFERENCES "user"("id"),
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updated_at" TIMESTAMPTZ
+);
+
+COMMIT;
