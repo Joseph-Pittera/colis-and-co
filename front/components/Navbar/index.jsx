@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Logo } from "./Logo";
 
 const pages = ["Connexion", "Inscription"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -38,29 +39,7 @@ export const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box
-            component="img"
-            sx={{
-              maxHeight: { xs: 46, md: 92 },
-              maxWidth: { xs: 60, md: 120 },
-              display: { xs: "flex", md: "none" },
-              mr: 1,
-            }}
-            alt="Parcel logo of Colis&Co"
-            src="/logo_colis&co_dark.png"
-          />
-          <Box
-            component="img"
-            sx={{
-              maxHeight: { xs: 46, md: 92 },
-              maxWidth: { xs: 60, md: 120 },
-              display: { xs: "none", md: "flex" },
-              mr: 1,
-              mb: 1,
-            }}
-            alt="Parcel logo of Colis&Co"
-            src="/logo_colis&co_dark.png"
-          />
+          <Logo />
           <Box
             sx={{
               flexGrow: 1,
