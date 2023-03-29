@@ -1,13 +1,20 @@
+// Créer des  fausses données grace a Faker-Js pour l'user
 const { faker } = require('@faker-js/faker');
 const fs = require('fs').promises;
 
+// Ici on dit a faker de générer des données en Français
 faker.locale = 'fr';
 
+// On va créer une variable avec 100 fausses "profils" users
 const NB_USERS = 100;
 const FILENAME = `users-${NB_USERS}.json`;
-// Création des users pour notre BDD
+// Création des users pour notre fichier json, donc pour ça
+// On va dévoir créer une function asynchrone pour créer les users
 async function createFile() {
   await fs.writeFile(FILENAME, '[');
+  // On a opté pour utiliser une boucle for, pour créer 100 faux profils
+  // A chaque tour de boucle l'user va avoir un firstName,lastName,email,address,zipcode, etc
+  // Tout ca séparé par des virgules,  fs.appendFile(FILENAME, ',');
   for (let userIndex = 0; userIndex < NB_USERS; userIndex += 1) {
     if (userIndex > 0) {
       await fs.appendFile(FILENAME, ',');
@@ -34,6 +41,10 @@ async function createFile() {
       identityVerified,
     };
     await fs.appendFile(FILENAME, JSON.stringify(user));
+    // A la fin de la boucle  on utilise la méthode JSON.stringify
+    // convertir un objet JavaScript en une chaîne de caractères JSON.(string)
+    // Comme ça chaque données que va etre inserer sur le FILENAME sera en string
+    // Puis avec le fs.apprenFile(FILENAME,']'); on ferme le tableau dans le fichier JSON
   }
   await fs.appendFile(FILENAME, ']');
   console.log(`${FILENAME}file created`);
