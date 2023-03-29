@@ -1,7 +1,7 @@
 -- Revert colisandco:init from pg
-
 BEGIN;
 
--- XXX Add DDLs here.
+DROP TABLE "user",
+"delivery";
 
 COMMIT;
