@@ -10,13 +10,13 @@ async function createFile() {
   await fs.writeFile(FILENAME, '[');
   for (let userIndex = 0; userIndex < NB_USERS; userIndex += 1) {
     if (userIndex > 0) {
-    await fs.appendFile(FILENAME, ',');
-}
-   
+      await fs.appendFile(FILENAME, ',');
+    }
+
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const email = faker.internet.email(firstName, lastName);
-    const address = faker.address.city();
+    const address = faker.address.streetAddress(true);
     const zipCode = faker.address.zipCode('#####');
     const birthDate = faker.date.birthdate();
     const phoneNumber = faker.phone.number();
@@ -34,8 +34,8 @@ async function createFile() {
       identityVerified,
     };
     await fs.appendFile(FILENAME, JSON.stringify(user));
-}
-await fs.appendFile(FILENAME, ']');
-console.log(FILENAME + 'file created');
+  }
+  await fs.appendFile(FILENAME, ']');
+  console.log(`${FILENAME}file created`);
 }
 createFile();
