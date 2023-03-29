@@ -13,7 +13,7 @@ SELECT
     "carrier",
     "identity_verified"
 FROM
-    "user"
+    "users"
 WHERE
     false;
 

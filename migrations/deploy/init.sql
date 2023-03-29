@@ -19,7 +19,7 @@ CREATE DOMAIN "posint" AS INT CHECK (value > 0);
 
 CREATE DOMAIN "posnum" AS NUMERIC CHECK (value > 0.0);
 
-CREATE TABLE "user" (
+CREATE TABLE "users" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "email" EMAIL_VALIDATOR NOT NULL UNIQUE,
     "first_name" TEXT NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE "delivery" (
     "departure_date" TIMESTAMPTZ NOT NULL,
     "arrival_date" TIMESTAMPTZ NOT NULL,
     "price" POSNUM NOT NULL,
-    "creator_id " INT REFERENCES "user"("id"),
-    "carrier_id " INT REFERENCES "user"("id"),
+    "creator_id " INT REFERENCES "users"("id"),
+    "carrier_id " INT REFERENCES "users"("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );

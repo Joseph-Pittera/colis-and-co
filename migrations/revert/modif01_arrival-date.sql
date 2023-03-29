@@ -4,5 +4,8 @@ BEGIN;
 ALTER TABLE
     "delivery"
 ALTER COLUMN
-    "arrival_date" TYPE TIMESTAMPTZ NOT NULL;
-     COMMIT;
+    "arrival_date"
+SET
+    NOT NULL;
+
+COMMIT;
