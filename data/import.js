@@ -4,8 +4,8 @@ const { Client } = require('pg');
 const client = new Client();
 client.connect();
 
-const userData = require('./users-100.json');
-const deliveryData = require('./delivery-100.json');
+const userData = require('./users-10.json');
+const deliveryData = require('./delivery-10.json');
 
 async function importTable(tableName, data) {
   const promises = [];

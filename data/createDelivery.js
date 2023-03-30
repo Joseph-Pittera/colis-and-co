@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 faker.locale = 'fr';
 
 // On va créer une variable avec 100 fausses données au niveau des deliverys
-const NB_DELIVERY = 100;
+const NB_DELIVERY = 10;
 const FILENAME = `delivery-${NB_DELIVERY}.json`;
 // Création des deliverys/adresses pour notre fichier json, donc pour ça
 // On va dévoir créer une function asynchrone pour créer les deliverys

@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 faker.locale = 'fr';
 
 // On va créer une variable avec 100 fausses "profils" users
-const NB_USERS = 100;
+const NB_USERS = 10;
 const FILENAME = `users-${NB_USERS}.json`;
 // Création des users pour notre fichier json, donc pour ça
 // On va dévoir créer une function asynchrone pour créer les users

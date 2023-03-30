@@ -1,0 +1,112 @@
+[
+  {
+    "email": "Jacqueline44@hotmail.fr",
+    "firstName": "Jacqueline",
+    "lastName": "Aubert",
+    "address": "52 Rue de Presbourg 8 étage",
+    "zipCode": "10535",
+    "birthDate": "2003-12-07T19:11:15.122Z",
+    "phoneNumber": "0486385280",
+    "carrier": false,
+    "identityVerified": false
+  },
+  {
+    "email": "Nicolas69@gmail.com",
+    "firstName": "Nicolas",
+    "lastName": "Paul",
+    "address": "9 Rue La Boétie 4 étage",
+    "zipCode": "75001",
+    "birthDate": "1972-10-31T08:10:46.158Z",
+    "phoneNumber": "0559331816",
+    "carrier": false,
+    "identityVerified": false
+  },
+  {
+    "email": "Clarence_Martin77@yahoo.fr",
+    "firstName": "Clarence",
+    "lastName": "Martin",
+    "address": "02 Allée Vaneau 3 étage",
+    "zipCode": "31120",
+    "birthDate": "1974-09-21T14:32:58.399Z",
+    "phoneNumber": "+33 679113163",
+    "carrier": true,
+    "identityVerified": true
+  },
+  {
+    "email": "Arsnie.Morel@hotmail.fr",
+    "firstName": "Arsènie",
+    "lastName": "Morel",
+    "address": "6088 Rue Adolphe Mille Apt. 579",
+    "zipCode": "51435",
+    "birthDate": "1985-04-07T19:10:04.892Z",
+    "phoneNumber": "+33 414964379",
+    "carrier": true,
+    "identityVerified": true
+  },
+  {
+    "email": "Arabelle_Gauthier@hotmail.fr",
+    "firstName": "Arabelle",
+    "lastName": "Gauthier",
+    "address": "34 Avenue Saint-Séverin 3 étage",
+    "zipCode": "18508",
+    "birthDate": "1970-08-09T16:10:49.274Z",
+    "phoneNumber": "+33 129677388",
+    "carrier": false,
+    "identityVerified": true
+  },
+  {
+    "email": "No75@gmail.com",
+    "firstName": "Noé",
+    "lastName": "Deschamps",
+    "address": "972 Allée Vaneau 4 étage",
+    "zipCode": "64718",
+    "birthDate": "1969-02-10T12:06:20.181Z",
+    "phoneNumber": "0673400947",
+    "carrier": false,
+    "identityVerified": false
+  },
+  {
+    "email": "Fanny.Schneider@hotmail.fr",
+    "firstName": "Fanny",
+    "lastName": "Schneider",
+    "address": "1403 Rue d'Abbeville 0 étage",
+    "zipCode": "63714",
+    "birthDate": "1946-08-22T01:34:39.383Z",
+    "phoneNumber": "0240896848",
+    "carrier": true,
+    "identityVerified": true
+  },
+  {
+    "email": "Athina28@hotmail.fr",
+    "firstName": "Athina",
+    "lastName": "Lefebvre",
+    "address": "48 Impasse Bonaparte Apt. 771",
+    "zipCode": "68877",
+    "birthDate": "1958-10-20T12:21:07.998Z",
+    "phoneNumber": "+33 335946855",
+    "carrier": false,
+    "identityVerified": false
+  },
+  {
+    "email": "Thas90@hotmail.fr",
+    "firstName": "Thaïs",
+    "lastName": "Deschamps",
+    "address": "2838 Quai de Paris 0 étage",
+    "zipCode": "31756",
+    "birthDate": "1969-11-30T00:25:45.239Z",
+    "phoneNumber": "0182439277",
+    "carrier": false,
+    "identityVerified": false
+  },
+  {
+    "email": "Yvonne90@hotmail.fr",
+    "firstName": "Yvonne",
+    "lastName": "Morel",
+    "address": "659 Avenue de l'Odéon Apt. 476",
+    "zipCode": "87887",
+    "birthDate": "1991-04-15T20:39:32.604Z",
+    "phoneNumber": "0654597098",
+    "carrier": false,
+    "identityVerified": false
+  }
+]
