@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+import { BlueLink } from "../CustomsMuiComp";
 
 export const Logo = () => {
   return (
-    <Link href="/">
+    <BlueLink href="/">
       <Box
         component="img"
         sx={{
@@ -16,6 +16,6 @@ export const Logo = () => {
         alt="Parcel logo of Colis&Co"
         src="/logo_colis&co_dark.png"
       />
-    </Link>
+    </BlueLink>
   );
 };
