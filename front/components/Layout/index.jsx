@@ -22,7 +22,7 @@ export const Layout = ({ children }) => {
             sx={{
               p: { xs: 0, sm: 0 },
               minHeight: "100vh",
-              minWidth: "100vw",
+              minWidth: "100%",
               display: "flex",
               flexDirection: "column",
             }}
