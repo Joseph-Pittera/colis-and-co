@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { ResponsiveAppBar as Navbar } from "../Navbar";
 import { Footer } from "../Footer";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { ThemeProvider, CssBaseline, Container } from "@mui/material";
 import { theme } from "../../utils/context/theme";
 
 export const siteTitle = "Colis & Co";
@@ -15,14 +15,34 @@ export const Layout = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/icon_colis&co_light.png" />
       </Head>
-      <main>
+      <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <Container
+            sx={{
+              p: { xs: 0, sm: 0 },
+              minHeight: "100vh",
+              minWidth: "100vw",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Navbar />
+            <Container
+              component="main"
+              sx={{
+                flexGrow: 1,
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              {children}
+            </Container>
+            <Footer />
+          </Container>
         </ThemeProvider>
-      </main>
+      </body>
     </>
   );
 };

@@ -27,7 +27,6 @@ export const Footer = () => {
           flexDirection: "column",
           alignItems: "center",
         }}
-        // borderTop={1}
       >
         <Box
           display="flex"
