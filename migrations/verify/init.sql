@@ -4,6 +4,7 @@ BEGIN;
 SELECT
     "id",
     "email",
+    "password",
     "first_name",
     "last_name",
     "address",
@@ -11,7 +12,8 @@ SELECT
     "birth_date",
     "phone_number",
     "carrier",
-    "identity_verified"
+    "identity_verified",
+    "role"
 FROM
     "users"
 WHERE
