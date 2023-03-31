@@ -15,34 +15,32 @@ export const Layout = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/icon_colis&co_light.png" />
       </Head>
-      <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container
+          sx={{
+            p: { xs: 0, sm: 0 },
+            minHeight: "100vh",
+            minWidth: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Navbar />
           <Container
+            component="main"
             sx={{
-              p: { xs: 0, sm: 0 },
-              minHeight: "100vh",
-              minWidth: "100%",
+              flexGrow: 1,
               display: "flex",
+              alignItems: "center",
               flexDirection: "column",
             }}
           >
-            <Navbar />
-            <Container
-              component="main"
-              sx={{
-                flexGrow: 1,
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-              }}
-            >
-              {children}
-            </Container>
-            <Footer />
+            {children}
           </Container>
-        </ThemeProvider>
-      </body>
+          <Footer />
+        </Container>
+      </ThemeProvider>
     </>
   );
 };
