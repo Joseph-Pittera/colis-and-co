@@ -1,4 +1,4 @@
-import { BlueLink } from "../CustomsMuiComp";
+import { BlueLink } from "../CustomsMuiComp/BlueLink";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
@@ -18,7 +18,7 @@ const icons = [
 
 export const Footer = () => {
   return (
-    <>
+    <Box mt={3}>
       <Divider variant="middle" />
       <Box
         component="footer"
@@ -51,6 +51,6 @@ export const Footer = () => {
           ))}
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };

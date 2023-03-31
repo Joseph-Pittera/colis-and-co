@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { BlueLink } from "../../CustomsMuiComp";
+import { BlueLink } from "../../CustomsMuiComp/BlueLink";
 
 export const Logo = () => {
   return (

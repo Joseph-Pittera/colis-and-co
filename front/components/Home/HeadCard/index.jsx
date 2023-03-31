@@ -1,5 +1,5 @@
 import { Box, Stack, Card, CardContent, Typography } from "@mui/material";
-import { MainButton } from "./MainButton";
+import { MainButton } from "../../CustomsMuiComp/MainButton";
 
 const titles = [
   ["Livraisons fiables", "h1", 32],

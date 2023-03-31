@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { BlueLink } from "../../CustomsMuiComp";
+import { BlueLink } from "../../CustomsMuiComp/BlueLink";
 
 export const InlineMenu = ({ pages, setAnchorElNav }) => {
   const handleCloseNavMenu = () => {
@@ -13,8 +13,8 @@ export const InlineMenu = ({ pages, setAnchorElNav }) => {
         justifyContent: "flex-end",
       }}
     >
-      {pages.map((page) => (
-        <BlueLink href="/connexion">
+      {pages.map((page, i) => (
+        <BlueLink href={`/connexion/${i === 0 ? "login" : "register"}`}>
           <Button
             key={page}
             onClick={handleCloseNavMenu}

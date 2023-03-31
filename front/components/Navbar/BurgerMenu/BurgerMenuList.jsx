@@ -1,5 +1,5 @@
 import { Menu, MenuItem, Typography } from "@mui/material";
-import { BlueLink } from "../../CustomsMuiComp";
+import { BlueLink } from "../../CustomsMuiComp/BlueLink";
 
 export const BurgerMenuList = ({ pages, anchorElNav, setAnchorElNav }) => {
   const handleCloseNavMenu = () => {
