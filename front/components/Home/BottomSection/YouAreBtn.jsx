@@ -1,8 +1,11 @@
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
+import { useState } from "react";
 
 export default function YouAreBtn({ youAre, setYouAre }) {
-  const toggleYouAre = (e) => {
+  const [isOutlined, setIsOutlined] = useState(false);
+  const handleClick = (e) => {
+    setIsOutlined(!isOutlined);
     if (
       (e.target.textContent === "Expéditeur" && youAre === "deliverer") ||
       (e.target.textContent === "Livreur" && youAre === "expeditor")
@@ -14,11 +17,19 @@ export default function YouAreBtn({ youAre, setYouAre }) {
   };
 
   return (
-    <ButtonGroup variant="outlined">
-      <Button onClick={toggleYouAre} sx={{ width: 120 }}>
+    <ButtonGroup disableElevation>
+      <Button
+        onClick={handleClick}
+        sx={{ width: 120 }}
+        variant={isOutlined ? "outlined" : "contained"}
+      >
         Expéditeur
       </Button>
-      <Button onClick={toggleYouAre} sx={{ width: 120 }}>
+      <Button
+        onClick={handleClick}
+        sx={{ width: 120 }}
+        variant={isOutlined ? "contained" : "outlined"}
+      >
         Livreur
       </Button>
     </ButtonGroup>

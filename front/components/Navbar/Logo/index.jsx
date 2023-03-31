@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { BlueLink } from "../CustomsMuiComp";
+import { BlueLink } from "../../CustomsMuiComp";
 
 export const Logo = () => {
   return (
@@ -10,8 +10,7 @@ export const Logo = () => {
           maxHeight: { xs: 46, md: 92 },
           maxWidth: { xs: 60, md: 120 },
           display: "flex",
-          mr: 1,
-          mb: 1,
+          my: 1,
         }}
         alt="Parcel logo of Colis&Co"
         src="/logo_colis&co_dark.png"
