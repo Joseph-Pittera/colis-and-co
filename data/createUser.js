@@ -23,14 +23,17 @@ async function createFile() {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const email = faker.internet.email(firstName, lastName);
+    const password = faker.internet.password();
     const address = faker.address.streetAddress(true);
     const zipCode = faker.address.zipCodeByState();
     const birthDate = faker.date.birthdate();
     const phoneNumber = faker.phone.number();
     const carrier = faker.datatype.boolean();
     const identityVerified = faker.datatype.boolean();
+
     const user = {
       email,
+      password,
       firstName,
       lastName,
       address,
@@ -39,6 +42,7 @@ async function createFile() {
       phoneNumber,
       carrier,
       identityVerified,
+
     };
     await fs.appendFile(FILENAME, JSON.stringify(user));
     // A la fin de la boucle  on utilise la méthode JSON.stringify
