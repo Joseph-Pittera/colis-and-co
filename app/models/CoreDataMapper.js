@@ -69,3 +69,4 @@ class CoreDataMapper {
     await client.query(preparedQuery);
   }
 }
+module.exports = CoreDataMapper;
