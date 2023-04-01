@@ -1,9 +1,17 @@
 import { Button } from "@mui/material";
+import Link from "next/link";
 
-export const MainButton = ({
+const ButtonLink = ({ className, href, hrefAs, children, prefetch }) => (
+  <Link href={href} as={hrefAs} prefetch legacyBehavior>
+    <a className={className}>{children}</a>
+  </Link>
+);
+
+export const LinkButton = ({
   children,
   size = "large",
   variant = "contained",
+  href = "/",
 }) => {
   return (
     <Button
@@ -14,6 +22,8 @@ export const MainButton = ({
         fontWeight: "bold",
         color: "customBlue.dark",
       }}
+      href={href}
+      component={ButtonLink}
     >
       {children}
     </Button>

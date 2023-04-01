@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { TextField, Typography } from "@mui/material";
 import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
 import { PasswordInput } from "@/components/Connexion/PasswordInput";
-import { MainButton } from "@/components/CustomsMuiComp/MainButton";
+import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
 import Link from "next/link";
 
 export default function Connexion({ params }) {
@@ -29,7 +29,7 @@ export default function Connexion({ params }) {
         {variant === "register" && <PasswordInput />}
       </ConnexionBox>
       <Link href={variant === "register" ? "/registration" : "/"}>
-        <MainButton>{connexionTxt}</MainButton>
+        <LinkButton>{connexionTxt}</LinkButton>
       </Link>
     </Layout>
   );

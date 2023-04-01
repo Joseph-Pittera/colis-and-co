@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Button, Typography, Modal, Stack } from "@mui/material";
-import { MainButton } from "@/components/CustomsMuiComp/MainButton";
+import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
 import Link from "next/link";
 
 const btnTxt = ["Cookies nécessaires uniquement", "Autoriser tous les cookies"];
@@ -51,9 +51,9 @@ export function CookiesModal() {
             mt={2}
           >
             {btnTxt.map((txt, i) => (
-              <MainButton key={i} size="small">
+              <LinkButton key={i} size="small">
                 {txt}
-              </MainButton>
+              </LinkButton>
             ))}
           </Stack>
         </Box>

@@ -1,7 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { TextField, Typography, Stack, Box } from "@mui/material";
 import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
-import { MainButton } from "@/components/CustomsMuiComp/MainButton";
+import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
 import Link from "next/link";
 import { connexionDatas } from "@/components/Connexion/ConnexionDatas";
 
@@ -74,10 +74,10 @@ export default function Registration() {
       </ConnexionBox>
       <Stack spacing={2} direction="row">
         <Link href="/">
-          <MainButton>Valider</MainButton>
+          <LinkButton>Valider</LinkButton>
         </Link>
         <Link href="/">
-          <MainButton>Annuler</MainButton>
+          <LinkButton>Annuler</LinkButton>
         </Link>
       </Stack>
     </Layout>
