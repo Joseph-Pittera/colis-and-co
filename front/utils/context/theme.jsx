@@ -2,6 +2,13 @@ import { createTheme } from "@mui/material";
 import { blue } from "@mui/material/colors";
 
 export const theme = createTheme({
+  overrides: {
+    MuiTextField: {
+      root: {
+        padding: "10px", // Personnalisez la taille de la police selon vos besoins
+      },
+    },
+  },
   components: {
     MuiLink: {
       styleOverrides: {

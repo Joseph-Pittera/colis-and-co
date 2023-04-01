@@ -1,7 +1,5 @@
 import { Box, Stack, Card, CardContent, Typography } from "@mui/material";
 import { LinkButton } from "../../CustomsMuiComp/LinkButton";
-import { BlueLink } from "@/components/CustomsMuiComp/BlueLink";
-import Link from "next/link";
 
 const titles = [
   ["Livraisons fiables", "h1", 32],
@@ -9,7 +7,7 @@ const titles = [
   ["économiques entre particuliers à travers la France", "h3", 16],
 ];
 const btnTxt = [
-  { text: "Je propose un envoi", href: "/expedition" },
+  { text: "Je propose un envoi", href: "/expedition/create_expedition" },
   { text: "Je suis transporteur", href: "/connexion/login" },
 ];
 
@@ -54,10 +52,6 @@ export const HeadCard = () => {
             <LinkButton key={`${btn}-${i}`} href={btn.href}>
               {btn.text}
             </LinkButton>
-
-            // <Button key={i} component={LinkButton} href={btn.href}>
-            //   {btn.text}
-            // </Button>
           ))}
         </Stack>
       </CardContent>

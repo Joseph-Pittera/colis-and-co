@@ -1,10 +1,10 @@
 import { Layout } from "@/components/Layout";
 import { useCallback, useState } from "react";
-import { TextField, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
 import { PasswordInput } from "@/components/Connexion/PasswordInput";
 import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
-import Link from "next/link";
+import { ResponsiveTextField } from "@/components/CustomsMuiComp/ResponsiveTextField";
 
 export default function Connexion({ params }) {
   const [variant, setVariant] = useState("login");
@@ -24,13 +24,13 @@ export default function Connexion({ params }) {
         {connexionTxt}
       </Typography>
       <ConnexionBox>
-        <TextField required id="login" label="Email" />
+        <ResponsiveTextField required id="login" label="Email" />
         <PasswordInput />
         {variant === "register" && <PasswordInput />}
       </ConnexionBox>
-      <Link href={variant === "register" ? "/registration" : "/"}>
-        <LinkButton>{connexionTxt}</LinkButton>
-      </Link>
+      <LinkButton href={variant === "register" ? "/registration" : "/"}>
+        {connexionTxt}
+      </LinkButton>
     </Layout>
   );
 }

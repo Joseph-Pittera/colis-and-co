@@ -1,8 +1,8 @@
-import { TextField } from "@mui/material";
+import { ResponsiveTextField } from "../CustomsMuiComp/ResponsiveTextField";
 
 export const PasswordInput = () => {
   return (
-    <TextField
+    <ResponsiveTextField
       required
       id="password"
       label="Password"

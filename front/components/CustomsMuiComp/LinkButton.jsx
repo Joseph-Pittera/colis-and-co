@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import Link from "next/link";
 
-const ButtonLink = ({ className, href, hrefAs, children, prefetch }) => (
-  <Link href={href} as={hrefAs} prefetch legacyBehavior>
+const ButtonLink = ({ className, href, hrefAs, children }) => (
+  <Link href={href} as={hrefAs} legacyBehavior>
     <a className={className}>{children}</a>
   </Link>
 );

@@ -16,7 +16,7 @@ export const InlineMenu = ({ pages, setAnchorElNav }) => {
       {pages.map((page, i) => (
         <BlueLink href={`/connexion/${i === 0 ? "login" : "register"}`}>
           <Button
-            key={page}
+            key={`${page}-${i}}`}
             onClick={handleCloseNavMenu}
             sx={{
               py: 2,
