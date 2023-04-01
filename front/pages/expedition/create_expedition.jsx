@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
 import { ExpeditionForm } from "@/components/Expedition/ExpeditionForm";
 import { ObjectInfosBox } from "@/components/Expedition/ObjectInfosBox";
+import { SizeForm } from "@/components/Expedition/SizeForm";
 import { PlaceInfosBox } from "@/components/Expedition/PlaceInfosBox";
 
 export default function CreateExpedition({ params }) {
@@ -13,6 +14,7 @@ export default function CreateExpedition({ params }) {
       </Typography>
       <ExpeditionForm>
         <ObjectInfosBox />
+        <SizeForm />
         <PlaceInfosBox />
       </ExpeditionForm>
       <LinkButton href="/">Publier la course</LinkButton>

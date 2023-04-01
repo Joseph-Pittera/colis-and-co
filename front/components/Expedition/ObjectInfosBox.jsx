@@ -48,36 +48,6 @@ export const ObjectInfosBox = () => {
             />
           </Stack>
         </Stack>
-        {/* <Stack mx={2}>
-          <Typo>Taille :</Typo>
-          <Select
-            id="demo-simple-select"
-            value={size}
-            label="none"
-            onChange={handleChange}
-            sx={{ maxWidth: "36rem", m: 1 }}
-          >
-            <MenuItem value="S">
-              S - Tient dans une boîte à chaussures (téléphone, clés, doudou...)
-            </MenuItem>
-            <MenuItem value="M">
-              M - Tient dans une valise cabine (ordinateur, caisse de vin,
-              platine vinyle…)
-            </MenuItem>
-            <MenuItem value="L">
-              L - Environ 4 petites valises cabine (tableau, télévision, lit
-              parapluie...)
-            </MenuItem>
-            <MenuItem value="XL">
-              XL - Tient dans un break ou un monospace (commode, fauteuil, table
-              basse…)
-            </MenuItem>
-            <MenuItem value="XXL">
-              XXL - Nécessite un petit utilitaire (scooter, armoire, canapé,
-              lit…)
-            </MenuItem>
-          </Select>{" "}
-        </Stack> */}
       </Stack>
     </FormSubBox>
   );
