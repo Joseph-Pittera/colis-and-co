@@ -3,7 +3,7 @@ const CoreController = require('./CoreController');
 const DeliveryDataMapper = require('../../models/deliveryDataMapper');
 
 /** Class representing a delivery controller. */
-class DeliveryController extends CoreController {
+/* class DeliveryController extends CoreController {
   static dataMapper = DeliveryDataMapper;
 
   constructor() {
@@ -42,3 +42,4 @@ class DeliveryController extends CoreController {
 }
 
 module.exports = new DeliveryController();
+*/

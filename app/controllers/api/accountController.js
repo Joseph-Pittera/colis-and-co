@@ -3,7 +3,7 @@ const CoreController = require('./CoreController');
 const AccountDataMapper = require('../../models/accountDataMapper');
 
 /** Class representing an account controller. */
-class AccountController extends CoreController {
+/* class AccountController extends CoreController {
   static dataMapper = AccountDataMapper;
 
   constructor() {
@@ -29,3 +29,4 @@ class AccountController extends CoreController {
 }
 
 module.exports = new AccountController();
+*/

@@ -7,7 +7,7 @@ const { patch: accountPatchSchema } = require('../../validations/schemas/users.s
 
 const router = express.Router();
 
-router.get('api/user/account/:id', controllerHandler(accountController.getAccount.bind(accountController)));
+// router.get('api/user/account/:id', controllerHandler(accountController.getAccount.bind(accountController)));
 // router.patch('api/user/account', validate(accountPatchSchema, 'body'), controllerHandler(accountController.updateAccount.bind(accountController)));
 
 module.exports = router;

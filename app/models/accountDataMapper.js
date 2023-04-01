@@ -3,7 +3,7 @@ const CoreDataMapper = require('./CoreDataMapper');
 const client = require('./helpers/database');
 
 /** Class representing an account data mapper. */
-class AccountDataMapper extends CoreDataMapper {
+/* class AccountDataMapper extends CoreDataMapper {
   static tableName = 'users';
 
   constructor() {
@@ -51,3 +51,4 @@ class AccountDataMapper extends CoreDataMapper {
 }
 
 module.exports = new AccountDataMapper();
+*/

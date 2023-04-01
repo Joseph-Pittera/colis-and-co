@@ -10,7 +10,7 @@ class CoreController {
     response.json(results);
   }
 
-  async getOne(request, response) {
+  /* async getOne(request, response) {
     debug(`${this.constructor.name} getOne`);
     const { id } = request.params;
     const results = await this.constructor.dataMapper.findByPk(id);
@@ -38,7 +38,7 @@ class CoreController {
     const { id } = request.params;
     await this.constructor.dataMapper.delete(id);
     return response.status(204).send();
-  }
+  } */
 }
 
 module.exports = CoreController;

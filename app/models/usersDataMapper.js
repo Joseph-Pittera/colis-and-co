@@ -20,13 +20,13 @@ class UserDataMapper extends CoreDataMapper {
     return result.rows;
   }
 
-  async createUser(user) {
+  /* async createUser(user) {
     debug(`${this.constructor.name} createUser()`);
     const preparedQuery = {
-      text: `INSERT INTO "${this.constructor.tableName}" ("email", "password", "first_name", "last_name", "address", "zipcode", "birth_date", "phone_number", "carrier", "identity_verified", "role", "created_at") 
-               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) 
+      text: `INSERT INTO "${this.constructor.tableName}" ("email", "password", "first_name", "last_name", "address", "zipcode", "birth_date", "phone_number", "carrier", "identity_verified", "role", "created_at")
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
                RETURNING *`,
-      values: [
+      values: [/*
         user.email,
         user.password,
         user.first_name,
@@ -65,7 +65,7 @@ class UserDataMapper extends CoreDataMapper {
       values: [id],
     };
     await client.query(preparedQuery);
-  }
+  } */
 }
 
 module.exports = new UserDataMapper();

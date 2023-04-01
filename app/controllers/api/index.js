@@ -1,7 +1,6 @@
 const deliveryController = require('./deliveryController');
 const usersController = require('./usersController');
 const accountController = require('./accountController');
-const adminController = require('./adminController');
 
 const apiController = {
 
@@ -12,5 +11,5 @@ const apiController = {
 };
 
 module.exports = {
-  apiController, deliveryController, usersController, accountController, adminController,
+  apiController, deliveryController, usersController, accountController,
 };
