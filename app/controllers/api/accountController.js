@@ -20,7 +20,8 @@ class AccountController extends CoreController {
 
   async updateAccount(request, response) {
     debug(`${this.constructor.name} updateAccount`);
-    const accountId = request.user.id; // assuming you're using authentication middleware to attach the user object to the request
+    const accountId = request.user.id;
+    // assuming you're using authentication middleware to attach the user object to the request
     const updatedAccountData = request.body;
     const updatedAccount = await this.constructor.dataMapper.update(accountId, updatedAccountData);
     response.json(updatedAccount);

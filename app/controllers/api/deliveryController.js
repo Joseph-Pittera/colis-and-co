@@ -1,10 +1,10 @@
 const debug = require('debug')('oblog:controllers');
 const CoreController = require('./CoreController');
-const deliveryDataMapper = require('../../models/deliveryDataMapper');
+const DeliveryDataMapper = require('../../models/deliveryDataMapper');
 
 /** Class representing a delivery controller. */
 class DeliveryController extends CoreController {
-  static dataMapper = deliveryDataMapper;
+  static dataMapper = DeliveryDataMapper;
 
   constructor() {
     super();
@@ -37,7 +37,7 @@ class DeliveryController extends CoreController {
     debug(`${this.constructor.name} deleteDelivery`);
     const deliveryId = request.params.id;
     await this.constructor.dataMapper.delete(deliveryId);
-    response.sendStatus(204);
+    response.status(204);
   }
 }
 

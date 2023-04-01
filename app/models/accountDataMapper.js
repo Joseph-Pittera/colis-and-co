@@ -13,9 +13,15 @@ class AccountDataMapper extends CoreDataMapper {
 
   async findAccountByUserId(userId) {
     debug(`${this.constructor.name} findAccountByUserId`);
-    const query = { user_id: userId };
-    const account = await this.findOne(query);
-    return account;
+    const query = {
+      text: `SELECT * FROM ${this.constructor.tableName} WHERE user_id = $1`,
+      values: [userId],
+    };
+    const result = await client.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    }
+    return result.rows[0];
   }
 
   async updateAccount(userId, updatedAccountData) {
@@ -25,8 +31,22 @@ class AccountDataMapper extends CoreDataMapper {
       throw new Error(`Account not found for user with id ${userId}`);
     }
     account.updateFromData(updatedAccountData);
-    const savedAccount = await account.save();
-    return savedAccount;
+
+    const query = {
+      text: `UPDATE ${this.constructor.tableName} SET
+              username = $1,
+              email = $2,
+              password = $3
+             WHERE user_id = $4 RETURNING *`,
+      values: [
+        account.username,
+        account.email,
+        account.password,
+        account.userId,
+      ],
+    };
+    const result = await client.query(query);
+    return result.rows[0];
   }
 }
 
