@@ -1,10 +1,14 @@
 import { Button } from "@mui/material";
 
-export const MainButton = ({ children }) => {
+export const MainButton = ({
+  children,
+  size = "large",
+  variant = "contained",
+}) => {
   return (
     <Button
-      variant="contained"
-      size="large"
+      variant={variant}
+      size={size}
       sx={{
         textTransform: "none",
         fontWeight: "bold",

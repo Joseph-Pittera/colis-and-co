@@ -35,7 +35,7 @@ export const ResponsiveAppBar = () => {
   return (
     <HideOnScroll>
       <AppBar position="sticky">
-        <Container maxWidth="xl">
+        <Container component="nav" maxWidth="xl">
           <Toolbar disableGutters>
             <Logo />
             {/* for small screen */}

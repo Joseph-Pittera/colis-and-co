@@ -7,8 +7,7 @@ export const Logo = () => {
       <Box
         component="img"
         sx={{
-          maxHeight: { xs: 46, md: 92 },
-          maxWidth: { xs: 60, md: 120 },
+          maxHeight: { xs: 46, md: 60 },
           display: "flex",
           my: 1,
         }}

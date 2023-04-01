@@ -11,9 +11,10 @@ export const BottomSection = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        "& > *": {
-          m: 1,
-        },
+        mt: 2,
+        // "& > *": {
+        //   m: 1,
+        // },
       }}
     >
       <YouAreBtn youAre={youAre} setYouAre={setYouAre} />

@@ -12,7 +12,7 @@ export const HeadCard = () => {
   return (
     <Card
       sx={{
-        p: 6,
+        p: { xs: 3, md: 6 },
         my: 3,
         mx: "auto",
         boxShadow: {

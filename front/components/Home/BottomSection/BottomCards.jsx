@@ -37,7 +37,8 @@ export const BottomCards = ({ youAre }) => {
       spacing={{ xs: 1, sm: 2, md: 4 }}
       direction={{ xs: "column", sm: "row" }}
       justifyContent="space-evenly"
-      m={4}
+      mx={4}
+      my={2}
     >
       {cardsTxt[youAre].map((card, i) => (
         <Card key={`${card}-${i}`} sx={{ width: { sm: "30%" } }}>
