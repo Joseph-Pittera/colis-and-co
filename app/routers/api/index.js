@@ -10,10 +10,10 @@ const usersPaymentRouter = require('./usersPayment');
 
 const router = express.Router();
 
-// router.all('/', apiController.getHome);
+router.all('/', apiController.getHome);
 
 // router.use('/delivery', deliveryRouter);
-// router.use('/users', usersRouter);
+router.use('/users', usersRouter);
 router.use('/usersAccount', usersAccountRouter);
 
 router.use((_, res, next) => {

@@ -10,14 +10,14 @@ class UserDataMapper extends CoreDataMapper {
     debug('user data mapper created');
   }
 
-  async findByEmail(email) {
-    debug(`${this.constructor.name} findByEmail(${email})`);
+  async getAllUsers() {
+    console.log(`${this.constructor.name} getAllUsers`);
     const preparedQuery = {
-      text: `SELECT * FROM "${this.constructor.tableName}" WHERE email=$1`,
-      values: [email],
+      text: `SELECT * FROM '${this.constructor.tableName}'; `,
+
     };
     const result = await client.query(preparedQuery);
-    return result.rows[0];
+    return result.rows;
   }
 
   async createUser(user) {

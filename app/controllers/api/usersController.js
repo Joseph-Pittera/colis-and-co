@@ -8,11 +8,11 @@ class UserController extends CoreController {
 
   constructor() {
     super();
-    debug('userController created');
+    console.log('userController created');
   }
 
   async getAllUsers(request, response) {
-    debug(`${this.constructor.name} getAllUsers`);
+    console.log(`${this.constructor.name} getAllUsers`);
     const users = await this.constructor.dataMapper.findAll();
     response.json(users);
   }

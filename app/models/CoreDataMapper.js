@@ -11,7 +11,7 @@ class CoreDataMapper {
     debug(`${this.constructor.name} findAll`);
     const tableName = this.constructor.viewName || this.constructor.tableName;
     const preparedQuery = {
-      text: `SELECT * FROM "${tableName}" ORDER BY "id"`,
+      text: `SELECT * FROM "${tableName}" ORDER BY "id";`,
     };
     const results = await client.query(preparedQuery);
     return results.rows;
