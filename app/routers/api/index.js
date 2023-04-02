@@ -14,7 +14,7 @@ router.all('/', apiController.getHome);
 
 // router.use('/delivery', deliveryRouter);
 router.use('/users', usersRouter);
-router.use('/users/account', usersAccountRouter);
+router.use('/account', usersAccountRouter);
 
 router.use((_, res, next) => {
   next(new NoResourceFoundError());

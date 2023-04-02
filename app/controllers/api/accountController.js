@@ -13,8 +13,9 @@ class AccountController extends CoreController {
 
   async getAccount(request, response) {
     debug(`${this.constructor.name} getAccount`);
-    const accountId = request.user.id; // assuming you're using authentication middleware to attach the user object to the request
-    const account = await this.constructor.dataMapper.findAccountByUserId(accountId);
+    const userId = request.user.id;
+    // assuming you're using authentication middleware to attach the user object to the request
+    const account = await this.constructor.dataMapper.findAccountByUserId(userId);
     response.json(account);
   }
 

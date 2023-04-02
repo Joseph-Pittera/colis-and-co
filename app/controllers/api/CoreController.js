@@ -1,4 +1,4 @@
-//Import the 'debug' function from the 'debug' module and set the namespace to 'colis: controllers' 'https://www.npmjs.com/package/debug'
+// Import the 'debug' function from the 'debug' module and set the namespace to 'colis: controllers' 'https://www.npmjs.com/package/debug'
 const debug = require('debug')('colis:controllers');
 
 /** Class representing an abstract core controller. */
@@ -7,8 +7,8 @@ class CoreController {
 
   /**
    * Async function to get all records from a table and return them as JSON
-   * @param {*} _ 
-   * @param {*} response 
+   * @param {*} _
+   * @param {*} response
    */
   async getAll(_, response) {
     debug(`${this.constructor.name} getAll`);
@@ -16,16 +16,13 @@ class CoreController {
     response.json(results);
   }
 
-<<<<<<< HEAD
-=======
-
   /**
    * Async function to get one record by ID and return it as JSON or a 204 status if not found
-   * @param {*} request 
-   * @param {*} response 
-   * @returns 
+   * @param {*} request
+   * @param {*} response
+   * @returns
    */
->>>>>>> 628ca54edac6c21d05c084b2e18889a96317e282
+
   async getOne(request, response) {
     debug(`${this.constructor.name} getOne`);
     const { id } = request.params;
@@ -38,8 +35,8 @@ class CoreController {
 
   /**
    * Async function to create a new record in the table and return it as JSON
-   * @param {*} request 
-   * @param {*} response 
+   * @param {*} request
+   * @param {*} response
    */
   async create(request, response) {
     debug(`${this.constructor.name} create`);
@@ -49,8 +46,8 @@ class CoreController {
 
   /**
    * Async function to modify an existing record by ID and return the updated record as JSON
-   * @param {*} request 
-   * @param {*} response 
+   * @param {*} request
+   * @param {*} response
    */
   async modify(request, response) {
     debug(`${this.constructor.name} modify`);
@@ -61,9 +58,9 @@ class CoreController {
 
   /**
    * Async function to delete a record by ID and return a 204 status.
-   * @param {*} request 
-   * @param {*} response 
-   * @returns 
+   * @param {*} request
+   * @param {*} response
+   * @returns
    */
   async delete(request, response) {
     debug(`${this.constructor.name} delete`);
