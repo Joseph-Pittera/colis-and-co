@@ -19,7 +19,7 @@ class CoreDataMapper {
 
   // Trouver un élément dans la table ou la vue correspondant à la classe
   // appelante à partir de son ID
-  /* async findByPk(id) {
+   async findByPk(id) {
     debug(`${this.constructor.name} findByPk(${id})`);
     const tableName = this.constructor.viewName || this.constructor.tableName;
     const preparedQuery = {
@@ -29,7 +29,7 @@ class CoreDataMapper {
     const results = await client.query(preparedQuery);
     return results.rows[0];
   }
-
+/*
   // Crée un nouvel élément dans la table correspondant à la classe appelante
   async create(createObj) {
     debug(`${this.constructor.name} create`);

@@ -36,15 +36,15 @@ const client = require('./helpers/database');
 //     return result.rows[0];
 //   }
 
-//   async findDeliveryById(id) {
-//     debug(`${this.constructor.name} findDeliveryById(${id})`);
-//     const preparedQuery = {
-//       text: `SELECT * FROM "${this.constructor.tableName}" WHERE id=$1`,
-//       values: [id],
-//     };
-//     const result = await client.query(preparedQuery);
-//     return result.rows[0];
-//   }
+  async findDeliveryById(id) {
+    debug(`${this.constructor.name} findDeliveryById(${id})`);
+    const preparedQuery = {
+      text: `SELECT * FROM "${this.constructor.tableName}" WHERE id=$1`,
+      values: [id],
+    };
+    const result = await client.query(preparedQuery);
+    return result.rows[0];
+  }
 
 //   async updateDelivery(delivery) {
 //     debug(`${this.constructor.name} updateDelivery(${delivery})`);
