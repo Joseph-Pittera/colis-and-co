@@ -6,6 +6,9 @@ const router = express.Router();
 
 // Affichage de la page d'administration
 // router.get('/user', controllerHandler(adminController.getProfile.bind(adminController)));
-router.get('/users', controllerHandler(usersController.getAllUsers.bind(usersController)));
+router.get('/', (req, res, next) => {
+    console.log('Route /users called');
+    controllerHandler(usersController.getAllUsers.bind(usersController))(req, res, next);
+  });
 
 module.exports = router;

@@ -67,7 +67,7 @@ class CoreController {
     const { id } = request.params;
     await this.constructor.dataMapper.delete(id);
     return response.status(204).send();
-  } */
+  } 
 }
 
 module.exports = CoreController;
