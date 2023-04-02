@@ -17,7 +17,7 @@ class UserController extends CoreController {
     response.json(users);
   }
 
-  /* async createUser(request, response) {
+  async createUser(request, response) {
     debug(`${this.constructor.name} createUser`);
     const newUser = request.body;
     const createdUser = await this.constructor.dataMapper.create(newUser);
@@ -37,7 +37,7 @@ class UserController extends CoreController {
     const userId = request.params.id;
     await this.constructor.dataMapper.delete(userId);
     response.status(204).send();
-  } */
+  }
 }
 
 module.exports = new UserController();

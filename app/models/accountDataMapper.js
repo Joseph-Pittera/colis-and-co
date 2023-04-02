@@ -2,8 +2,8 @@ const debug = require('debug')('colis:dataMapper');
 const CoreDataMapper = require('./CoreDataMapper');
 const client = require('./helpers/database');
 
-/** Class representing an account data mapper. */
-/* class AccountDataMapper extends CoreDataMapper {
+/* Class representing an account data mapper. */
+class AccountDataMapper extends CoreDataMapper {
   static tableName = 'users';
 
   constructor() {
@@ -11,11 +11,11 @@ const client = require('./helpers/database');
     debug('accountDataMapper created');
   }
 
-  async findAccountByUserId(id) {
+  async findAccountByUserId(userId) {
     debug(`${this.constructor.name} findAccountByUserId`);
     const query = {
       text: `SELECT * FROM ${this.constructor.tableName} WHERE id = $1`,
-      values: [id],
+      values: [userId],
     };
     const result = await client.query(query);
     if (result.rows.length === 0) {
@@ -51,4 +51,3 @@ const client = require('./helpers/database');
 }
 
 module.exports = new AccountDataMapper();
-*/
