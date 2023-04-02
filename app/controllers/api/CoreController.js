@@ -10,7 +10,7 @@ class CoreController {
    * @param {*} _
    * @param {*} response
    */
-  async getAll(_, response) {
+  async findAll(_, response) {
     debug(`${this.constructor.name} getAll`);
     const results = await this.constructor.dataMapper.findAll();
     response.json(results);

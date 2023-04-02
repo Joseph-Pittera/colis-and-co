@@ -1,11 +1,26 @@
 const express = require('express');
 const { usersController } = require('../../controllers/api');
 const controllerHandler = require('../../controllers/helpers/controllerHandler');
+const { patch: accountPatchSchema, patch: carrierPatchSchema } = require('../../validations/schemas/users.schema');
+const validate = require('../../validations/validate');
 
 const router = express.Router();
 
-// Affichage de la page d'administration
-// router.get('/user', controllerHandler(adminController.getProfile.bind(adminController)));
-router.get('/', controllerHandler(usersController.getAllUsers.bind(usersController)));
+// GET /api/users : Récuperer toutes les comptes
+router.get('/', controllerHandler(usersController.findAll.bind(usersController)));
+// GET api/users/:id: Récuperer une compte en particulier
+router.get('/:id', controllerHandler(usersController.getOne.bind(usersController)));
+// GET /api/users/:id/account : Récupérer les informations du compte d'un utilisateur spécifique
+router.get('/:id/account', controllerHandler(usersController.findAccountByUserId.bind(usersController)));
+// PUT /api/users/:id/account : Modifier les informations du compte d'un utilisateur spécifique
+router.put('/:id/account ', validate(accountPatchSchema, 'body'), controllerHandler(usersController.updateUser.bind(usersController)));
+// DELETE /api/users/:id/account : Supprimer le compte d'un utilisateur spécifique
+router.delete('/:id/account', controllerHandler(usersController.delete.bind(usersController)));
+// GET /api/users/:id/carrier : Récupérer les informations du transporteur d'un utilisateur
+router.get('/:id/carrier', controllerHandler(usersController.findCarrierByUserId.bind(usersController)));
+// PUT /api/users/:id/carrier : Modifier les informations du transporteur d'un utilisateur
+router.patch('/:id/carrier ', validate(carrierPatchSchema, 'body'), controllerHandler(usersController.updateCarrierByUserId.bind(usersController)));
+// DELETE /api/users/:id/carrier : Supprimer les informations du transporteur d'un utilisateur
+router.delete('/:id/carrier', controllerHandler(usersController.delete.bind(usersController)));
 
 module.exports = router;

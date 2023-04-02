@@ -10,38 +10,16 @@ class UserDataMapper extends CoreDataMapper {
     debug('user data mapper created');
   }
 
-  async getAllUsers() {
-    console.log(`${this.constructor.name} getAllUsers`);
-    const preparedQuery = {
-      text: `SELECT * FROM '${this.constructor.tableName}'; `,
-
+  async findAccountByUserId(userId) {
+    debug(`${this.constructor.name} findAccountByUserId`);
+    const query = {
+      text: `SELECT * FROM ${this.constructor.tableName} WHERE id = $1`,
+      values: [userId],
     };
-    const result = await client.query(preparedQuery);
-    return result.rows;
-  }
-
-  async createUser(user) {
-    debug(`${this.constructor.name} createUser()`);
-    const preparedQuery = {
-      text: `INSERT INTO "${this.constructor.tableName}" ("email", "password", "first_name", "last_name", "address", "zipcode", "birth_date", "phone_number", "carrier", "identity_verified", "role", "created_at")
-               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-               RETURNING *`,
-      values: [
-        user.email,
-        user.password,
-        user.first_name,
-        user.last_name,
-        user.address,
-        user.zipcode,
-        user.birth_date,
-        user.phone_number,
-        user.carrier,
-        user.identity_verified,
-        user.role,
-        user.created_at,
-      ],
-    };
-    const result = await client.query(preparedQuery);
+    const result = await client.query(query);
+    if (result.rows.length === 0) {
+      return null;
+    }
     return result.rows[0];
   }
 
@@ -58,13 +36,26 @@ class UserDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
-  async deleteUser(id) {
-    debug(`${this.constructor.name} deleteUser(${id})`);
+  async findCarrierByUserId(userId) {
     const preparedQuery = {
-      text: `DELETE FROM "${this.constructor.tableName}" WHERE "id"=$1`,
-      values: [id],
+      text: `SELECT * FROM "${this.constructor.tableName}"  WHERE id = $1 AND carrier = true`,
+      values: [userId],
     };
-    await client.query(preparedQuery);
+    const { rows } = await client.query(preparedQuery);
+    return rows[0];
+  }
+
+  async updateCarrierByUserId(userId, updates) {
+    debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
+    const setClause = Object.keys(updates)
+      .map((key, index) => `"${key}"=$${index + 2}`)
+      .join(', ');
+    const preparedQuery = {
+      text: `UPDATE "${this.constructor.tableName}" SET ${setClause}, "updated_at"=NOW() WHERE "id"=$1 AND "carrier"=TRUE RETURNING *`,
+      values: [userId, ...Object.values(updates)],
+    };
+    const result = await client.query(preparedQuery);
+    return result.rows[0];
   }
 }
 

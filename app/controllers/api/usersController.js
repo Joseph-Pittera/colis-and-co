@@ -8,36 +8,45 @@ class UserController extends CoreController {
 
   constructor() {
     super();
-    console.log('userController created');
+    debug('userController created');
   }
 
-  async getAllUsers(request, response) {
-    console.log(`${this.constructor.name} getAllUsers`);
-    const users = await this.constructor.dataMapper.findAll();
-    response.json(users);
-  }
-
-  async createUser(request, response) {
-    debug(`${this.constructor.name} createUser`);
-    const newUser = request.body;
-    const createdUser = await this.constructor.dataMapper.create(newUser);
-    response.json(createdUser);
+  async findAccountByUserId(request, response) {
+    debug(`${this.constructor.name} getAccount`);
+    const userId = request.user.id;
+    const account = await this.constructor.dataMapper.findAccountByUserId(userId);
+    response.json(account);
   }
 
   async updateUser(request, response) {
-    debug(`${this.constructor.name} updateUser`);
-    const userId = request.params.id;
-    const updatedUserData = request.body;
-    const updatedUser = await this.constructor.dataMapper.update(userId, updatedUserData);
-    response.json(updatedUser);
+    debug(`${this.constructor.name} updateAccount`);
+    const accountId = request.user.id;
+    // assuming you're using authentication middleware to attach the user object to the request
+    const updatedAccountData = request.body;
+    const updatedAccount = await this.constructor.dataMapper.update(accountId, updatedAccountData);
+    response.json(updatedAccount);
   }
 
-  async deleteUser(request, response) {
-    debug(`${this.constructor.name} deleteUser`);
+  async findCarrierByUserId(request, response) {
+    debug(`${this.constructor.name} findCarrierByUserId`);
     const userId = request.params.id;
-    await this.constructor.dataMapper.delete(userId);
-    response.status(204).send();
+    const carrierInfo = await this.constructor.dataMapper.findCarrierByUserId(userId);
+    if (carrierInfo) {
+      response.json(carrierInfo);
+    } else {
+      response.status(404).send('Transporteur non trouvé');
+    }
+  }
+
+  async updateCarrierByUserId(request, response) {
+    const userId = request.params.id;
+    const updates = request.body;
+    const updatedCarrier = await this.usersDataMapper.updateCarrierByUserId(userId, updates);
+    if (!updatedCarrier) {
+      return response.status(404).send('Transporteur non trouvé');
+    }
+
+    return response.json(updatedCarrier);
   }
 }
-
 module.exports = new UserController();
