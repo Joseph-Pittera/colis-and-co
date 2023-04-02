@@ -1,3 +1,5 @@
+
+const debug = require('debug')('colis:controllers');
 /** Class representing an internal server error. */
 class InternalServerError extends Error {
   constructor(originalError) {
