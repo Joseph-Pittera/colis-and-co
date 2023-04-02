@@ -1,13 +1,11 @@
 const express = require('express');
-const { usersController } = require('../../controllers/api');
+const { adminController, usersController } = require('../../controllers/api');
 const controllerHandler = require('../../controllers/helpers/controllerHandler');
-const validate = require('../../validations/validate');
-
-const { post: usersPostSchema, patch: usersPatchSchema } = require('../../validations/schemas/users.schema');
 
 const router = express.Router();
 
-router.get('user/account', controllerHandler(usersController.getAllUsers.bind(usersController)));
-router.patch('user/account', validate(usersPatchSchema, 'body'), controllerHandler(usersController.updateUser.bind(usersController)));
+// Affichage de la page d'administration
+// router.get('/user', controllerHandler(adminController.getProfile.bind(adminController)));
+router.get('/users', controllerHandler(usersController.getAllUsers.bind(usersController)));
 
 module.exports = router;

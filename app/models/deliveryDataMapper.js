@@ -2,7 +2,7 @@ const debug = require('debug')('colis:dataMapper');
 const CoreDataMapper = require('./CoreDataMapper');
 const client = require('./helpers/database');
 
-class DeliveryDataMapper extends CoreDataMapper {
+/* class DeliveryDataMapper extends CoreDataMapper {
   static tableName = 'delivery';
 
   constructor() {
@@ -13,9 +13,9 @@ class DeliveryDataMapper extends CoreDataMapper {
   async createDelivery(delivery) {
     debug(`${this.constructor.name} createDelivery(${delivery})`);
     const preparedQuery = {
-      text: `INSERT INTO "${this.constructor.tableName}" 
-        (type_of_marchandise, quantity, volume, length, width, height, departure_address, arrival_address, departure_date, arrival_date, price, creator_id, created_at) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW()) 
+      text: `INSERT INTO "${this.constructor.tableName}"
+        (type_of_marchandise, quantity, volume, length, width, height, departure_address, arrival_address, departure_date, arrival_date, price, creator_id, created_at)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW())
         RETURNING "id", "created_at"`,
       values: [
         delivery.type_of_marchandise,
@@ -49,21 +49,21 @@ class DeliveryDataMapper extends CoreDataMapper {
   async updateDelivery(delivery) {
     debug(`${this.constructor.name} updateDelivery(${delivery})`);
     const preparedQuery = {
-      text: `UPDATE "${this.constructor.tableName}" SET 
-        type_of_marchandise=$1, 
-        quantity=$2, 
-        volume=$3, 
-        length=$4, 
-        width=$5, 
-        height=$6, 
-        departure_address=$7, 
-        arrival_address=$8, 
-        departure_date=$9, 
-        arrival_date=$10, 
-        price=$11, 
-        carrier_id=$12, 
-        updated_at=NOW() 
-        WHERE id=$13 
+      text: `UPDATE "${this.constructor.tableName}" SET
+        type_of_marchandise=$1,
+        quantity=$2,
+        volume=$3,
+        length=$4,
+        width=$5,
+        height=$6,
+        departure_address=$7,
+        arrival_address=$8,
+        departure_date=$9,
+        arrival_date=$10,
+        price=$11,
+        carrier_id=$12,
+        updated_at=NOW()
+        WHERE id=$13
         RETURNING "updated_at"`,
       values: [
         delivery.type_of_marchandise,
@@ -97,3 +97,4 @@ class DeliveryDataMapper extends CoreDataMapper {
 }
 
 module.exports = new DeliveryDataMapper();
+*/

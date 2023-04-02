@@ -16,6 +16,7 @@ class CoreController {
     response.json(results);
   }
 
+
   /**
    * Async function to get one record by ID and return it as JSON or a 204 status if not found
    * @param {*} request 
@@ -66,7 +67,7 @@ class CoreController {
     const { id } = request.params;
     await this.constructor.dataMapper.delete(id);
     return response.status(204).send();
-  }
+  } */
 }
 
 module.exports = CoreController;

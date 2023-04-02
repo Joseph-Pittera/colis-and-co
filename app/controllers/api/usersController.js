@@ -8,16 +8,16 @@ class UserController extends CoreController {
 
   constructor() {
     super();
-    debug('userController created');
+    console.log('userController created');
   }
 
   async getAllUsers(request, response) {
-    debug(`${this.constructor.name} getAllUsers`);
+    console.log(`${this.constructor.name} getAllUsers`);
     const users = await this.constructor.dataMapper.findAll();
     response.json(users);
   }
 
-  async createUser(request, response) {
+  /* async createUser(request, response) {
     debug(`${this.constructor.name} createUser`);
     const newUser = request.body;
     const createdUser = await this.constructor.dataMapper.create(newUser);
@@ -37,7 +37,7 @@ class UserController extends CoreController {
     const userId = request.params.id;
     await this.constructor.dataMapper.delete(userId);
     response.status(204).send();
-  }
+  } */
 }
 
 module.exports = new UserController();

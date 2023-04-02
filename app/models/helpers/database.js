@@ -1,17 +1,17 @@
-const debug = require('debug')('colis:databaset');
+const debug = require('debug')('colis:database');
 
 const { Pool } = require('pg');
 
 const pool = new Pool();
 
 pool.connect().then(() => {
-  debug('database client  connected');
+  console.log('database client  connected');
 });
 
 module.exports = {
   originalClient: pool,
   async query(...params) {
-    debug(...params);
+    console.log(...params);
     return this.originalClient.query(...params);
   },
 };

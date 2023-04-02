@@ -11,7 +11,7 @@ class CoreDataMapper {
     debug(`${this.constructor.name} findAll`);
     const tableName = this.constructor.viewName || this.constructor.tableName;
     const preparedQuery = {
-      text: `SELECT * FROM "${tableName}" ORDER BY "id"`,
+      text: `SELECT * FROM "${tableName}" ORDER BY "id";`,
     };
     const results = await client.query(preparedQuery);
     return results.rows;
@@ -19,7 +19,7 @@ class CoreDataMapper {
 
   // Trouver un élément dans la table ou la vue correspondant à la classe
   // appelante à partir de son ID
-  async findByPk(id) {
+  /* async findByPk(id) {
     debug(`${this.constructor.name} findByPk(${id})`);
     const tableName = this.constructor.viewName || this.constructor.tableName;
     const preparedQuery = {
@@ -67,6 +67,6 @@ class CoreDataMapper {
       values: [id],
     };
     await client.query(preparedQuery);
-  }
+  } */
 }
 module.exports = CoreDataMapper;
