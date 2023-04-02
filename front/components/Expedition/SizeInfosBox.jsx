@@ -1,23 +1,17 @@
 import React from "react";
-import { Stack, Chip, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { FormSubBox } from "./FormSubBox";
 import { Typo } from "../CustomsMuiComp/LabelTypo";
+import { ResponsiveTextField } from "../CustomsMuiComp/ResponsiveTextField";
 
-export const SizeForm = () => {
+export const SizeInfosBox = () => {
   return (
     <FormSubBox>
-      <Stack>
-        <Typo>Taille :</Typo>
-        {/* <Stack>
-          <Chip>
-            <Stack>
-              <Typo>Taille S</Typo>
-              <Typo>
-                Tient dans une boîte à chaussures (téléphone, clés, doudou…)
-              </Typo>
-            </Stack>
-          </Chip>
-        </Stack> */}
+      <Typo>Dimensions (en cm) :</Typo>
+      <Stack direction="row" flexWrap="wrap" my={1}>
+        <ResponsiveTextField label="Longueur" sx={{ width: "8rem" }} />
+        <ResponsiveTextField label="Largeur" sx={{ width: "8rem" }} />
+        <ResponsiveTextField label="Hauteur" sx={{ width: "8rem" }} />
       </Stack>
     </FormSubBox>
   );
