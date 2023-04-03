@@ -7,6 +7,7 @@ export const ConnexionBox = ({ children, handleForm }) => {
       sx={{
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         flexDirection: "column",
         flexWrap: "wrap",
         pt: 2,
@@ -17,7 +18,7 @@ export const ConnexionBox = ({ children, handleForm }) => {
       autoComplete="off"
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(e.target);
+        // console.log(e.target);
         handleForm(e);
       }}
     >

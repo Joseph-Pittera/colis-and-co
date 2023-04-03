@@ -8,27 +8,30 @@ export function ResponsiveTextField({
   label,
   name,
   props,
+  error,
+  onChange,
+  helperText = "",
 }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-  const [valeur, setValeur] = useState("");
-  const passwordInput = document.querySelector('input[name="password"]');
-  if (passwordInput) {
-    console.log(passwordInput.value);
-  }
-  const handleChange = (event) => {
-    setValeur(event.target.value);
-  };
+  // const [valeur, setValeur] = useState("");
+
+  // const handleChange = (event) => {
+  //   setValeur(event.target.value);
+  //   console.log(error);
+  // };
+
   return (
     <TextField
       required
       type={type}
       size={matches && "small"}
-      value={valeur}
       name={name}
       label={label}
-      onChange={handleChange}
+      onChange={onChange}
       autoComplete={autoComplete}
+      error={error}
+      helperText={helperText}
       {...props}
     />
   );

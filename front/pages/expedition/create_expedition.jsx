@@ -21,7 +21,7 @@ export default function CreateExpedition({ params }) {
         <SizeInfosBox />
         <PlaceInfosBox />
         <PriceBox />
-        {/* <Map center={center} zoom={zoom} /> */}
+        <Map center={center} zoom={zoom} />
       </ExpeditionForm>
       <LinkButton href="/">Publier la course</LinkButton>
     </Layout>
