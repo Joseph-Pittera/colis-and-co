@@ -38,21 +38,26 @@ class CoreDataMapper {
     const preparedQuery = {
       text: `INSERT INTO ${this.constructor.tableName} (${columns}) VALUES (${values}) RETURNING *`,
     };
-    console.log(preparedQuery.text);
     const results = await client.query(preparedQuery);
     return results.rows[0];
   }
 
-  // Modify un élément dans la table correspondant à la classe appelante à partir de son ID
+  // Update  un élément dans la table correspondant à la classe appelante à partir de son ID
   async update(id, modObject) {
+    // Ajoute un message de debug pour suivre l'exécution de la fonction
     debug(`${this.constructor.name} modify(${id})`);
+    // Fait une copie de l'objet de modification pour éviter de modifier l'original
     const modifiedItem = { ...modObject };
+    // Crée une chaîne de caractères contenant chaque paire clé-valeur sous forme de colonne pour la requête SQL
     const columns = Object.keys(modifiedItem).map((key) => `${key} = '${modifiedItem[key]}'`).join(', ');
+    // Prépare la requête SQL avec le nom de la table, les colonnes à modifier et l'ID de l'élément à modifier
     const preparedQuery = {
       text: `UPDATE ${this.constructor.tableName} SET ${columns} WHERE id = $1 RETURNING *`,
       values: [id],
     };
+    // Exécute la requête SQL en utilisant le client de la base de données et récupère les résultats
     const results = await client.query(preparedQuery);
+    // Renvoie le premier élément de la réponse (il ne devrait y en avoir qu'un puisque l'ID est unique)
     return results.rows[0];
   }
 

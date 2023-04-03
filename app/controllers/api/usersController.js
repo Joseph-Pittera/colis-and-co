@@ -39,13 +39,13 @@ class UserController extends CoreController {
   }
 
   async updateCarrierByUserId(request, response) {
+    console.log("-------I'am in CoreController.js");
     const userId = request.params.id;
     const updates = request.body;
     const updatedCarrier = await this.usersDataMapper.updateCarrierByUserId(userId, updates);
     if (!updatedCarrier) {
       return response.status(404).send('Transporteur non trouvé');
     }
-
     return response.json(updatedCarrier);
   }
 }

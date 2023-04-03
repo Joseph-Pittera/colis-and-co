@@ -51,9 +51,10 @@ class UserDataMapper extends CoreDataMapper {
       .map((key, index) => `"${key}"=$${index + 2}`)
       .join(', ');
     const preparedQuery = {
-      text: `UPDATE "${this.constructor.tableName}" SET ${setClause}, "updated_at"=NOW() WHERE "id"=$1 AND "carrier"=TRUE RETURNING *`,
+      text: `UPDATE "${this.constructor.tableName}" SET ${setClause}  WHERE id =$1 AND carrier =TRUE RETURNING *`,
       values: [userId, ...Object.values(updates)],
     };
+    console.log(preparedQuery);
     const result = await client.query(preparedQuery);
     return result.rows[0];
   }
