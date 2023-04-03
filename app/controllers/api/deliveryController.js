@@ -46,6 +46,17 @@ async createDelivery(req, res, next) {
       next(error);
   }
 }
+
+async updateDeliveryById(request, response) {
+  console.log("-------I'am in deliveryController.js");
+  const deliveryId = request.params.id;
+  const updates = request.body;
+  const updatedCarrier = await this.constructor.dataMapper.updateDeliveryById(deliveryId, updates);
+  
+  return response.json(updatedCarrier);
+}
+
+
 // async create(req, res) {
 //   console.log("--------------------------Iam in deliveyController");
 //   const delivery = req.body;

@@ -50,32 +50,21 @@ const client = require('./helpers/database');
       throw new InternalServerError(err);
     }
   }
-//   async createDelivery(delivery) {
-//     debug(`${this.constructor.name} createDelivery(${delivery})`);
-//     const preparedQuery = {
-//       text: `INSERT INTO "${this.constructor.tableName}"
-//         (type_of_marchandise, quantity, volume, length, width, height, departure_address, arrival_address, departure_date, arrival_date, price, creator_id, created_at)
-//         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NOW())
-//         RETURNING "id", "created_at"`,
-//       values: [
-//         delivery.type_of_marchandise,
-//         delivery.quantity,
-//         delivery.volume,
-//         delivery.length,
-//         delivery.width,
-//         delivery.height,
-//         delivery.departure_address,
-//         delivery.arrival_address,
-//         delivery.departure_date,
-//         delivery.arrival_date,
-//         delivery.price,
-//         delivery.creator_id,
-//       ],
-//     };
-//     const result = await client.query(preparedQuery);
-//     return result.rows[0];
-//   }
-
+  async updateDeliveryById(userId, updates) {
+    console.log("-------I'am in deliverydatamapper.js");
+    debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
+    const setClause = Object.keys(updates)
+      .map((key, index) => `"${key}"=$${index + 2}`)
+      .join(', ');
+    const preparedQuery = {
+      text: `UPDATE "${this.constructor.tableName}" SET ${setClause}  WHERE id =$1  RETURNING *`,
+      values: [userId, ...Object.values(updates)],
+    };
+    console.log(preparedQuery);
+    const result = await client.query(preparedQuery);
+    return result.rows[0];
+  }
+}
   // async findDeliveryById(id) {
   //   debug(`${this.constructor.name} findDeliveryById(${id})`);
   //   const preparedQuery = {
@@ -134,7 +123,7 @@ const client = require('./helpers/database');
 //     const result = await client.query(preparedQuery);
 //     return result.rows[0];
 //   }
- }
+ 
 
 module.exports = new DeliveryDataMapper();
 

@@ -23,4 +23,10 @@ router.post('/', validate(schemas.post, 'body'), (req, res, next) => {
   console.log('-------Route /delivery POST called');
   controllerHandler(deliveryController.createDelivery.bind(deliveryController))(req, res, next);
 });
+
+router.put('/:id', validate(schemas.patch, 'body'), (req, res, next) => {
+  console.log('-------Route /delivery put called');
+  controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController))(req, res, next);
+});
+
 module.exports = router;
