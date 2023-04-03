@@ -11,6 +11,18 @@ class UserController extends CoreController {
     debug('userController created');
   }
 
+  async createSecureUser(request, response) {
+    debug(`${this.constructor.name} create`);
+    const createObj = request.body;
+    try {
+      const createdUser = await this.constructor.dataMapper.createSecureUser(createObj);
+      response.status(201).json(createdUser);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Failed to create user' });
+    }
+  }
+
   async findAccountByUserId(request, response) {
     debug(`${this.constructor.name} getAccount`);
     const userId = request.params.id;

@@ -9,7 +9,7 @@ const router = express.Router();
 // GET /api/users : Récuperer toutes les comptes
 router.get('/', controllerHandler(usersController.findAll.bind(usersController)));
 // POST /api/users/signin : Crééer un nouveau utilisateur
-router.post('/register', validate(schemas.post, 'body'), controllerHandler(usersController.create.bind(usersController)));
+router.post('/register', validate(schemas.post, 'body'), controllerHandler(usersController.createSecureUser.bind(usersController)));
 // GET api/users/:id: Récuperer une compte en particulier
 router.get('/:id', controllerHandler(usersController.getOne.bind(usersController)));
 // GET /api/users/:id/account : Récupérer les informations du compte d'un utilisateur spécifique

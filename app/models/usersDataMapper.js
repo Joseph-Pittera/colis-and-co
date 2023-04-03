@@ -1,13 +1,30 @@
 const debug = require('debug')('colis:dataMapper');
+const bcrypt = require('bcrypt');
 const CoreDataMapper = require('./CoreDataMapper');
 const client = require('./helpers/database');
 
+const saltRounds = 10;
 class UserDataMapper extends CoreDataMapper {
   static tableName = 'users';
 
   constructor() {
     super();
     debug('user data mapper created');
+  }
+
+  async createSecureUser(newUser) {
+    // Hasher le mot de passe avant de l'ajouter à la base de données
+    const hashedPassword = await bcrypt.hash(newUser.password, saltRounds);
+
+    // Ajouter l'utilisateur à la base de données avec le mot de passe sécurisé
+    const columns = Object.keys(newUser).filter((key) => key !== 'password').join(', ');
+    const values = Object.values(newUser).filter((val) => val !== newUser.password).map((val) => `'${val}'`).join(', ');
+    const preparedQuery = {
+      text: `INSERT INTO ${this.constructor.tableName} (${columns}, password) VALUES (${values}, $1) RETURNING *`,
+      values: [hashedPassword],
+    };
+    const results = await client.query(preparedQuery);
+    return results.rows[0];
   }
 
   async findAccountByUserId(userId) {
