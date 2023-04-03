@@ -1,22 +1,50 @@
-// On importe bcrypt
 const bcrypt = require('bcrypt');
+const debug = require('debug')('colis:controllers');
 const CoreController = require('./coreController');
+const userDataMapper = require('../../models/userDataMapper');
 
-const usersController = {
+/** Class representing a user controller */
+class UserController extends CoreController {
+  static dataMapper = userDataMapper;
+
+  /**
+   * create a user controller
+  *
+  * @augments CoreController
+  */
+  constructor() {
+    super();
+    debug('userController created');
+  }
 
   async loginAction(req, res) {
-    // on destructure l'objet body afin de transformer chaque propriété utile en variable simple
+    // afin d'utiliser de manière plus rapide et plus lisble les données du body, on destructure l'objet body afin de transformer chaque propriété utile en variable simple
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400), { error: 'Champs obligatoire' };
-    }
-    const user = await .getOne({
-      where: {
-        email,
-      },
-    });
-  },
-};
+    // On doit vérifier si l'email et le password de l'utilisateur  existe dans la base de données
+    // on doit faire appel au userDatamapper afin de faire la requete et la stocker dans une variable
+    // on va devoir créer la requete dans un userDatamapper
+    const user = await this.constructor.dataMapper.loginAction(email, password);
 
-module.exports = usersController;
+    // Vérification de l'user
+    if (!user) {
+      return res.status(404).json({ message: 'Erreur d\'authentification' });
+    }
+
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(401).json({ message: 'Erreur d\'authentification' });
+    }
+
+    // On renvoie le json de l'user.
+    return res.json({
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+    });
+
+    // On bascule dans le userDatamapper pour faire la requete et récupérer les données
+  }
+}
+module.exports = new UserController();

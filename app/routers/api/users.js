@@ -1,17 +1,16 @@
 // créer la route post login
 const express = require('express');
 const { usersController } = require('../../controllers/api');
+const controllerHandler = require('../../controllers/helpers/controllerHandler');
 
 const router = express.Router();
 
-router.route('/login')
-  .get(usersController.login)
-  .post(usersController.loginAction);
+// la route de l'authentification avec la gestion des erreurs par le controllerHandler
+router.post('/login', controllerHandler(usersController.loginAction));
 
-router.route('/signup')
-  .get(usersController.signup)
-  .post(usersController.signupAction);
+// la route de la connexion
+// router.post('/signup', controllerHandler(usersController.signupAction));
 
-router.get('/logout', usersController.logoutAction);
+// router.get('/logout', controllerHandler(usersController.logoutAction));
 
 module.exports = router;

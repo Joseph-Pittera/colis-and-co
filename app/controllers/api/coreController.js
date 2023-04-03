@@ -1,4 +1,4 @@
-const debug = require('debug')('oblog:controllers');
+const debug = require('debug')('colis:controllers');
 
 /** Class representing an abstract core controller. */
 class CoreController {
