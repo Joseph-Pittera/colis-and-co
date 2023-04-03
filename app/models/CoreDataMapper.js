@@ -33,11 +33,10 @@ class CoreDataMapper {
   // Crée un nouvel élément dans la table correspondant à la classe appelante
   async create(createObj) {
     debug(`${this.constructor.name} create`);
+    const columns = Object.keys(createObj).join(', ');
+    const values = Object.values(createObj).map((val) => `'${val}'`).join(', ');
     const preparedQuery = {
-      text: `
-            SELECT * FROM create_${this.constructor.tableName}_from_json($1)
-          `,
-      values: [createObj],
+      text: `INSERT INTO ${this.constructor.tableName} (${columns}) VALUES (${values}) RETURNING *`,
     };
     console.log(preparedQuery.text);
     const results = await client.query(preparedQuery);
@@ -45,15 +44,13 @@ class CoreDataMapper {
   }
 
   // Modify un élément dans la table correspondant à la classe appelante à partir de son ID
-  async modify(id, modObject) {
+  async update(id, modObject) {
     debug(`${this.constructor.name} modify(${id})`);
     const modifiedItem = { ...modObject };
-    modifiedItem.id = id;
+    const columns = Object.keys(modifiedItem).map((key) => `${key} = '${modifiedItem[key]}'`).join(', ');
     const preparedQuery = {
-      text: `
-            SELECT * FROM update_${this.constructor.tableName}($1)
-          `,
-      values: [modifiedItem],
+      text: `UPDATE ${this.constructor.tableName} SET ${columns} WHERE id = $1 RETURNING *`,
+      values: [id],
     };
     const results = await client.query(preparedQuery);
     return results.rows[0];

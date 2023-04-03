@@ -40,8 +40,14 @@ class CoreController {
    */
   async create(request, response) {
     debug(`${this.constructor.name} create`);
-    const results = await this.constructor.dataMapper.create(request.body);
-    response.json(results);
+    const createObj = request.body;
+    try {
+      const createdObj = await this.constructor.dataMapper.create(createObj);
+      response.status(201).json(createdObj);
+    } catch (err) {
+      console.error(err);
+      response.status(500).json({ message: 'Internal server error' });
+    }
   }
 
   /**
@@ -49,11 +55,12 @@ class CoreController {
    * @param {*} request
    * @param {*} response
    */
-  async modify(request, response) {
-    debug(`${this.constructor.name} modify`);
+  async update(request, response) {
+    debug(`${this.constructor.name} updated`);
     const { id } = request.params;
-    const results = await this.constructor.dataMapper.modify(id, request.body);
-    response.json(results);
+    const modObject = request.body;
+    const modifiedItem = await this.constructor.dataMapper.modify(id, modObject);
+    response.json(modifiedItem);
   }
 
   /**
