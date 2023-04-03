@@ -46,15 +46,15 @@ class UserDataMapper extends CoreDataMapper {
     return rows[0];
   }
 
-  async updateCarrierById(userId, updates) {
-    debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
-    const setClause = Object.keys(updates)
+  async updateCarrierById(carrierId, updated) {
+    debug(`${this.constructor.name} updateCarrierByUserId(${carrierId}, ${JSON.stringify(updated)})`);
+    const setClause = Object.keys(updated)
       .map((key, index) => `"${key}"=$${index + 2}`)
       .join(', ');
     const whereClause = '"id"=$1 AND "carrier"=true';
     const preparedQuery = {
       text: `UPDATE "${this.constructor.tableName}" SET ${setClause} WHERE ${whereClause} RETURNING *`,
-      values: [userId, ...Object.values(updates)],
+      values: [carrierId, ...Object.values(updated)],
     };
     const result = await client.query(preparedQuery);
     return result.rows[0];

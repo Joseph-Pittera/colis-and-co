@@ -38,9 +38,9 @@ class UserController extends CoreController {
   }
 
   async updateCarrierById(request, response) {
-    const userId = request.params.id;
-    const updates = request.body;
-    const updatedCarrier = await this.constructor.dataMapper.updateCarrierById(userId, updates);
+    const carrierId = request.params.id;
+    const updated = request.body;
+    const updatedCarrier = await this.constructor.dataMapper.updateCarrierById(carrierId, updated);
     if (!updatedCarrier) {
       return response.status(404).send('Transporteur non trouvé');
     }
