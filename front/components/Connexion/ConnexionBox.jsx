@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 
-export const ConnexionBox = ({ children }) => {
+export const ConnexionBox = ({ children, handleForm }) => {
   return (
     <Box
       component="form"
@@ -15,6 +15,11 @@ export const ConnexionBox = ({ children }) => {
       }}
       noValidate
       autoComplete="off"
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(e.target);
+        handleForm(e);
+      }}
     >
       {children}
     </Box>

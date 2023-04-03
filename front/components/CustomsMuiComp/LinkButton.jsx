@@ -12,6 +12,7 @@ export const LinkButton = ({
   size = "large",
   variant = "contained",
   href = "/",
+  type = "button",
 }) => {
   return (
     <Button
@@ -24,6 +25,7 @@ export const LinkButton = ({
       }}
       href={href}
       component={ButtonLink}
+      type={type}
     >
       {children}
     </Button>
