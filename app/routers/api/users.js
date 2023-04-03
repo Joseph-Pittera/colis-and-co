@@ -19,7 +19,7 @@ router.delete('/:id/account', controllerHandler(usersController.delete.bind(user
 // GET /api/users/:id/carrier : Récupérer les informations du transporteur d'un utilisateur
 router.get('/:id/carrier', controllerHandler(usersController.findCarrierByUserId.bind(usersController)));
 // PUT /api/users/:id/carrier : Modifier les informations du transporteur d'un utilisateur
-router.put('/:id/carrier ', validate(carrierPatchSchema, 'body'), (req, res, next) => {
+router.put('/ ', validate(carrierPatchSchema, 'body'), (req, res, next) => {
   console.log('-------Route /users PUT called');
   controllerHandler(usersController.updateCarrierByUserId.bind(usersController))(req, res, next);
 });
