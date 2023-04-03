@@ -1,5 +1,5 @@
 const deliveryController = require('./deliveryController');
-const userController = require('./usersController');
+const usersController = require('./usersController');
 
 const apiController = {
   /**
@@ -14,4 +14,4 @@ const apiController = {
   },
 };
 
-module.exports = { apiController, deliveryController, userController };
+module.exports = { apiController, deliveryController, usersController };

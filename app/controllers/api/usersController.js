@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const debug = require('debug')('colis:controllers');
 const CoreController = require('./coreController');
-const userDataMapper = require('../../models/userDataMapper');
+const usersDataMapper = require('../../models/usersDataMapper');
 
 /** Class representing a user controller */
-class UserController extends CoreController {
-  static dataMapper = userDataMapper;
+class UsersController extends CoreController {
+  static dataMapper = usersDataMapper;
 
   /**
    * create a user controller
@@ -38,7 +38,7 @@ class UserController extends CoreController {
     }
 
     // On renvoie le json de l'user.
-    return res.json({
+    res.json({
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,
@@ -47,4 +47,4 @@ class UserController extends CoreController {
     // On bascule dans le userDatamapper pour faire la requete et récupérer les données
   }
 }
-module.exports = new UserController();
+module.exports = new UsersController();
