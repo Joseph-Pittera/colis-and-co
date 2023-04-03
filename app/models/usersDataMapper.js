@@ -24,7 +24,6 @@ class UserDataMapper extends CoreDataMapper {
   }
 
   async updateUserById(userId, updates) {
-    console.log("-------I'am in deliverydatamapper.js");
     debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
     const setClause = Object.keys(updates)
       .map((key, index) => `"${key}"=$${index + 2}`)

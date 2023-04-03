@@ -13,7 +13,7 @@ class UserController extends CoreController {
 
   async findAccountByUserId(request, response) {
     debug(`${this.constructor.name} getAccount`);
-    const userId = request.user.id;
+    const userId = request.params.id;
     const account = await this.constructor.dataMapper.findAccountByUserId(userId);
     response.json(account);
   }
