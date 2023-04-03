@@ -18,13 +18,12 @@ class UserController extends CoreController {
     response.json(account);
   }
 
-  async updateUser(request, response) {
-    debug(`${this.constructor.name} updateAccount`);
-    const accountId = request.user.id;
-    // assuming you're using authentication middleware to attach the user object to the request
-    const updatedAccountData = request.body;
-    const updatedAccount = await this.constructor.dataMapper.update(accountId, updatedAccountData);
-    response.json(updatedAccount);
+  async updateUserById(request, response) {
+    const userId = request.params.id;
+    const updates = request.body;
+    const updatedCarrier = await this.constructor.dataMapper.updateUserById(userId, updates);
+
+    return response.json(updatedCarrier);
   }
 
   async findCarrierByUserId(request, response) {
@@ -42,7 +41,7 @@ class UserController extends CoreController {
     console.log("-------I'am in CoreController.js");
     const userId = request.params.id;
     const updates = request.body;
-    const updatedCarrier = await this.usersDataMapper.updateCarrierByUserId(userId, updates);
+    const updatedCarrier = await this.constructor.dataMapper.updateCarrierByUserId(userId, updates);
     if (!updatedCarrier) {
       return response.status(404).send('Transporteur non trouvé');
     }

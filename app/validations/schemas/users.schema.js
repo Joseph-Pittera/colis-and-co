@@ -15,7 +15,7 @@ const schemas = {
     identity_verified: Joi.boolean().required(),
     role: Joi.string().default('user'),
   }).required(),
-  patch: Joi.object({
+  put: Joi.object({
     email: Joi.string().regex(/^[a-zA-Z0-9.!#$%&''+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/),
     password: Joi.string(),
     first_name: Joi.string(),

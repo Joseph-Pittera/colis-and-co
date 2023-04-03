@@ -59,7 +59,7 @@ class CoreController {
     debug(`${this.constructor.name} updated`);
     const { id } = request.params;
     const modObject = request.body;
-    const modifiedItem = await this.constructor.dataMapper.modify(id, modObject);
+    const modifiedItem = await this.constructor.dataMapper.update(id, modObject);
     response.json(modifiedItem);
   }
 
