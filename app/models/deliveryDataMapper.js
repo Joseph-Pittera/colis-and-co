@@ -9,7 +9,47 @@ const client = require('./helpers/database');
     super();
     debug('delivery data mapper created');
   }
-
+  async createDelivery(delivery) {
+    console.log("--------------------------Iam in deliveydatamapperr");
+    //const Delivery = req.body;
+    try {
+      const { rows } = await client.query(`
+        INSERT INTO "delivery" (
+          type_of_marchandise,
+          quantity,
+          volume,
+          length,
+          width,
+          height,
+          departure_address,
+          arrival_address,
+          departure_date,
+          arrival_date,
+          price
+          
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+        ) RETURNING *
+      `,
+      [
+        delivery.type_of_marchandise,
+        delivery.quantity,
+        delivery.volume,
+        delivery.length,
+        delivery.width,
+        delivery.height,
+        delivery.departure_address,
+        delivery.arrival_address,
+        delivery.departure_date,
+        delivery.arrival_date,
+        delivery.price,
+      ]);
+      return rows[0];
+    } catch (err) {
+      console.error(err);
+      throw new InternalServerError(err);
+    }
+  }
 //   async createDelivery(delivery) {
 //     debug(`${this.constructor.name} createDelivery(${delivery})`);
 //     const preparedQuery = {
@@ -36,15 +76,15 @@ const client = require('./helpers/database');
 //     return result.rows[0];
 //   }
 
-  async findDeliveryById(id) {
-    debug(`${this.constructor.name} findDeliveryById(${id})`);
-    const preparedQuery = {
-      text: `SELECT * FROM "${this.constructor.tableName}" WHERE id=$1`,
-      values: [id],
-    };
-    const result = await client.query(preparedQuery);
-    return result.rows[0];
-  }
+  // async findDeliveryById(id) {
+  //   debug(`${this.constructor.name} findDeliveryById(${id})`);
+  //   const preparedQuery = {
+  //     text: `SELECT * FROM "${this.constructor.tableName}" WHERE id=$1`,
+  //     values: [id],
+  //   };
+  //   const result = await client.query(preparedQuery);
+  //   return result.rows[0];
+  // }
 
 //   async updateDelivery(delivery) {
 //     debug(`${this.constructor.name} updateDelivery(${delivery})`);

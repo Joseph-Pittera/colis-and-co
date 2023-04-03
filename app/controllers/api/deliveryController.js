@@ -34,47 +34,59 @@ class DeliveryController extends CoreController {
         next(error);
     }
 }
-async create(req, res) {
-  console.log("--------------------------Iam in deliveyController");
-  const delivery = req.body;
+async createDelivery(req, res, next) {
+  console.log(`${this.constructor.name} createDelivery`);
   try {
-    const { rows } = await this.pool.query(`
-      INSERT INTO delivery (
-        type_of_marchandise,
-        quantity,
-        volume,
-        length,
-        width,
-        height,
-        departure_address,
-        arrival_address,
-        departure_date,
-        arrival_date,
-        price
-        
-      ) VALUES (
-        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
-      ) RETURNING *
-    `,
-    [
-      delivery.type_of_marchandise,
-      delivery.quantity,
-      delivery.volume,
-      delivery.length,
-      delivery.width,
-      delivery.height,
-      delivery.departure_address,
-      delivery.arrival_address,
-      delivery.departure_date,
-      delivery.arrival_date,
-      delivery.price,
-    ]);
-    res.status(201).send(rows[0]);
-  } catch (err) {
-    console.error(err);
-    throw new InternalServerError(err);
+      const deliverys = req.body;
+      const deliveries = await this.constructor.dataMapper.createDelivery(deliverys);
+      console.log("Deliveries:", deliveries); // Ajouter ce log
+      res.json(deliveries);
+  } catch (error) {
+      console.error("Error in getAllDeliveries:", error); // Ajouter ce log
+      next(error);
   }
 }
+// async create(req, res) {
+//   console.log("--------------------------Iam in deliveyController");
+//   const delivery = req.body;
+//   try {
+//     const { rows } = await this.pool.query(`
+//       INSERT INTO delivery (
+//         type_of_marchandise,
+//         quantity,
+//         volume,
+//         length,
+//         width,
+//         height,
+//         departure_address,
+//         arrival_address,
+//         departure_date,
+//         arrival_date,
+//         price
+        
+//       ) VALUES (
+//         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+//       ) RETURNING *
+//     `,
+//     [
+//       delivery.type_of_marchandise,
+//       delivery.quantity,
+//       delivery.volume,
+//       delivery.length,
+//       delivery.width,
+//       delivery.height,
+//       delivery.departure_address,
+//       delivery.arrival_address,
+//       delivery.departure_date,
+//       delivery.arrival_date,
+//       delivery.price,
+//     ]);
+//     res.status(201).send(rows[0]);
+//   } catch (err) {
+//     console.error(err);
+//     throw new InternalServerError(err);
+//   }
+// }
   
 
 //   async getDeliveriesForUser(request, response) {

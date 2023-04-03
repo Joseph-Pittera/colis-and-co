@@ -20,7 +20,7 @@ router.get('/:id',(req,res,next)=>{
 });
 
 router.post('/', validate(schemas.post, 'body'), (req, res, next) => {
-  console.log('Route /delivery POST called');
-  controllerHandler(deliveryController.create.bind(deliveryController))(req, res, next);
+  console.log('-------Route /delivery POST called');
+  controllerHandler(deliveryController.createDelivery.bind(deliveryController))(req, res, next);
 });
 module.exports = router;
