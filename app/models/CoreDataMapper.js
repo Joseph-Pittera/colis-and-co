@@ -29,7 +29,7 @@ class CoreDataMapper {
     const results = await client.query(preparedQuery);
     return results.rows[0];
   }
-/*
+
   // Crée un nouvel élément dans la table correspondant à la classe appelante
   async create(createObj) {
     debug(`${this.constructor.name} create`);
@@ -43,7 +43,7 @@ class CoreDataMapper {
     const results = await client.query(preparedQuery);
     return results.rows[0];
   }
-
+/*
   // Modify un élément dans la table correspondant à la classe appelante à partir de son ID
   async modify(id, modObject) {
     debug(`${this.constructor.name} modify(${id})`);

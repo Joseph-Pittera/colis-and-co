@@ -39,11 +39,51 @@ class CoreController {
    * @param {*} request 
    * @param {*} response 
    */
-  async create(request, response) {
-    debug(`${this.constructor.name} create`);
-    const results = await this.constructor.dataMapper.create(request.body);
-    response.json(results);
-  }
+  // async create(request, response) {
+  //   debug(`${this.constructor.name} create`);
+  //   const results = await this.constructor.dataMapper.create(request.body);
+  //   response.json(results);
+  // }
+  // async create(req, res) {
+  //   const delivery = req.body;
+  //   try {
+  //     const { rows } = await this.pool.query(`
+  //       INSERT INTO delivery (
+  //         type_of_marchandise,
+  //         quantity,
+  //         volume,
+  //         length,
+  //         width,
+  //         height,
+  //         departure_address,
+  //         arrival_address,
+  //         departure_date,
+  //         arrival_date,
+  //         price
+          
+  //       ) VALUES (
+  //         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+  //       ) RETURNING *
+  //     `,
+  //     [
+  //       delivery.type_of_marchandise,
+  //       delivery.quantity,
+  //       delivery.volume,
+  //       delivery.length,
+  //       delivery.width,
+  //       delivery.height,
+  //       delivery.departure_address,
+  //       delivery.arrival_address,
+  //       delivery.departure_date,
+  //       delivery.arrival_date,
+  //       delivery.price,
+  //     ]);
+  //     res.status(201).send(rows[0]);
+  //   } catch (err) {
+  //     console.error(err);
+  //     throw new InternalServerError(err);
+  //   }
+  // }
 
   /**
    * Async function to modify an existing record by ID and return the updated record as JSON

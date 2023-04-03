@@ -1,4 +1,4 @@
-const debug = require('debug')('oblog:validate');
+const debug = require('debug')('colis:validate');
 const BadInputError = require('../errors/BadInputError');
 
 function validate(schema, dataSource) {
@@ -9,6 +9,8 @@ function validate(schema, dataSource) {
       await schema.validateAsync(request[dataSource]);
       next();
     } catch (err) {
+      console.log('Request data:', request[dataSource]); 
+      console.log('Validation error:', err); 
       next(new BadInputError(err));
     }
   };

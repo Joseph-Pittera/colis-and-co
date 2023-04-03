@@ -1,6 +1,7 @@
 const debug = require('debug')('colis:controllers');
 const CoreController = require('./CoreController');
 const DeliveryDataMapper = require('../../models/deliveryDataMapper.js');
+const { Pool } = require('pg');
 
 /** Class representing a delivery controller. */
 class DeliveryController extends CoreController {
@@ -8,6 +9,12 @@ class DeliveryController extends CoreController {
 
   constructor() {
     super();
+    this.pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
     console.log('deliveryController created');
   }
 
@@ -27,7 +34,48 @@ class DeliveryController extends CoreController {
         next(error);
     }
 }
-
+async create(req, res) {
+  console.log("--------------------------Iam in deliveyController");
+  const delivery = req.body;
+  try {
+    const { rows } = await this.pool.query(`
+      INSERT INTO delivery (
+        type_of_marchandise,
+        quantity,
+        volume,
+        length,
+        width,
+        height,
+        departure_address,
+        arrival_address,
+        departure_date,
+        arrival_date,
+        price
+        
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+      ) RETURNING *
+    `,
+    [
+      delivery.type_of_marchandise,
+      delivery.quantity,
+      delivery.volume,
+      delivery.length,
+      delivery.width,
+      delivery.height,
+      delivery.departure_address,
+      delivery.arrival_address,
+      delivery.departure_date,
+      delivery.arrival_date,
+      delivery.price,
+    ]);
+    res.status(201).send(rows[0]);
+  } catch (err) {
+    console.error(err);
+    throw new InternalServerError(err);
+  }
+}
+  
 
 //   async getDeliveriesForUser(request, response) {
 //     debug(`${this.constructor.name} getDeliveriesForUser`);
