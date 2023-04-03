@@ -5,6 +5,7 @@ import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
 import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
 import { ResponsiveTextField } from "@/components/CustomsMuiComp/ResponsiveTextField";
 import { connexionDataValidation } from "@/components/Connexion/connexionDataValidation";
+import { useFetch } from "@/utils/hooks";
 
 export default function Connexion({ params }) {
   // determine whether the user is on the login or register page
@@ -37,11 +38,26 @@ export default function Connexion({ params }) {
 
   // handle form submit with Data Validation
   const [dataErrors, setDataErrors] = useState(null);
-  const handleForm = (e) => {
+  const [userData, setUserData] = useState(null);
+  const handleForm = async (e) => {
     setDataErrors(connexionDataValidation(values));
+    console.log("dataErrors", dataErrors);
     console.log("form", e);
-    // const { data, isLoading, error } = useFetch(
-    const { data } = useFetch(`http://localhost:8000/login`);
+    try {
+      const response = await fetch(`http://localhost:8000/login`);
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setUserData(data);
+    } catch (error) {
+      console.log(error);
+      setError(true);
+    }
+    // finally {
+    //   setLoading(false);
+    // }
   };
 
   return (
@@ -53,6 +69,7 @@ export default function Connexion({ params }) {
         {dataErrors &&
           (dataErrors.email ||
             dataErrors.password ||
+            dataErrors.password2 ||
             (variant === "register" && dataErrors.passwordConfirm))}
       </Typography>
 
@@ -68,9 +85,14 @@ export default function Connexion({ params }) {
           label="Password"
           name="password"
           type="password"
-          error={dataErrors && !!dataErrors.password}
+          error={
+            dataErrors && (!!dataErrors.password || !!dataErrors.password2)
+          }
           onChange={handleChange}
-          helperText={dataErrors?.password && "Mot de passe incorrect"}
+          helperText={
+            (dataErrors?.password || dataErrors?.password2) &&
+            "Mot de passe incorrect"
+          }
         />
         {variant === "register" && (
           <ResponsiveTextField
@@ -90,6 +112,7 @@ export default function Connexion({ params }) {
         >
           {connexionTxt}
         </Button>
+        {/* {userData && <p>{userData}</p>} */}
       </ConnexionBox>
     </Layout>
   );
