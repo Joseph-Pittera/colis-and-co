@@ -43,6 +43,16 @@ class CoreDataMapper {
     const results = await client.query(preparedQuery);
     return results.rows[0];
   }
+  async delete(id) {
+    debug(`${this.constructor.name} delete(${id})`);
+    const preparedQuery = {
+      text: `DELETE FROM "${this.constructor.tableName}" WHERE id=$1`,
+      values: [id],
+    };
+    await client.query(preparedQuery);
+  }
+}
+
 /*
   // Modify un élément dans la table correspondant à la classe appelante à partir de son ID
   async modify(id, modObject) {
@@ -68,5 +78,5 @@ class CoreDataMapper {
     };
     await client.query(preparedQuery);
   } */
-}
+
 module.exports = CoreDataMapper;
