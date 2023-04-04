@@ -45,6 +45,7 @@ class CoreDataMapper {
   // Update  un élément dans la table correspondant à la classe appelante à partir de son ID
   async update(id, modObject) {
     // Ajoute un message de debug pour suivre l'exécution de la fonction
+
     debug(`${this.constructor.name} modify(${id})`);
     // Fait une copie de l'objet de modification pour éviter de modifier l'original
     const modifiedItem = { ...modObject };
@@ -55,13 +56,12 @@ class CoreDataMapper {
       text: `UPDATE ${this.constructor.tableName} SET ${columns} WHERE id = $1 RETURNING *`,
       values: [id],
     };
-    // Exécute la requête SQL en utilisant le client de la base de données et récupère les résultats
+      // Exécute la requête SQL en utilisant le client de la base de données et récupère les résultats
     const results = await client.query(preparedQuery);
     // Renvoie le premier élément de la réponse (il ne devrait y en avoir qu'un puisque l'ID est unique)
     return results.rows[0];
   }
 
-  // Delete un élément dans la table correspondant à la classe appelante à partir de son ID
   async delete(id) {
     debug(`${this.constructor.name} delete(${id})`);
     const preparedQuery = {
@@ -71,4 +71,5 @@ class CoreDataMapper {
     await client.query(preparedQuery);
   }
 }
+
 module.exports = CoreDataMapper;

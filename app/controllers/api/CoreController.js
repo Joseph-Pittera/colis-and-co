@@ -1,7 +1,10 @@
-// Import the 'debug' function from the 'debug' module and set the namespace to 'colis: controllers' 'https://www.npmjs.com/package/debug'
+// Import the 'debug' function from the 'debug' module and set the namespace to 'colis: controllers' (see https://www.npmjs.com/package/debug)
+
 const debug = require('debug')('colis:controllers');
 
-/** Class representing an abstract core controller. */
+/**
+ * Class representing an abstract core controller.
+ */
 class CoreController {
   static dataMapper;
 
@@ -26,6 +29,7 @@ class CoreController {
   async getOne(request, response) {
     debug(`${this.constructor.name} getOne`);
     const { id } = request.params;
+    console.log(`getOne called with ID: ${id}`);
     const results = await this.constructor.dataMapper.findByPk(id);
     if (results) {
       return response.json(results);

@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.all('/', apiController.getHome);
 
-// router.use('/delivery', deliveryRouter);
+router.use('/delivery', deliveryRouter);
 router.use('/users', usersRouter);
 
 router.use((_, res, next) => {

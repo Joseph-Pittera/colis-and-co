@@ -25,4 +25,5 @@ router.put('/:id/carrier', validate(schemas.put, 'body'), controllerHandler(user
 // DELETE /api/users/:id/carrier : Supprimer les informations du transporteur d'un utilisateur
 router.delete('/:id/carrier', controllerHandler(usersController.delete.bind(usersController)));
 
+
 module.exports = router;
