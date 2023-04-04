@@ -23,14 +23,12 @@ class UsersController extends CoreController {
       // eslint-disable-next-line max-len
       // afin d'utiliser de manière plus rapide et plus lisible les données du body, on déstructure l'objet body afin de transformer chaque propriété utile en variable simple
       const { email, password } = req.body;
-      console.log(email, password);
 
       // On doit vérifier si l'email et le password de l'utilisateur  existe dans la base de données
       // eslint-disable-next-line max-len
       // on doit faire appel au userDatamapper afin de faire la requête et la stocker dans une variable
       // on va devoir créer la requête dans un userDatamapper
-      const user = await this.constructor.dataMapper.loginAction(email, password);
-      console.log('test', user);
+      const user = await usersDataMapper.loginAction(email, password);
 
       // On renvoie le json de l'user.
       res.json({

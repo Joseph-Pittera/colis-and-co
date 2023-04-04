@@ -38,12 +38,8 @@ class UserDataMapper extends CoreDataMapper {
       values: [email],
     };
 
-    console.log('test');
-
     // On stocke le résultat dans une variable
     const result = await client.query(preparedQuery);
-
-    console.log(result);
 
     // On stocke le résultat sous forme d'un tableau
     return result.rows[0];
@@ -58,7 +54,6 @@ class UserDataMapper extends CoreDataMapper {
   }
 
   async loginAction(email, password) {
-    console.log('test');
     const user = await this.getUserByEmail(email);
 
     if (!user) {
