@@ -13,10 +13,10 @@ class DeliveryDataMapper extends CoreDataMapper {
 
   // Create a new delivery in the database
   async createDelivery(delivery) {
-    console.log("--------------------------Iam in deliveydatamapperr");
-    //const Delivery = req.body;
+    // const Delivery = req.body;
     try {
-      const { rows } = await client.query(`
+      const { rows } = await client.query(
+        `
         INSERT INTO "delivery" (
           type_of_marchandise,
           quantity,
@@ -34,19 +34,20 @@ class DeliveryDataMapper extends CoreDataMapper {
           $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
         ) RETURNING *
       `,
-      [
-        delivery.type_of_marchandise,
-        delivery.quantity,
-        delivery.volume,
-        delivery.length,
-        delivery.width,
-        delivery.height,
-        delivery.departure_address,
-        delivery.arrival_address,
-        delivery.departure_date,
-        delivery.arrival_date,
-        delivery.price,
-      ]);
+        [
+          delivery.type_of_marchandise,
+          delivery.quantity,
+          delivery.volume,
+          delivery.length,
+          delivery.width,
+          delivery.height,
+          delivery.departure_address,
+          delivery.arrival_address,
+          delivery.departure_date,
+          delivery.arrival_date,
+          delivery.price,
+        ],
+      );
       return rows[0];
     } catch (err) {
       console.error(err);
@@ -56,7 +57,6 @@ class DeliveryDataMapper extends CoreDataMapper {
 
   // Update a delivery by its id
   async updateDeliveryById(userId, updates) {
-    console.log("-------I'am in deliverydatamapper.js");
     debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
     const setClause = Object.keys(updates)
       .map((key, index) => `"${key}"=$${index + 2}`)

@@ -4,7 +4,7 @@
   "description": "project apothéose",
   "main": "index.js",
   "scripts": {
-    "dev": " DEBUG=*  nodemon index.js",
+    "dev": " DEBUG=colis:*  npx nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
