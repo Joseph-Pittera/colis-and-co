@@ -26,4 +26,6 @@ router.delete('/:id', controllerHandler(deliveryController.delete.bind(deliveryC
 // Define a GET route for a specific delivery city
 router.get('/city/:city', controllerHandler(deliveryController.getDeliveryByCity.bind(deliveryController)));
 
+router.get('/departement/:zipcode', controllerHandler(deliveryController.findByZipcode.bind(deliveryController)));
+
 module.exports = router;

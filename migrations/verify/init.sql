@@ -28,6 +28,7 @@ SELECT
     "width",
     "height",
     "departure_address",
+    "zipcode",
     "city",
     "arrival_address",
     "departure_date",

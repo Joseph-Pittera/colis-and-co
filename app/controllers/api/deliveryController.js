@@ -34,9 +34,16 @@ class DeliveryController extends CoreController {
 
   async getDeliveryByCity(request, response) {
     debug(`${this.constructor.name} getDeliveryByCity`);
-    const city  = request.params.city;
+    const { city } = request.params;
     const deliveries = await this.constructor.dataMapper.getDeliveryByCity(city);
     return response.json(deliveries);
+  }
+
+  async findByZipcode(request, response) {
+    debug(`${this.constructor.name} getByZipcode`);
+    const { zipcode } = request.params;
+    const deliveriesDepart = await this.constructor.dataMapper.findByZipcode(zipcode);
+    return response.json(deliveriesDepart);
   }
 }
 module.exports = new DeliveryController();

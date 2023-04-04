@@ -78,6 +78,17 @@ class DeliveryDataMapper extends CoreDataMapper {
     const result = await client.query(preparedQuery);
     return result.rows;
   }
+
+  async findByZipcode(zipcode) {
+    const query = {
+      text: `SELECT *, LEFT(SUBSTRING(zipcode, 1, 2), 2) AS department
+             FROM "${this.constructor.tableName}"
+             WHERE zipcode LIKE $1 || '%'`,
+      values: [zipcode],
+    };
+    const result = await client.query(query);
+    return result.rows;
+  }
 }
 
 module.exports = new DeliveryDataMapper();
