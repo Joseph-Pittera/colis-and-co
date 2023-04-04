@@ -22,7 +22,7 @@ CREATE DOMAIN "posnum" AS NUMERIC CHECK (value > 0.0);
 CREATE TABLE "users" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "email" EMAIL_VALIDATOR NOT NULL UNIQUE,
-    "password" TEXT NOT NULL UNIQUE,
+    "password" TEXT NOT NULL,
     "first_name" TEXT NOT NULL,
     "last_name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE "users" (
     "phone_number" TEXT NOT NULL,
     "carrier" BOOLEAN NOT NULL,
     "identity_verified" BOOLEAN NOT NULL,
-    "role" TEXT DEFAULT 'user',
+    S "role" TEXT DEFAULT 'user',
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
