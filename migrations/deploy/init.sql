@@ -31,7 +31,7 @@ CREATE TABLE "users" (
     "phone_number" TEXT NOT NULL,
     "carrier" BOOLEAN NOT NULL,
     "identity_verified" BOOLEAN NOT NULL,
-    "role" TEXT DEFAULT 'user',
+    S "role" TEXT DEFAULT 'user',
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
