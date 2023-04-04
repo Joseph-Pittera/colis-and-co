@@ -9,6 +9,7 @@ const schemas = {
     width: Joi.number().integer().min(1).required(),
     height: Joi.number().integer().min(1).required(),
     departure_address: Joi.string().required(),
+    city: Joi.string().required(),
     arrival_address: Joi.string().required(),
     departure_date: Joi.date().required(),
     arrival_date: Joi.date().required(),
