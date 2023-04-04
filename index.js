@@ -1,7 +1,8 @@
 require('dotenv').config();
-
+const bodyParser = require('body-parser');
 // Import multer middleware for file handling
 const multer = require('multer');
+
 
 // Initialize multer instance
 const upload = multer();
@@ -20,8 +21,11 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 // Use the multer middleware to handle file uploads
-app.use(upload.array());
 
+// Configure body-parser middleware
+ app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(upload.array());
 app.use(router);
 
 // Add error handling middleware

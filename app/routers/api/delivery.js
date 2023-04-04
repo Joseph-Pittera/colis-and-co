@@ -1,6 +1,6 @@
 // Import necessary modules and dependencies
 const express = require('express');
-const { adminController, deliveryController } = require('../../controllers/api');
+const { deliveryController } = require('../../controllers/api');
 const controllerHandler = require('../../controllers/helpers/controllerHandler');
 const validate = require('../../validations/validate');
 const schemas = require('../../validations/schemas/delivery.schema');

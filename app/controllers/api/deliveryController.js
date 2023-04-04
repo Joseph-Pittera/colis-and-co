@@ -1,6 +1,6 @@
 const debug = require('debug')('colis:controllers');
 const CoreController = require('./CoreController');
-const DeliveryDataMapper = require('../../models/deliveryDataMapper.js');
+const DeliveryDataMapper = require('../../models/deliveryDataMapper');
 const { Pool } = require('pg');
 
 /** Class representing a delivery controller. */
