@@ -42,6 +42,12 @@ class UserDataMapper extends CoreDataMapper {
 
   async updateUserById(userId, updates) {
     debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
+    if (updates.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(updates.password, salt);
+      updates.password = hashedPassword;
+    }
+
     const setClause = Object.keys(updates)
       .map((key, index) => `"${key}"=$${index + 2}`)
       .join(', ');

@@ -1,4 +1,5 @@
 const debug = require('debug')('colis:controllers');
+const bcrypt = require('bcrypt');
 const CoreController = require('./CoreController');
 const UserDataMapper = require('../../models/usersDataMapper');
 
@@ -29,6 +30,11 @@ class UserController extends CoreController {
   async updateUserById(request, response) {
     const userId = request.params.id;
     const updates = request.body;
+    if (updates.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(updates.password, salt);
+      updates.password = hashedPassword;
+    }
     const updatedCarrier = await this.constructor.dataMapper.updateUserById(userId, updates);
 
     return response.json(updatedCarrier);

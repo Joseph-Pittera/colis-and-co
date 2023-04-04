@@ -31,7 +31,7 @@ CREATE TABLE "users" (
     "phone_number" TEXT NOT NULL,
     "carrier" BOOLEAN NOT NULL,
     "identity_verified" BOOLEAN NOT NULL,
-    S "role" TEXT DEFAULT 'user',
+    "role" TEXT DEFAULT 'user',
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
@@ -45,6 +45,7 @@ CREATE TABLE "delivery" (
     "width" INT NOT NULL,
     "height" INT NOT NULL,
     "departure_address" TEXT NOT NULL,
+    "city" TEXT NOT NULL,
     "arrival_address" TEXT NOT NULL,
     "departure_date" TIMESTAMPTZ NOT NULL,
     "arrival_date" TIMESTAMPTZ NOT NULL,
