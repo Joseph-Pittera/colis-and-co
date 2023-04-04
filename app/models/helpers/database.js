@@ -10,6 +10,7 @@ const pool = new Pool();
 // Connection à la base de donnée et affichage d'un message
 pool.connect().then(() => {
   debug('database client connected');
+  console.log('Database connected');
 });
 
 module.exports = {
