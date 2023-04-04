@@ -1,7 +1,9 @@
-//Import the 'debug' function from the 'debug' module and set the namespace to 'colis: controllers' 'https://www.npmjs.com/package/debug'
+// Import the 'debug' function from the 'debug' module and set the namespace to 'colis: controllers' (see https://www.npmjs.com/package/debug)
 const debug = require('debug')('colis:controllers');
 
-/** Class representing an abstract core controller. */
+/** 
+ * Class representing an abstract core controller.
+ */
 class CoreController {
   static dataMapper;
 
@@ -15,7 +17,6 @@ class CoreController {
     const results = await this.constructor.dataMapper.findAll();
     response.json(results);
   }
-
 
   /**
    * Async function to get one record by ID and return it as JSON or a 204 status if not found
@@ -33,57 +34,6 @@ class CoreController {
     }
     return response.status(204).send();
   }
-
-  /**
-   * Async function to create a new record in the table and return it as JSON
-   * @param {*} request 
-   * @param {*} response 
-   */
-  // async create(request, response) {
-  //   debug(`${this.constructor.name} create`);
-  //   const results = await this.constructor.dataMapper.create(request.body);
-  //   response.json(results);
-  // }
-  // async create(req, res) {
-  //   const delivery = req.body;
-  //   try {
-  //     const { rows } = await this.pool.query(`
-  //       INSERT INTO delivery (
-  //         type_of_marchandise,
-  //         quantity,
-  //         volume,
-  //         length,
-  //         width,
-  //         height,
-  //         departure_address,
-  //         arrival_address,
-  //         departure_date,
-  //         arrival_date,
-  //         price
-          
-  //       ) VALUES (
-  //         $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
-  //       ) RETURNING *
-  //     `,
-  //     [
-  //       delivery.type_of_marchandise,
-  //       delivery.quantity,
-  //       delivery.volume,
-  //       delivery.length,
-  //       delivery.width,
-  //       delivery.height,
-  //       delivery.departure_address,
-  //       delivery.arrival_address,
-  //       delivery.departure_date,
-  //       delivery.arrival_date,
-  //       delivery.price,
-  //     ]);
-  //     res.status(201).send(rows[0]);
-  //   } catch (err) {
-  //     console.error(err);
-  //     throw new InternalServerError(err);
-  //   }
-  // }
 
   /**
    * Async function to modify an existing record by ID and return the updated record as JSON
@@ -108,7 +58,7 @@ class CoreController {
     const { id } = request.params;
     await this.constructor.dataMapper.delete(id);
     return response.status(204).send();
-  } 
+  }
 }
 
 module.exports = CoreController;
