@@ -52,11 +52,7 @@ class UserDataMapper extends CoreDataMapper {
       throw new Error('Invalid email or password');
     }
 
-<<<<<<< HEAD
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-=======
-    const isPasswordCorrect = await bcrypt.compare(password, hashedPassword);
->>>>>>> ce5cef6f5303b02af36e9c266cefb581252401ed
 
     if (!isPasswordCorrect) {
       throw new Error('Invalid email or password');
