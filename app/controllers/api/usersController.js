@@ -28,6 +28,7 @@ class UserController extends CoreController {
   }
 
   async updateUserById(request, response) {
+    debug(`${this.constructor.name} updateUserById`);
     const userId = request.params.id;
     const updates = request.body;
     if (updates.password) {
@@ -52,6 +53,7 @@ class UserController extends CoreController {
   }
 
   async updateCarrierById(request, response) {
+    debug(`${this.constructor.name} updateCarrierById`);
     const carrierId = request.params.id;
     const updated = request.body;
     const updatedCarrier = await this.constructor.dataMapper.updateCarrierById(carrierId, updated);

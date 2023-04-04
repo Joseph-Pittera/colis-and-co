@@ -65,9 +65,18 @@ class DeliveryDataMapper extends CoreDataMapper {
       text: `UPDATE "${this.constructor.tableName}" SET ${setClause}  WHERE id =$1  RETURNING *`,
       values: [userId, ...Object.values(updates)],
     };
-    console.log(preparedQuery);
     const result = await client.query(preparedQuery);
     return result.rows[0];
+  }
+
+  async getDeliveryByCity(city) {
+    debug(`${this.constructor.name} getDeliveryByCity(${city})`);
+    const preparedQuery = {
+      text: `SELECT * FROM "${this.constructor.tableName}" WHERE city = $1`,
+      values: [city],
+    };
+    const result = await client.query(preparedQuery);
+    return result.rows;
   }
 }
 

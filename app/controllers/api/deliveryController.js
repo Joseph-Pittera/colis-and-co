@@ -25,10 +25,18 @@ class DeliveryController extends CoreController {
   }
 
   async updateDeliveryById(request, response) {
+    debug(`${this.constructor.name} updateDeliveryById`);
     const deliveryId = request.params.id;
     const updates = request.body;
     const updatedCarrier = await this.constructor.dataMapper.updateDeliveryById(deliveryId, updates);
     return response.json(updatedCarrier);
+  }
+
+  async getDeliveryByCity(request, response) {
+    debug(`${this.constructor.name} getDeliveryByCity`);
+    const city  = request.params.city;
+    const deliveries = await this.constructor.dataMapper.getDeliveryByCity(city);
+    return response.json(deliveries);
   }
 }
 module.exports = new DeliveryController();
