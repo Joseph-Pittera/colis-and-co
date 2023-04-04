@@ -38,34 +38,32 @@ class UserDataMapper extends CoreDataMapper {
       values: [email],
     };
 
-    console.log('test');
-
     // On stocke le résultat dans une variable
     const result = await client.query(preparedQuery);
-
-    console.log(result);
 
     // On stocke le résultat sous forme d'un tableau
     return result.rows[0];
   }
 
-  async comparePasswords(password, hashedPassword) {
+  /* async comparePasswords(password, hashedPassword) {
     return bcrypt.compare(password, hashedPassword);
   }
 
   async hashPassword(password) {
     return bcrypt.hash(password, saltRounds);
-  }
+  } */
 
   async loginAction(email, password) {
-    console.log('test');
     const user = await this.getUserByEmail(email);
+    console.log(user);
 
     if (!user) {
       throw new Error('Invalid email or password');
     }
 
-    const isPasswordCorrect = await this.comparePasswords(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, hashedPassword);
+
+    console.log(isPasswordCorrect);
 
     if (!isPasswordCorrect) {
       throw new Error('Invalid email or password');
