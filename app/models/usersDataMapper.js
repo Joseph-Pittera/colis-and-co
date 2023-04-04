@@ -18,7 +18,7 @@ class UserDataMapper extends CoreDataMapper {
 
   // On créé la méthode loginAction
 
-  async loginAction(email) {
+  async loginAction(email, password) {
     // On lui indique que c'est la table 'users' qui nous interresse
     const tableName = this.constructor.viewName || this.constructor.tableName;
 
