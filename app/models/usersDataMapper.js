@@ -45,13 +45,13 @@ class UserDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
-  async comparePasswords(password, hashedPassword) {
+  /* async comparePasswords(password, hashedPassword) {
     return bcrypt.compare(password, hashedPassword);
   }
 
   async hashPassword(password) {
     return bcrypt.hash(password, saltRounds);
-  }
+  } */
 
   async loginAction(email, password) {
     const user = await this.getUserByEmail(email);
@@ -60,7 +60,7 @@ class UserDataMapper extends CoreDataMapper {
       throw new Error('Invalid email or password');
     }
 
-    const isPasswordCorrect = await this.comparePasswords(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, hashedPassword);
 
     if (!isPasswordCorrect) {
       throw new Error('Invalid email or password');

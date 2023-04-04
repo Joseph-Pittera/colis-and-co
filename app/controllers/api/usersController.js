@@ -32,9 +32,9 @@ class UsersController extends CoreController {
 
       // On renvoie le json de l'user.
       res.json({
-        email: user.email,
-        firstName: user.first_name,
-        lastName: user.last_name,
+        email,
+        firstName: user.firstName,
+        lastName: user.lastName,
       });
     } catch (error) {
       res.status(401).json({ message: 'Error' });
