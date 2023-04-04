@@ -1,6 +1,9 @@
 const debug = require('debug')('colis:dataMapper');
+const bcrypt = require('bcrypt');
 const CoreDataMapper = require('./coreDataMapper');
 const client = require('./helpers/database');
+
+const saltRounds = 10;
 
 /** Class representing a users data mapper. */
 class UserDataMapper extends CoreDataMapper {
@@ -18,7 +21,7 @@ class UserDataMapper extends CoreDataMapper {
 
   // On créé la méthode loginAction
 
-  async loginAction(email) {
+  async getUserByEmail(email) {
     // On lui indique que c'est la table 'users' qui nous interresse
     const tableName = this.constructor.viewName || this.constructor.tableName;
 
@@ -39,15 +42,35 @@ class UserDataMapper extends CoreDataMapper {
     const result = await client.query(preparedQuery);
 
     // On stocke le résultat sous forme d'un tableau
-    const user = result.rows[0];
+    return result.rows[0];
+  }
 
-    // On vérifie si l'user et le MdP est correct
+  async comparePasswords(password, hashedPassword) {
+    return bcrypt.compare(password, hashedPassword);
+  }
+
+  async hashPassword(password) {
+    return bcrypt.hash(password, saltRounds);
+  }
+
+  async loginAction(email, password) {
+    const user = await this.getUserByEmail(email);
+
     if (!user) {
-      throw new Error('Invalid');
+      throw new Error('Invalid email or password');
     }
 
-    // On retourne les informations de l'user
-    return user;
+    const isPasswordCorrect = await this.comparePasswords(password, user.password);
+
+    if (!isPasswordCorrect) {
+      throw new Error('Invalid email or password');
+    }
+
+    return {
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+    };
   }
 }
 
