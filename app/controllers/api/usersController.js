@@ -24,11 +24,13 @@ class UsersController extends CoreController {
     // On doit vérifier si l'email et le password de l'utilisateur  existe dans la base de données
     // on doit faire appel au userDatamapper afin de faire la requete et la stocker dans une variable
     // on va devoir créer la requete dans un userDatamapper
-    const user = await this.constructor.dataMapper.loginAction(email, password);
+    try {
+      const user = await this.constructor.dataMapper.loginAction(email, password);
 
-    // Vérification de l'user
-    if (!user) {
-      return res.status(404).json({ message: 'Erreur d\'authentification' });
+      // On renvoie le json de l'user.
+      res.json(user);
+    } catch (error) {
+      res.status(401).json({ message: 'Error' });
     }
 
     /* const isPasswordCorrect = await bcrypt.compare(password, user.password);
