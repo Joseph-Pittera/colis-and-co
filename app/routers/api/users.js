@@ -3,13 +3,14 @@ const { usersController } = require('../../controllers/api');
 const controllerHandler = require('../../controllers/helpers/controllerHandler');
 const schemas = require('../../validations/schemas/users.schema');
 const validate = require('../../validations/validate');
+const userAuth = require('../../validations/schemas/userAuth.schema');
 
 const router = express.Router();
 
 // GET /api/users : Récuperer toutes les comptes
 router.get('/', controllerHandler(usersController.findAll.bind(usersController)));
 // la route de l'authentification avec la gestion des erreurs par le controllerHandler
-router.post('/login', controllerHandler(usersController.loginAction));
+router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersController.loginAction.bind(usersController)));
 // POST /api/users/signin : Crééer un nouveau utilisateur
 router.post('/register', validate(schemas.post, 'body'), controllerHandler(usersController.createSecureUser.bind(usersController)));
 // GET api/users/:id: Récuperer une compte en particulier
@@ -26,6 +27,5 @@ router.get('/:id/carrier', controllerHandler(usersController.findCarrierByUserId
 router.put('/:id/carrier', validate(schemas.put, 'body'), controllerHandler(usersController.updateCarrierById.bind(usersController)));
 // DELETE /api/users/:id/carrier : Supprimer les informations du transporteur d'un utilisateur
 router.delete('/:id/carrier', controllerHandler(usersController.delete.bind(usersController)));
-
 
 module.exports = router;

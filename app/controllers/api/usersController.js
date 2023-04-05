@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const debug = require('debug')('colis:controllers');
+const bcrypt = require('bcrypt');
 
 const CoreController = require('./CoreController');
 const usersDataMapper = require('../../models/usersDataMapper');
@@ -18,13 +19,11 @@ class UsersController extends CoreController {
     debug('userController created');
   }
 
-  async loginAction(req, res) {
+  async loginAction(request, response) {
     try {
       // eslint-disable-next-line max-len
       // afin d'utiliser de manière plus rapide et plus lisible les données du body, on déstructure l'objet body afin de transformer chaque propriété utile en variable simple
-      const { email, password } = req.body;
-
-      console.log(email, password);
+      const { email, password } = request.body;
 
       // On doit vérifier si l'email et le password de l'utilisateur  existe dans la base de données
       // eslint-disable-next-line max-len
@@ -44,9 +43,9 @@ class UsersController extends CoreController {
         firstName: result.firstName,
         lastName: result.lastName,
       };
-      res.json({ user, token });
+      response.json({ user, token });
     } catch (error) {
-      res.status(401).json({ message: 'Error d\'authentification' });
+      response.status(401).json({ message: 'Error d\'authentification' });
     }
   }
 
