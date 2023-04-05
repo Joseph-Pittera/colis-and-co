@@ -30,21 +30,21 @@ class UsersController extends CoreController {
       // eslint-disable-next-line max-len
       // on doit faire appel au userDatamapper afin de faire la requête et la stocker dans une variable
       // on va devoir créer la requête dans un userDatamapper
-      const user = await usersDataMapper.loginAction(email, password);
+      const result = await usersDataMapper.loginAction(email, password);
 
       // Génère un token avec JWT
       const token = jwt.sign({
-        email: user.email,
-        lastName: user.lastName,
+        email: result.email,
+        lastName: result.lastName,
       }, process.env.SECRET);
 
       // On renvoie le json de l'user.
-      res.json({
-        email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        token,
-      });
+      const user = {
+        email: result.email,
+        firstName: result.firstName,
+        lastName: result.lastName,
+      };
+      res.json({ user, token });
     } catch (error) {
       res.status(401).json({ message: 'Error d\'authentification' });
     }
