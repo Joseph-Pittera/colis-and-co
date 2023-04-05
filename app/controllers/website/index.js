@@ -1,6 +1,6 @@
 const websiteController = {
   getHome: (_, res) => {
-    res.send(hello);
+    res.send('hello world!');
   },
 };
 

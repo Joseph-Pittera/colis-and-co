@@ -14,4 +14,6 @@ const apiController = {
   },
 };
 
-module.exports = { apiController, deliveryController, usersController };
+module.exports = {
+  apiController, deliveryController, usersController,
+};

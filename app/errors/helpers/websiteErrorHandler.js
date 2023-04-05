@@ -1,4 +1,4 @@
-const debug = require('debug')('colis:error');
+const debug = require('debug')('colis:errors');
 const InternalServerError = require('../InternalServerError');
 
 /* eslint-disable-next-line */
