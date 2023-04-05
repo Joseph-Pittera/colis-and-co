@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt');
 const CoreDataMapper = require('./coreDataMapper');
 const client = require('./helpers/database');
 
-const saltRounds = 10;
-
 /** Class representing a users data mapper. */
 class UserDataMapper extends CoreDataMapper {
   static tableName = 'users';
