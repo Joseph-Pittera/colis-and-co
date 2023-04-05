@@ -1,18 +1,10 @@
 require('dotenv').config();
+const debug = require('debug')('colis:index');
 const bodyParser = require('body-parser');
-const session = require('express-session');
 const cors = require('cors');
-// Import multer middleware for file handling
-const multer = require('multer');
 
-// Initialize multer instance
-const upload = multer();
-
-// Import path and express modules
-const path = require('path');
 const express = require('express');
 
-const expressJSDocSwagger = require('express-jsdoc-swagger');
 const router = require('./app/routers');
 
 // Import custom error classes
@@ -24,12 +16,9 @@ const app = express();
 
 app.use(cors());
 
-// Use the multer middleware to handle file uploads
-
 // Configure body-parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(upload.array());
 app.use(router);
 
 // Add error handling middleware
@@ -42,9 +31,10 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).json({ message: 'Internal Server Error' });
   }
+  next();
 });
 
 // Start the server and listen for incoming requests
 app.listen(port, () => {
-  console.log(`Server ready: http://localhost:${port}`);
+  debug(`Server ready: http://localhost:${port}`);
 });
