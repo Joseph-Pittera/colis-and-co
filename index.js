@@ -5,7 +5,6 @@ const cors = require('cors');
 // Import multer middleware for file handling
 const multer = require('multer');
 
-
 // Initialize multer instance
 const upload = multer();
 
@@ -13,6 +12,7 @@ const upload = multer();
 const path = require('path');
 const express = require('express');
 
+const expressJSDocSwagger = require('express-jsdoc-swagger');
 const router = require('./app/routers');
 
 // Import custom error classes
@@ -21,27 +21,13 @@ const { BadInputError } = require('./app/errors/BadInputError');
 const port = process.env.PORT || 3000;
 
 const app = express();
-const expressJSDocSwagger = require('express-jsdoc-swagger');
-
-// Configure body-parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-/* app.use(upload.array()); */
 
 app.use(cors());
-
-// Configuration de session
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false },
-}));
 
 // Use the multer middleware to handle file uploads
 
 // Configure body-parser middleware
- app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(router);

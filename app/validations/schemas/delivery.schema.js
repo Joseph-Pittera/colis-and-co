@@ -27,7 +27,7 @@ const schemas = {
     height: Joi.number().integer().min(1),
     departure_address: Joi.string(),
     zipcode: Joi.string(),
-    city: Joi.string().required(),
+    city: Joi.string(),
     arrival_address: Joi.string(),
     departure_date: Joi.date(),
     arrival_date: Joi.date(),
