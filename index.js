@@ -1,6 +1,6 @@
 require('dotenv').config();
 const bodyParser = require('body-parser');
-const session = require('express-session');
+
 const cors = require('cors');
 // Import multer middleware for file handling
 const multer = require('multer');
@@ -12,7 +12,6 @@ const upload = multer();
 const path = require('path');
 const express = require('express');
 
-const expressJSDocSwagger = require('express-jsdoc-swagger');
 const router = require('./app/routers');
 
 // Import custom error classes
