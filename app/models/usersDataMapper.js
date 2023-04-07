@@ -22,16 +22,13 @@ class UserDataMapper extends CoreDataMapper {
   // On créé la méthode loginAction
 
   async getUserByEmail(email) {
-    // On lui indique que c'est la table 'users' qui nous interresse
-    const tableName = this.constructor.viewName || this.constructor.tableName;
-
     debug(`${this.constructor.name} loginAction(${email}`);
 
     // On construit la requête
     const preparedQuery = {
       text: `
         SELECT email, password, first_name, last_name
-        FROM "${tableName}"
+        FROM "${this.constructor.tableName}"
         WHERE email = $1 
         ORDER BY "id"
       `,

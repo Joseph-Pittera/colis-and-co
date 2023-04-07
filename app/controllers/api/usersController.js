@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const randomString = require('crypto').randomBytes(64).toString('hex');
 const debug = require('debug')('colis:controllers');
 const bcrypt = require('bcrypt');
 
@@ -21,29 +22,27 @@ class UsersController extends CoreController {
 
   async loginAction(request, response) {
     try {
-      // eslint-disable-next-line max-len
-      // afin d'utiliser de manière plus rapide et plus lisible les données du body, on déstructure l'objet body afin de transformer chaque propriété utile en variable simple
+      debug(`${this.constructor.name} loginAction`);
+
       const { email, password } = request.body;
 
       // On doit vérifier si l'email et le password de l'utilisateur  existe dans la base de données
-      // eslint-disable-next-line max-len
       // on doit faire appel au userDatamapper afin de faire la requête et la stocker dans une variable
       // on va devoir créer la requête dans un userDatamapper
-      const result = await usersDataMapper.loginAction(email, password);
+      const result = await this.constructor.dataMapper.loginAction(email, password);
 
       // Génère un token avec JWT
-      const token = jwt.sign({
-        email: result.email,
-        lastName: result.lastName,
-      }, process.env.SECRET);
+      const token = jwt.sign(result, process.env.SECRET, { expiresIn: '30s' });
 
       // On renvoie le json de l'user.
       const user = {
         email: result.email,
         firstName: result.firstName,
         lastName: result.lastName,
+        token,
       };
-      response.json({ user, token });
+
+      response.json({ user });
     } catch (error) {
       response.status(401).json({ message: 'Error d\'authentification' });
     }
