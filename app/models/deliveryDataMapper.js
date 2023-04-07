@@ -1,5 +1,6 @@
 const debug = require('debug')('colis:dataMapper');
 const CoreDataMapper = require('./CoreDataMapper');
+const { InternalServerError } = require('../errors/InternalServerError');
 const client = require('./helpers/database');
 
 class DeliveryDataMapper extends CoreDataMapper {
@@ -13,7 +14,6 @@ class DeliveryDataMapper extends CoreDataMapper {
 
   // Create a new delivery in the database
   async createDelivery(delivery) {
-    // const Delivery = req.body;
     try {
       const { rows } = await client.query(
         `
@@ -28,10 +28,11 @@ class DeliveryDataMapper extends CoreDataMapper {
           arrival_address,
           departure_date,
           arrival_date,
-          price
-          
+          price,
+          zipcode,
+          city
         ) VALUES (
-          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13 
         ) RETURNING *
       `,
         [
@@ -46,6 +47,8 @@ class DeliveryDataMapper extends CoreDataMapper {
           delivery.departure_date,
           delivery.arrival_date,
           delivery.price,
+          delivery.zipcode,
+          delivery.city, 
         ],
       );
       return rows[0];
@@ -54,6 +57,8 @@ class DeliveryDataMapper extends CoreDataMapper {
       throw new InternalServerError(err);
     }
   }
+  
+  
 
   // Update a delivery by its id
   async updateDeliveryById(userId, updates) {

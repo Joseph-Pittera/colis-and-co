@@ -4,8 +4,16 @@ const debug = require('debug')('colis:database');
 // Importe la classe Pool du module 'pg'
 const { Pool } = require('pg');
 
+// Load the environment variables from your .env file
+require('dotenv').config();
+
 // Crée une nouvelle instance de la classe 'Pool'
-const pool = new Pool();
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 // Connection à la base de donnée et affichage d'un message
 pool.connect().then(() => {
