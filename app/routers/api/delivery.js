@@ -4,7 +4,7 @@ const { deliveryController } = require('../../controllers/api');
 const controllerHandler = require('../../controllers/helpers/controllerHandler');
 const validate = require('../../validations/validate');
 const schemas = require('../../validations/schemas/delivery.schema');
-const authenticationJwt = require('../../Middlewares/authJwt');
+const authenticationJwt = require('../../middlewares/authJwt');
 
 // Create an instance of an Express router
 const router = express.Router();
