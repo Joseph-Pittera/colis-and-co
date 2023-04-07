@@ -4,7 +4,7 @@ const controllerHandler = require('../../controllers/helpers/controllerHandler')
 const schemas = require('../../validations/schemas/users.schema');
 const validate = require('../../validations/validate');
 const userAuth = require('../../validations/schemas/userAuth.schema');
-const authenticationJwt = require('../../Middlewares/authJwt');
+const authenticationJwt = require('../../middlewares/authJwt');
 
 const router = express.Router();
 
