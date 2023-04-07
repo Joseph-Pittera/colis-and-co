@@ -109,6 +109,15 @@ class UserDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
+  async deleteUserById(id) {
+    debug(`${this.constructor.name} delete(${id})`);
+    const preparedQuery = {
+      text: `DELETE FROM "${this.constructor.tableName}" WHERE id=$1`,
+      values: [id],
+    };
+    await client.query(preparedQuery);
+  }
+
   async findCarrierByUserId(userId) {
     const preparedQuery = {
       text: `SELECT * FROM "${this.constructor.tableName}"  WHERE id = $1 AND carrier = true`,

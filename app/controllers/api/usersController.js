@@ -58,14 +58,14 @@ class UsersController extends CoreController {
 
   async findAccountByUserId(request, response) {
     debug(`${this.constructor.name} getAccount`);
-    const userId = request.params.id;
+    const userId = request.user.id;
     const account = await this.constructor.dataMapper.findAccountByUserId(userId);
     response.json(account);
   }
 
   async updateUserById(request, response) {
     debug(`${this.constructor.name} updateUserById`);
-    const userId = request.params.id;
+    const userId = request.user.id;
     const updates = request.body;
     if (updates.password) {
       const salt = await bcrypt.genSalt(10);
@@ -75,6 +75,21 @@ class UsersController extends CoreController {
     const updatedCarrier = await this.constructor.dataMapper.updateUserById(userId, updates);
 
     return response.json(updatedCarrier);
+  }
+
+  async deleteUserById(request, response) {
+    debug(`${this.constructor.name} delete`);
+    const { id } = request.user;
+    const { password } = request.body;
+    // Vérifier le mot de passe de l'utilisateur
+    const user = await this.constructor.dataMapper.findByPk(id);
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return response.status(401).json({ error: 'Mot de passe incorrect' });
+    }
+    // Supprimer le compte de l'utilisateur
+    await this.constructor.dataMapper.deleteUserById(id);
+    return response.status(204).send();
   }
 
   async findCarrierByUserId(request, response) {

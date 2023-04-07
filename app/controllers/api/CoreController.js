@@ -26,7 +26,7 @@ class CoreController {
    * @returns
    */
 
-  async getOne(request, response) {
+  async findByPk(request, response) {
     debug(`${this.constructor.name} getOne`);
     const { id } = request.params;
     console.log(`getOne called with ID: ${id}`);
