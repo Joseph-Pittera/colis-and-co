@@ -27,8 +27,8 @@ class UsersController extends CoreController {
       const { email, password } = request.body;
 
       // On doit vérifier si l'email et le password de l'utilisateur  existe dans la base de données
+      // eslint-disable-next-line max-len
       // on doit faire appel au userDatamapper afin de faire la requête et la stocker dans une variable
-      // on va devoir créer la requête dans un userDatamapper
       const result = await this.constructor.dataMapper.loginAction(email, password);
 
       // Génère un token avec JWT
