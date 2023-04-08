@@ -62,6 +62,16 @@ class UserDataMapper extends CoreDataMapper {
     };
   }
 
+  async findByEmail(email) {
+    debug(`${this.constructor.name} findByEmail`);
+    const preparedQuery = {
+      text: `SELECT * FROM ${this.constructor.tableName} WHERE email = $1`,
+      values: [email],
+    };
+    const results = await client.query(preparedQuery);
+    return results.rows[0];
+  }
+
   async createSecureUser(newUser) {
     // Hasher le mot de passe avant de l'ajouter à la base de données
     const hashedPassword = await bcrypt.hash(newUser.password, saltRounds);

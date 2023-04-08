@@ -51,7 +51,11 @@ class UsersController extends CoreController {
   async createSecureUser(request, response) {
     debug(`${this.constructor.name} create`);
     const createObj = request.body;
-
+    const existingUser = await this.constructor.dataMapper.findByEmail(createObj.email);
+    if (existingUser) {
+      response.status(409).json({ message: 'Email déjà utilisé' });
+      return;
+    }
     const createdUser = await this.constructor.dataMapper.createSecureUser(createObj);
     response.status(201).json(createdUser);
   }
