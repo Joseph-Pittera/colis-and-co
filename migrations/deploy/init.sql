@@ -29,7 +29,7 @@ CREATE TABLE "users" (
     "comp_address" TEXT NULL,
     "zipcode" ZIPCODE NOT NULL,
     "city" TEXT NOT NULL,
-    "birth_date" DATE,
+    "birth_date" TEXT,
     "phone_number" TEXT NOT NULL,
     "carrier" BOOLEAN NOT NULL,
     "identity_verified" BOOLEAN NOT NULL,
