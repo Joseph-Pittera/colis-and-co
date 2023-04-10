@@ -15,6 +15,32 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+/** *********** */
+/*  Swagger   */
+/** *********** */
+const expressSwagger = require('express-swagger-generator')(app);
+
+expressSwagger({
+  swaggerDefinition: {
+    info: {
+      description: 'Livraison de colis entre particuliers',
+      title: 'Colis&co Swagger',
+      version: '1.0.0',
+    },
+    host: 'localhost:3000',
+    basePath: '/api',
+    produces: [
+      'application/json',
+    ],
+    schemes: ['http'],
+    securityDefinitions: {
+
+    },
+  },
+  basedir: __dirname, // app absolute path
+  files: ['./app/routers/api/users.js'], // Path to the API handle folder
+});
+
 app.use(cors());
 
 // Configure body-parser middleware
