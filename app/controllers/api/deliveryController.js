@@ -13,13 +13,12 @@ class DeliveryController extends CoreController {
   }
 
   async createDelivery(req, res, next) {
-    debug(`${this.constructor.name} createDelivery`);
     try {
-      const deliverys = req.body;
-      const deliveries = await this.constructor.dataMapper.createDelivery(deliverys);
-      res.json(deliveries);
+      debug(`${this.constructor.name} createDelivery`);
+      const delivery = req.body;
+      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery);
+      res.json(createdDelivery);
     } catch (error) {
-      console.error('Error in getAllDeliveries:', error); // Ajouter ce log
       next(error);
     }
   }

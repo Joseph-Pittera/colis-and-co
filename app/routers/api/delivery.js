@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryController)));
 
 // Define a POST route to create a new delivery
-router.post('/', authenticationJwt, validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+router.post('/', validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
 
 // Define a GET route for a specific delivery by ID
 router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findByPk.bind(deliveryController)));
