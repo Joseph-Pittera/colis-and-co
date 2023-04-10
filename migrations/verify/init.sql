@@ -33,6 +33,8 @@ SELECT
     "zipcode",
     "city",
     "arrival_address",
+    "arrival_zipcode",
+    "arrival_city",
     "departure_date",
     "arrival_date",
     "price",

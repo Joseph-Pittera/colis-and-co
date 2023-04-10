@@ -50,6 +50,8 @@ CREATE TABLE "delivery" (
     "zipcode" ZIPCODE NOT NULL,
     "city" TEXT NOT NULL,
     "arrival_address" TEXT NOT NULL,
+    "arrival_zipcode" ZIPCODE NOT NULL,
+    "arrival_city" TEXT NOT NULL,
     "departure_date" TIMESTAMPTZ NOT NULL,
     "arrival_date" TIMESTAMPTZ NOT NULL,
     "price" POSNUM NOT NULL,
