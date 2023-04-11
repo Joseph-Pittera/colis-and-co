@@ -5,6 +5,7 @@ const controllerHandler = require('../../controllers/helpers/controllerHandler')
 const validate = require('../../validations/validate');
 const schemas = require('../../validations/schemas/delivery.schema');
 const authenticationJwt = require('../../middlewares/authJwt');
+const multer = require('../../middlewares/multer');
 
 // Create an instance of an Express router
 const router = express.Router();
@@ -13,7 +14,7 @@ const router = express.Router();
 router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryController)));
 
 // Define a POST route to create a new delivery
-router.post('/', validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+router.post('/', multer, validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
 
 // Define a GET route for search param city or zipcode
 router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.bind(deliveryController)));

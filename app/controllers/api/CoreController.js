@@ -29,7 +29,7 @@ class CoreController {
   async findByPk(request, response) {
     debug(`${this.constructor.name} getOne`);
     const { id } = request.params;
-    console.log(`getOne called with ID: ${id}`);
+    debug(`getOne called with ID: ${id}`);
     const results = await this.constructor.dataMapper.findByPk(id);
     if (results) {
       return response.json(results);
