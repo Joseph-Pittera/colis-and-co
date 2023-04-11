@@ -8,9 +8,6 @@ const express = require('express');
 
 const router = require('./app/routers');
 
-// Import custom error classes
-const { BadInputError } = require('./app/errors/BadInputError');
-
 const port = process.env.PORT || 3000;
 
 const app = express();
