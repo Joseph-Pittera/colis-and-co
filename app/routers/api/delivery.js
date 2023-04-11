@@ -1,5 +1,6 @@
 // Import necessary modules and dependencies
 const express = require('express');
+const path = require('path');
 const { deliveryController } = require('../../controllers/api');
 const controllerHandler = require('../../controllers/helpers/controllerHandler');
 const validate = require('../../validations/validate');
@@ -25,7 +26,9 @@ router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findB
 // Define a PUT route to update a delivery by ID
 router.put('/:id', authenticationJwt, validate(schemas.patch, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
-// Degine a DELETE route to delete a delivery by ID
+// Define a DELETE route to delete a delivery by ID
 router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
 
+// Define a GET route to show delivery images
+router.get('/images', express.static(path.join(__dirname, 'images')));
 module.exports = router;

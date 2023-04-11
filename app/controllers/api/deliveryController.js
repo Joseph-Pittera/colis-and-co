@@ -1,6 +1,7 @@
 const debug = require('debug')('colis:controllers');
 const CoreController = require('./CoreController');
 const DeliveryDataMapper = require('../../models/deliveryDataMapper');
+require('dotenv').config();
 
 /** Class representing a delivery controller. */
 class DeliveryController extends CoreController {
@@ -15,8 +16,10 @@ class DeliveryController extends CoreController {
   async createDelivery(req, res, next) {
     try {
       debug(`${this.constructor.name} createDelivery`);
+      const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
       const delivery = req.body;
-      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery);
+
+      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
       res.json(createdDelivery);
     } catch (error) {
       next(error);
@@ -47,4 +50,5 @@ class DeliveryController extends CoreController {
     }
   }
 }
+
 module.exports = new DeliveryController();

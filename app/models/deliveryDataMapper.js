@@ -12,12 +12,13 @@ class DeliveryDataMapper extends CoreDataMapper {
   }
 
   // Create a new delivery in the database
-  async createDelivery(delivery) {
+  async createDelivery(delivery, imageUrl) {
     try {
       const columns = Object.keys(delivery).join(', ');
       const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
+      /* const imageURL =  */
       const preparedQuery = {
-        text: `INSERT INTO ${this.constructor.tableName} (${columns}) VALUES (${values}) RETURNING *`,
+        text: `INSERT INTO ${this.constructor.tableName} (${columns}, image) VALUES (${values}, '${imageUrl}') RETURNING *`,
       };
       const { rows } = await client.query(preparedQuery);
       return rows[0];
