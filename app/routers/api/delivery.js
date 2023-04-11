@@ -1,10 +1,13 @@
 // Import necessary modules and dependencies
 const express = require('express');
+const multer = require('multer');
 const { deliveryController } = require('../../controllers/api');
 const controllerHandler = require('../../controllers/helpers/controllerHandler');
 const validate = require('../../validations/validate');
 const schemas = require('../../validations/schemas/delivery.schema');
 const authenticationJwt = require('../../middlewares/authJwt');
+
+const upload = multer();
 
 // Create an instance of an Express router
 const router = express.Router();
@@ -13,7 +16,7 @@ const router = express.Router();
 router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryController)));
 
 // Define a POST route to create a new delivery
-router.post('/', authenticationJwt, validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+router.post('/', /* authenticationJwt, */ upload.single('image'), validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
 
 // Define a GET route for a specific delivery by ID
 router.get('/:id', authenticationJwt, controllerHandler(deliveryController.getOne.bind(deliveryController)));

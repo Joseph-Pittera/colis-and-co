@@ -1,4 +1,5 @@
 const debug = require('debug')('colis:controllers');
+const { pool } = require('pg');
 const CoreController = require('./CoreController');
 const DeliveryDataMapper = require('../../models/deliveryDataMapper');
 
@@ -13,13 +14,12 @@ class DeliveryController extends CoreController {
   }
 
   async createDelivery(req, res, next) {
-    debug(`${this.constructor.name} createDelivery`);
     try {
+      debug(`${this.constructor.name} createDelivery`);
       const delivery = req.body;
-      const deliveries = await this.constructor.dataMapper.createDelivery(delivery);
-      res.json(deliveries);
+      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery);
+      res.json(createdDelivery);
     } catch (error) {
-      console.error('Error in getAllDeliveries:', error); // Ajouter ce log
       next(error);
     }
   }
@@ -33,14 +33,14 @@ class DeliveryController extends CoreController {
   }
 
   async getDeliveryByCity(request, response) {
-    debug(`${this.constructor.name} getDeliveryByCity`);
+    debug(`${this.constructor.name} updateDeliveryById`);
     const { city } = request.params;
     const deliveries = await this.constructor.dataMapper.getDeliveryByCity(city);
     return response.json(deliveries);
   }
 
   async findByZipcode(request, response) {
-    debug(`${this.constructor.name} getByZipcode`);
+    debug(`${this.constructor.name} findByZipcode`);
     const { zipcode } = request.params;
     const deliveriesDepart = await this.constructor.dataMapper.findByZipcode(zipcode);
     return response.json(deliveriesDepart);

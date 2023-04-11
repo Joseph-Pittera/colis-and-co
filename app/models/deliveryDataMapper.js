@@ -1,6 +1,7 @@
 const debug = require('debug')('colis:dataMapper');
 const CoreDataMapper = require('./CoreDataMapper');
 const client = require('./helpers/database');
+const InternalServerError = require('../errors/InternalServerError');
 
 class DeliveryDataMapper extends CoreDataMapper {
   // Define the table name for this data mapper
@@ -13,41 +14,13 @@ class DeliveryDataMapper extends CoreDataMapper {
 
   // Create a new delivery in the database
   async createDelivery(delivery) {
-    // const Delivery = req.body;
     try {
-      const { rows } = await client.query(
-        `
-        INSERT INTO "delivery" (
-          type_of_marchandise,
-          quantity,
-          volume,
-          length,
-          width,
-          height,
-          departure_address,
-          arrival_address,
-          departure_date,
-          arrival_date,
-          price
-          
-        ) VALUES (
-          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
-        ) RETURNING *
-      `,
-        [
-          delivery.type_of_marchandise,
-          delivery.quantity,
-          delivery.volume,
-          delivery.length,
-          delivery.width,
-          delivery.height,
-          delivery.departure_address,
-          delivery.arrival_address,
-          delivery.departure_date,
-          delivery.arrival_date,
-          delivery.price,
-        ],
-      );
+      const columns = Object.keys(delivery).join(', ');
+      const values = Object.values(delivery).map((val) => '${val}').join(', ');
+      const preparedQuery = {
+        text: `INSERT INTO "${this.constructor.tableName}" (${columns}) VALUES (${values}) RETURNING *`,
+      };
+      const { rows } = await client.query(preparedQuery);
       return rows[0];
     } catch (err) {
       console.error(err);
