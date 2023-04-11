@@ -27,7 +27,6 @@ async function createFile() {
     const address = faker.address.streetAddress(true);
     const zipCode = faker.address.zipCodeByState();
     const city = faker.address.city();
-    const birthDate = faker.date.birthdate();
     const phoneNumber = faker.phone.number();
     const carrier = faker.datatype.boolean();
     const identityVerified = faker.datatype.boolean();
@@ -40,7 +39,6 @@ async function createFile() {
       address,
       zipCode,
       city,
-      birthDate,
       phoneNumber,
       carrier,
       identityVerified,

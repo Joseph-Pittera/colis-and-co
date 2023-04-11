@@ -73,6 +73,7 @@ class UserDataMapper extends CoreDataMapper {
   }
 
   async createSecureUser(newUser) {
+    debug(`${this.constructor.name} CreateSecureUser`);
     // Hasher le mot de passe avant de l'ajouter à la base de données
     const hashedPassword = await bcrypt.hash(newUser.password, saltRounds);
 
