@@ -54,7 +54,8 @@ CREATE TABLE "delivery" (
     "creator_id " INT REFERENCES "users"("id"),
     "carrier_id " INT REFERENCES "users"("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    "updated_at" TIMESTAMPTZ
+    "updated_at" TIMESTAMPTZ,
+    "image" BYTEA
 );
 
 COMMIT;

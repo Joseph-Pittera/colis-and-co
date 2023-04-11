@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const randomString = require('crypto').randomBytes(64).toString('hex');
 const debug = require('debug')('colis:controllers');
 const bcrypt = require('bcrypt');
 
@@ -32,7 +31,7 @@ class UsersController extends CoreController {
       const result = await this.constructor.dataMapper.loginAction(email, password);
 
       // Génère un token avec JWT
-      const token = jwt.sign(result, process.env.SECRET, { expiresIn: '30s' });
+      const token = jwt.sign(result, process.env.SECRET, { expiresIn: '24h' });
 
       // On renvoie le json de l'user.
       const user = {
