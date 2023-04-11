@@ -34,11 +34,16 @@ expressSwagger({
     ],
     schemes: ['http'],
     securityDefinitions: {
-
+      JWT: {
+        type: 'apiKey',
+        in: 'header',
+        name: 'Authorization',
+        description: 'JWT',
+      },
     },
   },
   basedir: __dirname, // app absolute path
-  files: ['./app/routers/api/users.js'], // Path to the API handle folder
+  files: ['./app/routers/api/*.js'], // Path to the API handle folder
 });
 
 app.use(cors());
