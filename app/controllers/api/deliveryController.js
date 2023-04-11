@@ -33,10 +33,18 @@ class DeliveryController extends CoreController {
 
   async findByCityOrZipcode(request, response) {
     debug(`${this.constructor.name} searchDeliveries`);
-    const city = request.query.city ? String(request.query.city) : undefined;
-    const zipcode = request.query.zipcode ? String(request.query.zipcode) : undefined;
-    const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(city, zipcode);
-    return response.json(deliveries);
+    const { city, zipcode } = request.query;
+
+    if (!city && !zipcode) {
+      return response.status(400).json({ error: 'Ville ou departement pas trouvé' });
+    }
+
+    try {
+      const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(city, zipcode);
+      return response.json(deliveries);
+    } catch (error) {
+      return response.status(500).json({ error: error.message });
+    }
   }
 }
 module.exports = new DeliveryController();

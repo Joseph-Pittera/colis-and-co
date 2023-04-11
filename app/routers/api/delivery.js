@@ -13,18 +13,18 @@ const router = express.Router();
 router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryController)));
 
 // Define a POST route to create a new delivery
-router.post('/', validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+router.post('/', authenticationJwt, validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+
+// Define a GET route for search param city or zipcode
+router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.bind(deliveryController)));
 
 // Define a GET route for a specific delivery by ID
-router.get('/:id', controllerHandler(deliveryController.findByPk.bind(deliveryController)));
+router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findByPk.bind(deliveryController)));
 
 // Define a PUT route to update a delivery by ID
-router.put('/:id', validate(schemas.patch, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
+router.put('/:id', authenticationJwt, validate(schemas.patch, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
 // Degine a DELETE route to delete a delivery by ID
-router.delete('/:id', controllerHandler(deliveryController.delete.bind(deliveryController)));
-
-// Define a GET route for a specific delivery city
-router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.bind(deliveryController)));
+router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
 
 module.exports = router;
