@@ -29,6 +29,7 @@ SELECT
     "length",
     "width",
     "height",
+    "kg",
     "departure_address",
     "zipcode",
     "city",

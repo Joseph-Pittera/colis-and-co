@@ -25,17 +25,16 @@ async function createFile() {
     const length = faker.datatype.number({ min: 1, max: 100 });
     const width = faker.datatype.number({ min: 1, max: 100 });
     const height = faker.datatype.number({ min: 1, max: 100 });
+    const weight = faker.datatype.number({ min: 1, max: 100 });
     const departure_address = faker.address.streetAddress(true);
     const zipCode = faker.address.zipCodeByState();
     const city = faker.address.city();
     const arrival_address = faker.address.streetAddress(true);
     const arrival_zipcode = faker.address.zipCodeByState();
     const arrival_city = faker.address.city();
-    const departure_date = faker.date.between('2023-03-29T00:00:00.000Z', '2023-03-30T00:00:00.000Z');
-    const arrival_date = faker.date.between('2023-04-01T00:00:00.000Z', '2023-04-02T00:00:00.000Z');
     const price = faker.commerce.price();
     const delivery = {
-      type_of_marchandise, quantity, volume, length, width, height, departure_address, zipCode, city, arrival_address, arrival_zipcode, arrival_city, departure_date, arrival_date, price,
+      type_of_marchandise, quantity, volume, length, width, height, weight, departure_address, zipCode, city, arrival_address, arrival_zipcode, arrival_city, price,
     };
     await fs.appendFile(FILENAME, JSON.stringify(delivery));
     // A la fin de la boucle  on utilise la méthode JSON.stringify

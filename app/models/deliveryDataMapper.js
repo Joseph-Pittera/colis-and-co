@@ -41,24 +41,25 @@ class DeliveryDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
-  async getDeliveryByCity(city) {
-    debug(`${this.constructor.name} getDeliveryByCity(${city})`);
-    const preparedQuery = {
-      text: `SELECT * FROM "${this.constructor.tableName}" WHERE city = $1`,
-      values: [city],
-    };
-    const result = await client.query(preparedQuery);
-    return result.rows;
-  }
+  async findByCityOrZipcode(city, zipcode) {
+    let preparedQuery;
+    let values;
 
-  async findByZipcode(zipcode) {
-    const query = {
-      text: `SELECT *, LEFT(SUBSTRING(zipcode, 1, 2), 2) AS department
-             FROM "${this.constructor.tableName}"
-             WHERE zipcode LIKE $1 || '%'`,
-      values: [zipcode],
-    };
-    const result = await client.query(query);
+    if (city) {
+      preparedQuery = {
+        text: `SELECT * FROM "${this.tableName}" WHERE city = $1`,
+        values: [city],
+      };
+    } else if (zipcode) {
+      preparedQuery = {
+        text: `SELECT *, LEFT(SUBSTRING(zipcode, 1, 2), 2) AS department FROM "${this.tableName}" WHERE zipcode LIKE $1 || '%'`,
+        values: [zipcode],
+      };
+    } else {
+      throw new Error('Either city or zipcode must be provided');
+    }
+
+    const result = await client.query(preparedQuery);
     return result.rows;
   }
 }

@@ -16,17 +16,15 @@ router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryContro
 router.post('/', validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
 
 // Define a GET route for a specific delivery by ID
-router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findByPk.bind(deliveryController)));
+router.get('/:id', controllerHandler(deliveryController.findByPk.bind(deliveryController)));
 
 // Define a PUT route to update a delivery by ID
-router.put('/:id', authenticationJwt, validate(schemas.patch, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
+router.put('/:id', validate(schemas.patch, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
 // Degine a DELETE route to delete a delivery by ID
-router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
+router.delete('/:id', controllerHandler(deliveryController.delete.bind(deliveryController)));
 
 // Define a GET route for a specific delivery city
-router.get('/city/:city', controllerHandler(deliveryController.getDeliveryByCity.bind(deliveryController)));
-
-router.get('/departement/:zipcode', controllerHandler(deliveryController.findByZipcode.bind(deliveryController)));
+router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.bind(deliveryController)));
 
 module.exports = router;
