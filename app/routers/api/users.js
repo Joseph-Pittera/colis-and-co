@@ -18,7 +18,7 @@ const router = express.Router();
  * @property {string} last_name - user's last_name
  * @property {string} address - user's address
  * @property {string} comp_address - user's comp_address
- * @property {zipcode} zipcode - user's zipcode
+ * @property {number} zipcode - user's zipcode
  * @property {string} city - user's city
  * @property {string} birth_date - user's birth_date
  * @property {string} phone_number - user's phone_number
@@ -57,7 +57,7 @@ router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersCo
  * @param {string} firstname.query.required - user's firstname
  * @param {string} lastname.query.required - user's lastname
  * @param {string} address.query.required - user's address
- * @param {zipcode} zipcode.query.required - user's zipcode
+ * @param {number} zipcode.query.required - user's zipcode
  * @param {Date} birthdate.query - user's birthdate
  * @param {string} phonenumber.query.required - user's phonenumber
  * @returns {object} 200 - An object
