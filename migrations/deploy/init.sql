@@ -40,7 +40,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "delivery" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "type_of_marchandise" TEXT,
+    "type_of_marchandise" TEXT NOT NULL,
     "quantity" POSINT NOT NULL DEFAULT 1,
     "volume" INT NOT NULL,
     "length" INT NOT NULL,
