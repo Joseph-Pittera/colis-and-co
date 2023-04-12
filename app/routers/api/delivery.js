@@ -5,6 +5,7 @@ const controllerHandler = require('../../controllers/helpers/controllerHandler')
 const validate = require('../../validations/validate');
 const schemas = require('../../validations/schemas/delivery.schema');
 const authenticationJwt = require('../../middlewares/authJwt');
+const multer = require('../../middlewares/multer');
 
 // Create an instance of an Express router
 const router = express.Router();
@@ -44,6 +45,7 @@ const router = express.Router();
  */
 router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryController)));
 
+
 /**
  * Define a POST route to create a new delivery
  * @route POST /delivery
@@ -67,7 +69,8 @@ router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryContro
  * @returns {object} 200 - An object
  * @returns {Error}  500 - Internal server error
  */
-router.post('/', validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+router.post('/', multer, validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+
 
 /**
  * Define a GET route to search delivery by city or zipcode
@@ -95,6 +98,7 @@ router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findB
  */
 router.put('/:id', authenticationJwt, validate(schemas.patch, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
+
 /**
  * Define a DELETE route to suppress one delivery
  * @route DELETE /deliveries/:id
@@ -102,6 +106,7 @@ router.put('/:id', authenticationJwt, validate(schemas.patch, 'body'), controlle
  * @returns {Response} 204
  */
 // Degine a DELETE route to delete a delivery by ID
+
 router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
 
 module.exports = router;
