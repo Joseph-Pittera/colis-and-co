@@ -31,18 +31,20 @@ class DeliveryController extends CoreController {
     return response.json(updatedCarrier);
   }
 
-  async getDeliveryByCity(request, response) {
-    debug(`${this.constructor.name} getDeliveryByCity`);
-    const { city } = request.params;
-    const deliveries = await this.constructor.dataMapper.getDeliveryByCity(city);
-    return response.json(deliveries);
-  }
+  async findByCityOrZipcode(request, response) {
+    debug(`${this.constructor.name} searchDeliveries`);
+    const { city, zipcode } = request.query;
 
-  async findByZipcode(request, response) {
-    debug(`${this.constructor.name} getByZipcode`);
-    const { zipcode } = request.params;
-    const deliveriesDepart = await this.constructor.dataMapper.findByZipcode(zipcode);
-    return response.json(deliveriesDepart);
+    if (!city && !zipcode) {
+      return response.status(400).json({ error: 'Ville ou departement pas trouvé' });
+    }
+
+    try {
+      const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(city, zipcode);
+      return response.json(deliveries);
+    } catch (error) {
+      return response.status(500).json({ error: error.message });
+    }
   }
 }
 module.exports = new DeliveryController();

@@ -13,7 +13,10 @@ const router = express.Router();
 router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryController)));
 
 // Define a POST route to create a new delivery
-router.post('/', authenticationJwt, validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+router.post('/', validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
+
+// Define a GET route for search param city or zipcode
+router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.bind(deliveryController)));
 
 // Define a GET route for a specific delivery by ID
 router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findByPk.bind(deliveryController)));
@@ -23,10 +26,5 @@ router.put('/:id', authenticationJwt, validate(schemas.patch, 'body'), controlle
 
 // Degine a DELETE route to delete a delivery by ID
 router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
-
-// Define a GET route for a specific delivery city
-router.get('/city/:city', controllerHandler(deliveryController.getDeliveryByCity.bind(deliveryController)));
-
-router.get('/departement/:zipcode', controllerHandler(deliveryController.findByZipcode.bind(deliveryController)));
 
 module.exports = router;

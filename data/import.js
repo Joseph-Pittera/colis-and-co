@@ -5,7 +5,7 @@ require('dotenv').config();
 const { Client } = require('pg');
 
 // Création d'une instance du client PostgreSQL
-const client = new Client();
+const client = new Client(process.env.PG_URL);
 client.connect();
 
 // Importation des données JSON pour les utilisateurs et les livraisons
