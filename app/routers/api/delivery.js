@@ -94,6 +94,7 @@ router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findB
  * @group Deliveries - Operations about deliveries
  * @returns {object} An object
  */
+
 router.put('/:id', authenticationJwt, validate(schemas.put, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
 /**
