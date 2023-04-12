@@ -94,7 +94,8 @@ router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findB
  * @group Deliveries - Operations about deliveries
  * @returns {object} An object
  */
-router.put('/:id', authenticationJwt, validate(schemas.patch, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
+
+router.put('/:id', authenticationJwt, validate(schemas.put, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
 /**
  * Define a DELETE route to suppress one delivery

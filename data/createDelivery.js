@@ -29,12 +29,14 @@ async function createFile() {
     const departure_address = faker.address.streetAddress(true);
     const zipCode = faker.address.zipCodeByState();
     const city = faker.address.city();
+    const sender_phoneNumber = faker.phone.number();
     const arrival_address = faker.address.streetAddress(true);
     const arrival_zipcode = faker.address.zipCodeByState();
     const arrival_city = faker.address.city();
+    const recipient_phoneNumber = faker.phone.number();
     const price = faker.commerce.price();
     const delivery = {
-      type_of_marchandise, quantity, volume, length, width, height, weight, departure_address, zipCode, city, arrival_address, arrival_zipcode, arrival_city, price,
+      type_of_marchandise, quantity, volume, length, width, height, weight, departure_address, zipCode, city, sender_phoneNumber, arrival_address, arrival_zipcode, arrival_city, recipient_phoneNumber, price,
     };
     await fs.appendFile(FILENAME, JSON.stringify(delivery));
     // A la fin de la boucle  on utilise la méthode JSON.stringify
