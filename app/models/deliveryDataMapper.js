@@ -1,6 +1,7 @@
 const debug = require('debug')('colis:dataMapper');
 const CoreDataMapper = require('./CoreDataMapper');
 const client = require('./helpers/database');
+const InternalServerError = require('../errors/InternalServerError');
 
 class DeliveryDataMapper extends CoreDataMapper {
   // Define the table name for this data mapper
@@ -16,7 +17,6 @@ class DeliveryDataMapper extends CoreDataMapper {
     try {
       const columns = Object.keys(delivery).join(', ');
       const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
-      /* const imageURL =  */
       const preparedQuery = {
         text: `INSERT INTO ${this.constructor.tableName} (${columns}, image) VALUES (${values}, '${imageUrl}') RETURNING *`,
       };

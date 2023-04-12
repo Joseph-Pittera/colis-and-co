@@ -16,6 +16,7 @@ class DeliveryController extends CoreController {
   async createDelivery(req, res, next) {
     try {
       debug(`${this.constructor.name} createDelivery`);
+      // Création et Récupération de l'URL de l'image
       const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
       const delivery = req.body;
 
@@ -30,6 +31,7 @@ class DeliveryController extends CoreController {
     debug(`${this.constructor.name} updateDeliveryById`);
     const deliveryId = request.params.id;
     const updates = request.body;
+    // eslint-disable-next-line max-len
     const updatedCarrier = await this.constructor.dataMapper.updateDeliveryById(deliveryId, updates);
     return response.json(updatedCarrier);
   }

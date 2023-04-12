@@ -3,7 +3,7 @@
 // import de Multer
 const multer = require('multer');
 
-// Dictionnaire MIME TYPE
+// Dictionnaire MIME TYPE : types d'extension acceptés
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpeg',
@@ -17,10 +17,11 @@ const storage = multer.diskStorage({
     callback(null, 'images');
   },
   filename: (req, file, callback) => {
-    // Supprimer les espaces dasn le npm du fichier
+    // Supprimer les espaces dans le nom du fichier
     const name = file.originalname.split(' ').join('_');
+    // definir l'extension
     const extension = MIME_TYPES[file.mimetype];
-
+    // renvoie le nom défnitif du fichier en ajoutant la date
     callback(null, `${name}_${Date.now()}.${extension}`);
   },
 });
