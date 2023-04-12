@@ -14,7 +14,7 @@ class CoreController {
    * @param {*} response
    */
   async findAll(_, response) {
-    debug(`${this.constructor.name} getAll`);
+    debug(`${this.constructor.name} findAll`);
     const results = await this.constructor.dataMapper.findAll();
     response.json(results);
   }
@@ -27,9 +27,11 @@ class CoreController {
    */
 
   async findByPk(request, response) {
-    debug(`${this.constructor.name} getOne`);
+    debug(`${this.constructor.name} findByPk`);
     const { id } = request.params;
-    debug(`getOne called with ID: ${id}`);
+
+    debug(`findByPk called with ID: ${id}`);
+
     const results = await this.constructor.dataMapper.findByPk(id);
     if (results) {
       return response.json(results);
