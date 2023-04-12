@@ -21,10 +21,10 @@ const router = express.Router();
  * @property {number} height - delivery height
  * @property {number} weight - delivery weight
  * @property {string} departure_address - delivery departure_address
- * @property {zipcode} zipcode - delivery zipcode
+ * @property {number} zipcode - delivery zipcode
  * @property {string} city - delivery city
  * @property {string} arrival_address - delivery arrival_address
- * @property {zipcode} arrival_zipcode - delivery arrival_zipcode
+ * @property {number} arrival_zipcode - delivery arrival_zipcode
  * @property {string} arrival_city - delivery arrival_city
  * @property {string} departure_date - delivery departure_date
  * @property {string} arrival_date - delivery arrival_date
@@ -54,16 +54,16 @@ router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryContro
  * @param {number} length.query.required - delivery length
  * @param {number} width.query.required - delivery width
  * @param {number} height.query.required - delivery height
- * @param {posnum} weight.query.required - delivery weight
+ * @param {number} weight.query.required - delivery weight
  * @param {string} departure_address.query.required - delivery departure_address
- * @param {zipcode} zipcode.query.required - delivery zipcode
+ * @param {number} zipcode.query.required - delivery zipcode
  * @param {string} city.query.required - delivery city
  * @param {string} arrival_address.query.required - delivery arrival_address
- * @param {zipcode} arrival_zipcode.query.required - delivery arrival_zipcode
+ * @param {number} arrival_zipcode.query.required - delivery arrival_zipcode
  * @param {string} arrival_city.query.required - delivery arrival_city
  * @param {string} departure_date.query.required - delivery departure_date
  * @param {string} arrival_date.query.required - delivery arrival_date
- * @param {posnum} price.query.required - delivery price
+ * @param {number} price.query.required - delivery price
  * @returns {object} 200 - An object
  * @returns {Error}  500 - Internal server error
  */
