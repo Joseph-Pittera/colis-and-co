@@ -47,13 +47,9 @@ class CoreController {
   async create(request, response) {
     debug(`${this.constructor.name} create`);
     const createObj = request.body;
-    try {
-      const createdObj = await this.constructor.dataMapper.create(createObj);
-      response.status(201).json(createdObj);
-    } catch (err) {
-      console.error(err);
-      response.status(500).json({ message: 'Internal server error' });
-    }
+    const createdObj = await this.constructor.dataMapper.create(createObj);
+    response.status(201).json(createdObj);
+    
   }
 
   /**
