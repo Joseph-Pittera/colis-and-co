@@ -25,18 +25,25 @@ class DeliveryDataMapper extends CoreDataMapper {
 
   // Create a new delivery in the database
   async createDelivery(delivery, imageUrl) {
-    try {
-      const columns = Object.keys(delivery).join(', ');
-      const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
-      const preparedQuery = {
-        text: `INSERT INTO ${this.constructor.tableName} (${columns}, image) VALUES (${values}, '${imageUrl}') RETURNING *`,
-      };
-      const { rows } = await client.query(preparedQuery);
-      return rows[0];
-    } catch (err) {
-      console.error(err);
-      throw new InternalServerError(err);
-    }
+    const columns = Object.keys(delivery).join(', ');
+    const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
+    const preparedQuery = {
+      text: `INSERT INTO ${this.constructor.tableName} (${columns}, image, creator_id) VALUES (${values}, '${imageUrl}', $1) RETURNING *`,
+      values: [delivery.creator_id],
+    };
+    const { rows } = await client.query(preparedQuery);
+
+    const deliveryId = rows[0].id;
+    const query = {
+      text: `SELECT delivery.*, users.id AS user_id
+             FROM ${this.constructor.tableName} 
+             JOIN users ON delivery.creator_id = users.id
+             WHERE delivery.id = $1`,
+      values: [deliveryId],
+    };
+    const { rows: [deliveryWithUser] } = await client.query(query);
+
+    return deliveryWithUser;
   }
 
   // Update a delivery by its id
