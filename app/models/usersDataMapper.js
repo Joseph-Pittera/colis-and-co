@@ -27,7 +27,7 @@ class UserDataMapper extends CoreDataMapper {
     // On construit la requête
     const preparedQuery = {
       text: `
-        SELECT email, password, first_name, last_name
+        SELECT id, email, password, first_name, last_name
         FROM "${this.constructor.tableName}"
         WHERE email = $1 
         ORDER BY "id"
@@ -56,6 +56,7 @@ class UserDataMapper extends CoreDataMapper {
     }
 
     return {
+      id: user.id,
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,

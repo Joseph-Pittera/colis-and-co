@@ -2,7 +2,7 @@
 -- Deploy colisandco:init to pg
 BEGIN;
 
-CREATE DOMAIN email_validator AS text CHECK(
+CREATE DOMAIN "email_validator" AS text CHECK(
     value ~ '^[a-zA-Z0-9.!#$%&''+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$'
 );
 
