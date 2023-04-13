@@ -8,41 +8,11 @@ const cors = require('cors');
 const express = require('express');
 
 const router = require('./app/routers');
+const setupSwagger = require('./app/helper/swagger');
 
 const port = process.env.PORT || 3000;
 
 const app = express();
-
-/** *********** */
-/*  Swagger   */
-/** *********** */
-const expressSwagger = require('express-swagger-generator')(app);
-
-expressSwagger({
-  swaggerDefinition: {
-    info: {
-      description: 'Livraison de colis entre particuliers',
-      title: 'Colis&co Swagger',
-      version: '1.0.0',
-    },
-    host: 'localhost:3000',
-    basePath: '/api',
-    produces: [
-      'application/json',
-    ],
-    schemes: ['http'],
-    securityDefinitions: {
-      JWT: {
-        type: 'apiKey',
-        in: 'header',
-        name: 'Authorization',
-        description: 'JWT',
-      },
-    },
-  },
-  basedir: __dirname, // app absolute path
-  files: ['./app/routers/api/*.js'], // Path to the API handle folder
-});
 
 app.use(cors());
 
@@ -52,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Define route to show delivery images
 app.use('/images', express.static(path.join(__dirname, 'images')));
-
+setupSwagger(app);
 app.use(router);
 
 // Start the server and listen for incoming requests

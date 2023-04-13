@@ -1,6 +1,6 @@
 const websiteController = {
-  getHome: (_, res) => {
-    res.send('hello world!');
+  getHome: (_, response) => {
+    response.redirect('/api-docs');
   },
 };
 
