@@ -38,6 +38,7 @@ class UsersController extends CoreController {
       const token = jwt.sign(result, process.env.SECRET, { expiresIn: '86400s' });
       // On renvoie le json de l'user.
       const user = {
+        id: result.id,
         email: result.email,
         firstName: result.firstName,
         lastName: result.lastName,
