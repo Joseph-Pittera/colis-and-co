@@ -43,7 +43,7 @@ const router = express.Router();
  * @returns {object} 200 - An object with "result"
  * @returns {Error}  default - Unexpected error
  */
-router.get('/', controllerHandler(deliveryController.findAll.bind(deliveryController)));
+router.get('/', controllerHandler(deliveryController.findAllDeliveries.bind(deliveryController)));
 
 /**
  * Define a POST route to create a new delivery

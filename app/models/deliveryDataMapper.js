@@ -12,6 +12,17 @@ class DeliveryDataMapper extends CoreDataMapper {
     debug('delivery data mapper created');
   }
 
+  async findAllDeliveries(page, limit) {
+    debug(`${this.constructor.name} findAllDeliveries ${page} ${limit}`);
+    const pageSize = (page - 1) * limit;
+    const preparedQuery = {
+      text: ` SELECT * FROM "${this.constructor.tableName}" ORDER BY id LIMIT $1 OFFSET $2`,
+      values: [limit, pageSize],
+    };
+    const results = await client.query(preparedQuery);
+    return results.rows;
+  }
+
   // Create a new delivery in the database
   async createDelivery(delivery, imageUrl) {
     try {

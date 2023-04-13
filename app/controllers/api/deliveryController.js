@@ -13,18 +13,22 @@ class DeliveryController extends CoreController {
     debug('deliveryController created');
   }
 
-  async createDelivery(req, res, next) {
-    try {
-      debug(`${this.constructor.name} createDelivery`);
-      // Création et Récupération de l'URL de l'image
-      const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
-      const delivery = req.body;
+  async findAllDeliveries(request, response) {
+    debug(`${this.constructor.name} findAllDeliveries`);
+    const page = Number(request.query.page) || 1;
+    const limit = 5;
+    const results = await this.constructor.dataMapper.findAllDeliveries(page, limit);
+    response.json(results);
+  }
 
-      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
-      res.json(createdDelivery);
-    } catch (error) {
-      next(error);
-    }
+  async createDelivery(request, response) {
+    debug(`${this.constructor.name} createDelivery`);
+    // Création et Récupération de l'URL de l'image
+    const imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
+    const delivery = request.body;
+
+    const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
+    response.json(createdDelivery);
   }
 
   async updateDeliveryById(request, response) {
