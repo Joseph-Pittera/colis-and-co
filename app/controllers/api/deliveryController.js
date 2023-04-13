@@ -29,18 +29,16 @@ class DeliveryController extends CoreController {
  * @memberof DeliveryController
  */
   async createDelivery(req, res, next) {
-    try {
-      debug(`${this.constructor.name} createDelivery`);
+        debug(`${this.constructor.name} createDelivery`);
       // Création et Récupération de l'URL de l'image
       const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
       const delivery = req.body;
 
       const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
       res.json(createdDelivery);
-    } catch (error) {
+
       next(error);
-    }
-  }
+   }
 
   /**
 * Update a delivery with the given ID using the provided data
@@ -82,12 +80,8 @@ class DeliveryController extends CoreController {
       return response.status(400).json({ error: 'Ville ou departement pas trouvé' });
     }
 
-    try {
-      const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(city, zipcode);
-      return response.json(deliveries);
-    } catch (error) {
-      return response.status(500).json({ error: error.message });
-    }
+    const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(city, zipcode);
+    return response.json(deliveries);
   }
 }
 
