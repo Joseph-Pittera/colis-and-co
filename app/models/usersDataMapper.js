@@ -131,6 +131,7 @@ class UserDataMapper extends CoreDataMapper {
   }
 
   async findCarrierByUserId(userId) {
+    debug(`${this.constructor.name} findCarrierByUserId(${userId})`);
     const preparedQuery = {
       text: `SELECT * FROM "${this.constructor.tableName}"  WHERE id = $1 AND carrier = true`,
       values: [userId],
