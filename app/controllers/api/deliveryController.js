@@ -7,12 +7,27 @@ require('dotenv').config();
 class DeliveryController extends CoreController {
   static dataMapper = DeliveryDataMapper;
 
+  /**
+ * Creates an instance of DeliveryController.
+ * @memberof DeliveryController
+ */
   constructor() {
     super();
 
     debug('deliveryController created');
   }
 
+  /**
+ * Handles the creation of one delivery by the user
+ * @async
+ * @function createDelivery
+ * @param {Object} req - The HTTP request object
+ * @param {Object} req.file - The file object containing the image of the delivery
+ * @param {Object} req.body - The delivery information
+ * @param {Object} res - The HTTP response object
+ * @param {Function} next - The callback function to handle errors
+ * @memberof DeliveryController
+ */
   async createDelivery(req, res, next) {
     try {
       debug(`${this.constructor.name} createDelivery`);
@@ -27,6 +42,18 @@ class DeliveryController extends CoreController {
     }
   }
 
+  /**
+* Update a delivery with the given ID using the provided data
+* @async
+* @function updateDeliveryById
+* @param {Object} request - The HTTP request object.
+* @param {integer} request.params.id - The ID of the delivery to update.
+* @param {Object} request.body - The delivery data to use for updating.
+* @param {Object} response - The HTTP response object.
+* @returns {Object} Returns a JSON object containing the updated delivery information.
+* @throws {Error} Throws an error that is passed to the error handling middleware
+* @memberof DeliveryController
+*/
   async updateDeliveryById(request, response) {
     debug(`${this.constructor.name} updateDeliveryById`);
     const deliveryId = request.params.id;
@@ -36,6 +63,17 @@ class DeliveryController extends CoreController {
     return response.json(updatedCarrier);
   }
 
+  /**
+   * Find deliveries by city or zipcode
+   * @async
+   * @function findByCityOrZipcode
+   * @param {Object} request - The HTTP request object
+   * @param {string} request.query.city - The city to search for deliveries in
+   * @param {string} request.query.zipcode - The zipcode to search for deliveries in
+   * @param {Object} response - The HTTP response object
+   * @returns {Object} Returns a JSON object containing an array of delivery objects matching the search criteria
+   * @memberof DeliveryController
+   */
   async findByCityOrZipcode(request, response) {
     debug(`${this.constructor.name} searchDeliveries`);
     const { city, zipcode } = request.query;

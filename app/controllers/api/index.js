@@ -3,10 +3,12 @@ const usersController = require('./usersController');
 
 const apiController = {
   /**
-   * responds with api documentation url
-   *
-   * @param {Object} request
-   * @param {Object} response
+   * Get the API documentation URL
+   * @function getHome
+   * @param {Object} request - The HTTP request object
+   * @param {Object} response - The HTTP response object
+   * @returns {Object} Returns a JSON object containing the API documentation URL
+   * @memberof DeliveryController
    */
   getHome(request, response) {
     const fullURL = `${request.protocol}://${request.get('host')}${process.env.API_DOCUMENTATION_ROUTE ?? '/api-docs'}`;

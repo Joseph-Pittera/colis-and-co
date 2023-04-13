@@ -7,17 +7,23 @@ const cors = require('cors');
 
 const express = require('express');
 
+const app = express();
+
+const expressSwagger = require('express-swagger-generator')(app);
+
 const router = require('./app/routers');
 
 const port = process.env.PORT || 3000;
 
-const app = express();
+/**
 
-/** *********** */
-/*  Swagger   */
-/** *********** */
-const expressSwagger = require('express-swagger-generator')(app);
-
+Generates and adds Swagger documentation to the Express.js app
+@function expressSwagger
+@param {Object} options - Options for the Swagger documentation generation
+@param {string} options.basedir - The absolute path of the app
+@param {Array} options.files - The path(s) to the API handle folder(s)
+@param {swaggerDefinition} options.swaggerDefinition - The Swagger definition for the API
+*/
 expressSwagger({
   swaggerDefinition: {
     info: {
@@ -41,7 +47,7 @@ expressSwagger({
     },
   },
   basedir: __dirname, // app absolute path
-  files: ['./app/routers/api/*.js'], // Path to the API handle folder
+  files: ['./app/*/*/*.js'], // Path to the API handle folder
 });
 
 app.use(cors());

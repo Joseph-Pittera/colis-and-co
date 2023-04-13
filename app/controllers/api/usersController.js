@@ -31,11 +31,11 @@ class UsersController extends CoreController {
       // on doit faire appel au userDatamapper afin de faire la requête et la stocker dans une variable
       const result = await this.constructor.dataMapper.loginAction(
         email,
-        password
+        password,
       );
       debug('result', result);
       // Génère un token avec JWT
-      const token = jwt.sign(result, process.env.SECRET, { expiresIn: '300s' });
+      const token = jwt.sign(result, process.env.SECRET, { expiresIn: '86400s' });
       // On renvoie le json de l'user.
       const user = {
         email: result.email,
@@ -54,14 +54,14 @@ class UsersController extends CoreController {
     debug(`${this.constructor.name} create`);
     const createObj = request.body;
     const existingUser = await this.constructor.dataMapper.findByEmail(
-      createObj.email
+      createObj.email,
     );
     if (existingUser) {
       response.status(409).json({ message: 'Email déjà utilisé' });
       return;
     }
     const createdUser = await this.constructor.dataMapper.createSecureUser(
-      createObj
+      createObj,
     );
     response.status(201).json(createdUser);
   }
@@ -70,7 +70,7 @@ class UsersController extends CoreController {
     debug(`${this.constructor.name} getAccount`);
     const userId = request.user.id;
     const account = await this.constructor.dataMapper.findAccountByUserId(
-      userId
+      userId,
     );
     response.json(account);
   }
@@ -86,7 +86,7 @@ class UsersController extends CoreController {
     }
     const updatedCarrier = await this.constructor.dataMapper.updateUserById(
       userId,
-      updates
+      updates,
     );
 
     return response.json(updatedCarrier);
@@ -111,7 +111,7 @@ class UsersController extends CoreController {
     debug(`${this.constructor.name} findCarrierByUserId`);
     const userId = request.params.id;
     const carrierInfo = await this.constructor.dataMapper.findCarrierByUserId(
-      userId
+      userId,
     );
     if (carrierInfo) {
       response.json(carrierInfo);
@@ -126,7 +126,7 @@ class UsersController extends CoreController {
     const updated = request.body;
     const updatedCarrier = await this.constructor.dataMapper.updateCarrierById(
       carrierId,
-      updated
+      updated,
     );
     if (!updatedCarrier) {
       return response.status(404).send('Transporteur non trouvé');
