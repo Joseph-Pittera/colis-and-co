@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const randomString = require('crypto').randomBytes(64).toString('hex');
 const debug = require('debug')('colis:controllers');
 const bcrypt = require('bcrypt');
 
@@ -38,6 +37,7 @@ class UsersController extends CoreController {
       const token = jwt.sign(result, process.env.SECRET, { expiresIn: '86400s' });
       // On renvoie le json de l'user.
       const user = {
+        id: result.id,
         email: result.email,
         firstName: result.firstName,
         lastName: result.lastName,

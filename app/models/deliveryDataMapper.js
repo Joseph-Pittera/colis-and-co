@@ -1,7 +1,6 @@
 const debug = require('debug')('colis:dataMapper');
 const CoreDataMapper = require('./CoreDataMapper');
 const client = require('./helpers/database');
-const InternalServerError = require('../errors/InternalServerError');
 
 class DeliveryDataMapper extends CoreDataMapper {
   // Define the table name for this data mapper
@@ -14,18 +13,14 @@ class DeliveryDataMapper extends CoreDataMapper {
 
   // Create a new delivery in the database
   async createDelivery(delivery, imageUrl) {
-    try {
-      const columns = Object.keys(delivery).join(', ');
-      const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
-      const preparedQuery = {
-        text: `INSERT INTO ${this.constructor.tableName} (${columns}, image) VALUES (${values}, '${imageUrl}') RETURNING *`,
-      };
-      const { rows } = await client.query(preparedQuery);
-      return rows[0];
-    } catch (err) {
-      console.error(err);
-      throw new InternalServerError(err);
-    }
+    debug(`${this.constructor.name} createDelivery`);
+    const columns = Object.keys(delivery).join(', ');
+    const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
+    const preparedQuery = {
+      text: `INSERT INTO ${this.constructor.tableName} (${columns}, image) VALUES (${values}, '${imageUrl}') RETURNING *`,
+    };
+    const { rows } = await client.query(preparedQuery);
+    return rows[0];
   }
 
   // Update a delivery by its id
@@ -43,6 +38,7 @@ class DeliveryDataMapper extends CoreDataMapper {
   }
 
   async findByCityOrZipcode(city, zipcode) {
+    debug(`${this.constructor.name} findByCityOrZipcode(${city},${zipcode})`);
     let preparedQuery;
 
     if (city) {
