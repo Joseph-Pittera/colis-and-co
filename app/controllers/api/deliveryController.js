@@ -24,9 +24,13 @@ class DeliveryController extends CoreController {
   async createDelivery(request, response) {
     debug(`${this.constructor.name} createDelivery`);
     // Création et Récupération de l'URL de l'image
-    const imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
+    let imageUrl;
+    if (typeof request.file === 'undefined' || typeof request.file.name === 'undefined') {
+      imageUrl = '';
+    } else {
+      imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
+    }
     const delivery = request.body;
-
     const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
     response.json(createdDelivery);
   }

@@ -25,8 +25,9 @@ class DeliveryDataMapper extends CoreDataMapper {
 
   // Create a new delivery in the database
   async createDelivery(delivery, imageUrl) {
-    const columns = Object.keys(delivery).join(', ');
-    const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
+    const keys = Object.keys(delivery).filter((key) => key !== 'creator_id');
+    const columns = keys.join(', ');
+    const values = keys.map((key) => `'${delivery[key]}'`).join(', ');
     const preparedQuery = {
       text: `INSERT INTO ${this.constructor.tableName} (${columns}, image, creator_id) VALUES (${values}, '${imageUrl}', $1) RETURNING *`,
       values: [delivery.creator_id],

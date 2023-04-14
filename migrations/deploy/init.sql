@@ -60,8 +60,8 @@ CREATE TABLE "delivery" (
     "arrival_date" TEXT NOT NULL,
     "price" POSNUM NOT NULL,
     "image" VARCHAR(255),
-    "creator_id " INT REFERENCES "users"("id"),
-    "carrier_id " INT REFERENCES "users"("id"),
+    "creator_id" INT REFERENCES "users"("id"),
+    "carrier_id" INT REFERENCES "users"("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );
