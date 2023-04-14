@@ -16,7 +16,7 @@ function setupSwagger(app) {
       produces: [
         'application/json',
       ],
-      schemes: ['http'],
+      schemes: ['https'],
       securityDefinitions: {
         JWT: {
           type: 'apiKey',
