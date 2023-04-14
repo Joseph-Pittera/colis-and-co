@@ -11,16 +11,39 @@ class DeliveryDataMapper extends CoreDataMapper {
     debug('delivery data mapper created');
   }
 
+  async findAllDeliveries(page, limit) {
+    debug(`${this.constructor.name} findAllDeliveries ${page} ${limit}`);
+    const pageSize = (page - 1) * limit;
+    const preparedQuery = {
+      text: ` SELECT * FROM "${this.constructor.tableName}" ORDER BY id LIMIT $1 OFFSET $2`,
+      values: [limit, pageSize],
+    };
+    const results = await client.query(preparedQuery);
+    return results.rows;
+  }
+
   // Create a new delivery in the database
   async createDelivery(delivery, imageUrl) {
-    debug(`${this.constructor.name} createDelivery`);
-    const columns = Object.keys(delivery).join(', ');
-    const values = Object.values(delivery).map((val) => `'${val}'`).join(', ');
+    const keys = Object.keys(delivery).filter((key) => key !== 'creator_id');
+    const columns = keys.join(', ');
+    const values = keys.map((key) => `'${delivery[key]}'`).join(', ');
     const preparedQuery = {
-      text: `INSERT INTO ${this.constructor.tableName} (${columns}, image) VALUES (${values}, '${imageUrl}') RETURNING *`,
+      text: `INSERT INTO ${this.constructor.tableName} (${columns}, image, creator_id) VALUES (${values}, '${imageUrl}', $1) RETURNING *`,
+      values: [delivery.creator_id],
     };
     const { rows } = await client.query(preparedQuery);
-    return rows[0];
+
+    const deliveryId = rows[0].id;
+    const query = {
+      text: `SELECT delivery.*, users.id AS user_id
+             FROM ${this.constructor.tableName} 
+             JOIN users ON delivery.creator_id = users.id
+             WHERE delivery.id = $1`,
+      values: [deliveryId],
+    };
+    const { rows: [deliveryWithUser] } = await client.query(query);
+
+    return deliveryWithUser;
   }
 
   // Update a delivery by its id
