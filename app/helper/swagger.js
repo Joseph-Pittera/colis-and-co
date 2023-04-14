@@ -10,7 +10,8 @@ function setupSwagger(app) {
         title: 'Colis&co Swagger',
         version: '1.0.0',
       },
-      host: `localhost:${process.env.PORT}`,
+      /* host: `localhost:${process.env.PORT}`, */
+      host: 'containers-us-west-69.railway.app',
       basePath: '/api',
       produces: [
         'application/json',
