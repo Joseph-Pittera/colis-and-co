@@ -15,7 +15,8 @@ export const MainContainer = () => {
 
   // manage fetch list of courses
   const { data, isLoading, error } = useFetch(
-    `http://localhost:3000/api/deliveries`
+    `https://projet-colis-and-co-production.up.railway.app/api/deliveries`
+    // `http://localhost:3000/api/deliveries`
   );
   console.log(data);
   if (error) {
