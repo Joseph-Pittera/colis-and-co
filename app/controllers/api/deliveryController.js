@@ -41,7 +41,7 @@ class DeliveryController extends CoreController {
     debug(`${this.constructor.name} createDelivery`);
     // Création et Récupération de l'URL de l'image
     let imageUrl;
-    if (typeof request.file === 'undefined' || typeof request.file.name === 'undefined') {
+    if (typeof request.file === 'undefined' || typeof request.file.filename === 'undefined') {
       imageUrl = '';
     } else {
       imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
