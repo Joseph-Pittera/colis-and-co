@@ -81,6 +81,20 @@ class DeliveryDataMapper extends CoreDataMapper {
     const result = await client.query(preparedQuery);
     return result.rows;
   }
+
+  async acceptDelivery(deliveryId, carrierId) {
+    debug(`${this.constructor.name} acceptDelivery(${deliveryId}, ${carrierId})`);
+    const preparedQuery = {
+      text: `UPDATE "${this.constructor.tableName}"  SET carrier_id = $1 WHERE id = $2 AND carrier_id IS NULL RETURNING *`,
+      values: [carrierId, deliveryId],
+    };
+    const result = await client.query(preparedQuery);
+
+    if (result.rowCount === 0) {
+      throw new Error('La course n\'existe pas.');
+    }
+    return result.rows[0];
+  }
 }
 
 module.exports = new DeliveryDataMapper();

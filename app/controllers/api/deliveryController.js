@@ -94,6 +94,24 @@ class DeliveryController extends CoreController {
     const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(city, zipcode);
     return response.json(deliveries);
   }
+
+  async acceptDelivery(request, response) {
+    debug(`${this.constructor.name} acceptDelivery`);
+    const deliveryId = request.params.id;
+    const { user } = request;
+    const delivery = await this.constructor.dataMapper.findByPk(deliveryId);
+    if (!delivery) {
+      return response.status(404).json({ message: 'La course n\'existe pas.' });
+    }
+    // Vérifie si l'utilisateur connecté est un transporteur
+    if (!user.carrier) {
+      return response.status(403).json({ message: 'Vous n\'êtes pas autorisé à accepter cette course.' });
+    }
+    // Met à jour la course avec l'ID de l'utilisateur connecté comme transporteur
+    delivery.carrier_id = user.id;
+    await this.constructor.dataMapper.acceptDelivery(delivery.id, delivery.carrier_id);
+    return response.json({ message: 'La course a été acceptée.' });
+  }
 }
 
 module.exports = new DeliveryController();
