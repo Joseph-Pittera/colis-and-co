@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const randomString = require('crypto').randomBytes(64).toString('hex');
 const debug = require('debug')('colis:controllers');
 const bcrypt = require('bcrypt');
 

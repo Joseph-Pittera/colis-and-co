@@ -28,6 +28,7 @@ class DeliveryController extends CoreController {
  * @param {Function} next - The callback function to handle errors
  * @memberof DeliveryController
  */
+
   async createDelivery(request, response) {
     debug(`${this.constructor.name} createDelivery`);
     // Création et Récupération de l'URL de l'image
