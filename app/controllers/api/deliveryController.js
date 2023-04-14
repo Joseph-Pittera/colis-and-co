@@ -28,17 +28,15 @@ class DeliveryController extends CoreController {
  * @param {Function} next - The callback function to handle errors
  * @memberof DeliveryController
  */
-  async createDelivery(req, res, next) {
-        debug(`${this.constructor.name} createDelivery`);
-      // Création et Récupération de l'URL de l'image
-      const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
-      const delivery = req.body;
+  async createDelivery(req, res) {
+    debug(`${this.constructor.name} createDelivery`);
+    // Création et Récupération de l'URL de l'image
+    const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
+    const delivery = req.body;
 
-      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
-      res.json(createdDelivery);
-
-      next(error);
-   }
+    const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
+    res.json(createdDelivery);
+  }
 
   /**
 * Update a delivery with the given ID using the provided data
