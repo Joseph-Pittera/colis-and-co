@@ -1,5 +1,6 @@
 const expressSwagger = require('express-swagger-generator');
 const path = require('path');
+require('dotenv').config();
 
 function setupSwagger(app) {
   const swaggerOptions = {
@@ -9,7 +10,7 @@ function setupSwagger(app) {
         title: 'Colis&co Swagger',
         version: '1.0.0',
       },
-      host: 'localhost:3000',
+      host: `localhost:${process.env.PORT}`,
       basePath: '/api',
       produces: [
         'application/json',
