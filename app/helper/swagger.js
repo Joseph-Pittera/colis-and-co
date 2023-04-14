@@ -11,7 +11,7 @@ function setupSwagger(app) {
         version: '1.0.0',
       },
       /* host: `localhost:${process.env.PORT}`, */
-      host: 'containers-us-west-69.railway.app',
+      host: 'projet-colis-and-co-production.up.railway.app',
       basePath: '/api',
       produces: [
         'application/json',
