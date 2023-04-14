@@ -44,8 +44,8 @@ export const MainContainer = () => {
     try {
       //*********************************** PROD *******************************/
       const response = await fetch(
-        `https://projet-colis-and-co-production.up.railway.app/api/users/login`,
-        // `http://localhost:3000/api/users/login`,
+        // `https://projet-colis-and-co-production.up.railway.app/api/users/login`,
+        `http://localhost:3000/api/users/login`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
