@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const deliveries = require('./delivery-10.json');
-const users = require('./users-10.json');
+const deliveries = require('.');
+const users = require('./users-10.json/delivery-10.json');
 
 let transaction = 'BEGIN;';
 
