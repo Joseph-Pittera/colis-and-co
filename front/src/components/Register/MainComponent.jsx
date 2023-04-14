@@ -88,12 +88,15 @@ export const MainComponent = () => {
         role: "user",
       });
       console.log("bodyRequest", bodyRequest);
-      const response = await fetch(`http://localhost:3000/api/users/register`, {
-        // const response = await fetch(`http://julienpayet974-server.eddi.cloud:8080/api/users/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: bodyRequest,
-      });
+      const response = await fetch(
+        `https://projet-colis-and-co-production.up.railway.app/api/users/register`,
+        {
+          // const response = await fetch(`http://localhost:3000/api/users/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: bodyRequest,
+        }
+      );
 
       console.log("response", response);
       if (!response.ok) {
