@@ -21,24 +21,29 @@ class DeliveryController extends CoreController {
  * Handles the creation of one delivery by the user
  * @async
  * @function createDelivery
- * @param {Object} req - The HTTP request object
- * @param {Object} req.file - The file object containing the image of the delivery
- * @param {Object} req.body - The delivery information
- * @param {Object} res - The HTTP response object
+ * @param {Object} request - The HTTP request object
+ * @param {Object} request.file - The file object containing the image of the delivery
+ * @param {Object} request.body - The delivery information
+ * @param {Object} response - The HTTP response object
  * @param {Function} next - The callback function to handle errors
  * @memberof DeliveryController
  */
-  async createDelivery(req, res, next) {
-        debug(`${this.constructor.name} createDelivery`);
-      // Création et Récupération de l'URL de l'image
-      const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
-      const delivery = req.body;
+  async createDelivery(request, response) {
+    debug(`${this.constructor.name} createDelivery`);
+    // Création et Récupération de l'URL de l'image
+    /* const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`; */
+    let imageUrl;
 
-      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
-      res.json(createdDelivery);
+    if (typeof request.file === 'undefined' || typeof request.file.name === 'undefined') {
+      imageUrl = '';
+    } else {
+      imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
+    }
+    const delivery = request.body;
 
-      next(error);
-   }
+    const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
+    response.json(createdDelivery);
+  }
 
   /**
 * Update a delivery with the given ID using the provided data
