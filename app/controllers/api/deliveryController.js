@@ -2,6 +2,8 @@ const debug = require('debug')('colis:controllers');
 const CoreController = require('./CoreController');
 const DeliveryDataMapper = require('../../models/deliveryDataMapper');
 require('dotenv').config();
+const cloudinary = require('../helpers/imageUpload');
+const fse = require('fs-extra');
 
 /** Class representing a delivery controller. */
 class DeliveryController extends CoreController {
@@ -39,15 +41,25 @@ class DeliveryController extends CoreController {
 
   async createDelivery(request, response) {
     debug(`${this.constructor.name} createDelivery`);
-    // Création et Récupération de l'URL de l'image
-    let imageUrl;
-    if (typeof request.file === 'undefined' || typeof request.file.filename === 'undefined') {
-      imageUrl = '';
-    } else {
-      imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
+
+    // Upload into Cloudinary
+    let imageUrl = '';
+    if (request.file) {
+      const result = await cloudinary.uploader.upload(request.file.path, {
+        public_id: `${request.file.filename}`,
+        width: 500,
+        height: 500,
+        crop: 'fill',
+      });
+      imageUrl = result.url;
+
+      // Remove image from local storage
+      await fse.remove(request.file.path);
     }
+
     const delivery = request.body;
     const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
+
     response.json(createdDelivery);
   }
 
