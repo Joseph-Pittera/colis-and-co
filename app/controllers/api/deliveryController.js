@@ -56,7 +56,6 @@ class DeliveryController extends CoreController {
   async createDelivery(request, response) {
     // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} createDelivery`);
-<<<<<<< HEAD
 
     // Upload into Cloudinary
     let imageUrl = '';
@@ -76,26 +75,6 @@ class DeliveryController extends CoreController {
     const delivery = request.body;
     const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
 
-=======
-    // Creates and retrieves the image URL for the delivery, if provided
-    let imageUrl;
-    if (
-      typeof request.file === 'undefined'
-      || typeof request.file.filename === 'undefined'
-    ) {
-      imageUrl = '';
-    } else {
-      imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
-    }
-    // Retrieves the delivery information from the request body
-    const delivery = request.body;
-    // Creates a new delivery record in the database using the dataMapper
-    const createdDelivery = await this.constructor.dataMapper.createDelivery(
-      delivery,
-      imageUrl,
-    );
-    // Sends the created delivery record as a JSON response
->>>>>>> main
     response.json(createdDelivery);
   }
 
