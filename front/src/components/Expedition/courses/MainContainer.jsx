@@ -1,14 +1,14 @@
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useFetch } from "@/utils/hooks";
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useFetch } from '@/utils/hooks';
 
-import { TextField, Typography, Box } from "@mui/material";
-import { Button } from "@mui/material";
-import { CircularProgress } from "@mui/material";
+import { TextField, Typography, Box } from '@mui/material';
+import { Button } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
-import { ListSubBox } from "./ListSubBox";
-import { SearchForm } from "./SearchForm";
+import { ListSubBox } from './ListSubBox';
+import { SearchForm } from './SearchForm';
 
 export const MainContainer = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ export const MainContainer = () => {
   );
   console.log(data);
   if (error) {
-    router.push("/404");
+    router.push('/404');
   }
 
   // hangle Input changes
@@ -43,7 +43,7 @@ export const MainContainer = () => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ my: 1.5, maxWidth: 150, textAlign: "center" }}
+          sx={{ my: 1.5, maxWidth: 150, textAlign: 'center' }}
           size="small"
         >
           Recherche
@@ -58,10 +58,10 @@ export const MainContainer = () => {
               return (
                 <Link
                   key={delivery.id}
-                  href={"/expedition/courses/" + delivery.id}
+                  href={'/expedition/courses/' + delivery.id}
                   style={{
-                    textDecoration: "none",
-                    color: "inherit",
+                    textDecoration: 'none',
+                    color: 'inherit',
                   }}
                 >
                   <ListSubBox>
@@ -81,12 +81,12 @@ export const MainContainer = () => {
                       width={{ xs: 260, md: 300 }}
                     >
                       <Typography fontSize={{ xs: 14, md: 16 }}>
-                        Format :{" "}
+                        Format :{' '}
                         {`${delivery.length}cmx${delivery.width}cmx${delivery.height}cm`}
                       </Typography>
                       <Typography fontSize={{ xs: 14, md: 16 }}>
-                        Départ à {delivery.city}, arrivée à{" "}
-                        {delivery.arrival_adddress}
+                        Départ à {delivery.city}, arrivée à{' '}
+                        {delivery.arrival_city}
                       </Typography>
                       <Typography fontSize={{ xs: 14, md: 16 }}>
                         Date de départ : {delivery.departure_date}
@@ -96,7 +96,7 @@ export const MainContainer = () => {
                       display="flex"
                       alignItems="center"
                       ml={2}
-                      width={{ xs: "150px", sm: "100px" }}
+                      width={{ xs: '150px', sm: '100px' }}
                     >
                       Prix : {delivery.price}€
                     </Typography>
