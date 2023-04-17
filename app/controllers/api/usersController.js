@@ -19,23 +19,30 @@ class UsersController extends CoreController {
     debug('userController created');
   }
 
+  /**
+   * Login action to authenticate the user with provided email and password
+   * @async
+   * @function loginAction
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
+   * @returns {Object} - JSON object containing user information and token
+  */
   async loginAction(request, response) {
-    try {
       debug(`${this.constructor.name} loginAction`);
 
       const { email, password } = request.body;
 
-      // On doit vérifier si l'email et le password de l'utilisateur  existe dans la base de données
-      // eslint-disable-next-line max-len
-      // on doit faire appel au userDatamapper afin de faire la requête et la stocker dans une variable
+      // We need to verify if the user's email and password exist in the database
+      // We must call the userDatamapper to make the request and store it in a variable
       const result = await this.constructor.dataMapper.loginAction(
         email,
         password,
       );
       debug('result', result);
-      // Génère un token avec JWT
+
+      // Generates a token with JWT
       const token = jwt.sign(result, process.env.SECRET, { expiresIn: '86400s' });
-      // On renvoie le json de l'user.
+      // Sends back the user's JSON with token
       const user = {
         id: result.id,
         email: result.email,
@@ -45,11 +52,17 @@ class UsersController extends CoreController {
       };
 
       response.json({ user });
-    } catch (error) {
-      response.status(401).json({ message: "Error d'authentification" });
+      response.status(401);
     }
-  }
 
+  /**
+   * Creates a new user with secure password storage
+   * @async
+   * @function createSecureUser
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
+   * @returns {Object} - JSON object containing the created user
+*/
   async createSecureUser(request, response) {
     debug(`${this.constructor.name} create`);
     const createObj = request.body;
@@ -66,6 +79,14 @@ class UsersController extends CoreController {
     response.status(201).json(createdUser);
   }
 
+  /**
+   * Retrieves the account information for the logged in user
+   * @async
+   * @function findAccountByUserId
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
+   * @returns {Object} - JSON object containing account information
+*/
   async findAccountByUserId(request, response) {
     debug(`${this.constructor.name} getAccount`);
     const userId = request.user.id;
@@ -75,15 +96,27 @@ class UsersController extends CoreController {
     response.json(account);
   }
 
+  /**
+   * Updates a user by their ID
+   * @async
+   * @function updateUserById
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
+   * @returns {Object} - JSON object containing the updated user data
+*/
   async updateUserById(request, response) {
     debug(`${this.constructor.name} updateUserById`);
+    // Get user ID from authenticated user's request
     const userId = request.user.id;
+    // Get updates from request body
     const updates = request.body;
+    // If password is being updated, hash it using bcrypt
     if (updates.password) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(updates.password, salt);
       updates.password = hashedPassword;
     }
+    // Update user in database using dataMapper
     const updatedCarrier = await this.constructor.dataMapper.updateUserById(
       userId,
       updates,
@@ -92,21 +125,37 @@ class UsersController extends CoreController {
     return response.json(updatedCarrier);
   }
 
+  /**
+   * Deletes the user account if password matches and user is authenticated
+   * @async
+   * @function deleteUserById
+   * @param {Object} request - HTTP request object
+   * @param {Object} response - HTTP response object
+   * @returns {Object} - Returns a status code 204 if successful, otherwise status code 401 with an error message.
+*/
   async deleteUserById(request, response) {
     debug(`${this.constructor.name} delete`);
     const { id } = request.user;
     const { password } = request.body;
-    // Vérifier le mot de passe de l'utilisateur
+    // Verifies user's password
     const user = await this.constructor.dataMapper.findByPk(id);
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return response.status(401).json({ error: 'Mot de passe incorrect' });
     }
-    // Supprimer le compte de l'utilisateur
+    // Deletes user's account
     await this.constructor.dataMapper.deleteUserById(id);
     return response.status(204).send();
   }
 
+  /**
+   * Finds a carrier by user's ID
+   * @async
+   * @function findCarrierByUserId
+   * @param {Object} request - The HTTP request object
+   * @param {Object} response - The HTTP response object
+   * @returns {Object} - The carrier information as JSON, or a 404 error if the carrier is not found
+*/
   async findCarrierByUserId(request, response) {
     debug(`${this.constructor.name} findCarrierByUserId`);
     const userId = request.params.id;
@@ -120,17 +169,29 @@ class UsersController extends CoreController {
     }
   }
 
+/**
+ * Update a carrier by its ID
+ * @async
+ * @function
+ * @param {Object} request - The HTTP request object
+ * @param {Object} response - The HTTP response object
+ *  @returns {Object}
+*/
   async updateCarrierById(request, response) {
     debug(`${this.constructor.name} updateCarrierById`);
+    // Gets the carrier ID and updates from the request body
     const carrierId = request.params.id;
+    // Updates the carrier and get the updated carrier information
     const updated = request.body;
     const updatedCarrier = await this.constructor.dataMapper.updateCarrierById(
       carrierId,
       updated,
     );
+    // If the carrier is not found, returns a 404 error response
     if (!updatedCarrier) {
       return response.status(404).send('Transporteur non trouvé');
     }
+    // Returns the updated carrier information
     return response.json(updatedCarrier);
   }
 }

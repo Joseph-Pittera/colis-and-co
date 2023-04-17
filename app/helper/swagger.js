@@ -1,8 +1,13 @@
 const expressSwagger = require('express-swagger-generator');
 const path = require('path');
 require('dotenv').config();
-
+/**
+ * Sets up Swagger documentation for an Express.js application
+ * @function setupSwagger
+ * @param {*} app
+ */
 function setupSwagger(app) {
+  // Object that specifies the basic information about the API
   const swaggerOptions = {
     swaggerDefinition: {
       info: {
@@ -25,8 +30,10 @@ function setupSwagger(app) {
         },
       },
     },
-    basedir: path.join(__dirname, '..'), // app absolute path
-    files: ['./routers/api/*.js'], // Path to the API handle folder
+    // Specifies the path to the root directory of the application
+    basedir: path.join(__dirname, '..'),
+    // Specifies the path to the folder containing the API handle files
+    files: ['./routers/api/*.js'],
   };
 
   expressSwagger(app)(swaggerOptions);

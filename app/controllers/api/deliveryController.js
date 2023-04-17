@@ -10,9 +10,9 @@ class DeliveryController extends CoreController {
   static dataMapper = DeliveryDataMapper;
 
   /**
- * Creates an instance of DeliveryController.
- * @memberof DeliveryController
- */
+   * Creates an instance of DeliveryController.
+   * @memberof DeliveryController
+   */
   constructor() {
     super();
 
@@ -20,27 +20,43 @@ class DeliveryController extends CoreController {
   }
 
   /**
- * Handles the creation of one delivery by the user
- * @async
- * @function createDelivery
- * @param {Object} request - The HTTP request object
- * @param {Object} request.file - The file object containing the image of the delivery
- * @param {Object} request.body - The delivery information
- * @param {Object} response - The HTTP response object
- * @param {Function} next - The callback function to handle errors
- * @memberof DeliveryController
- */
-
+* Retrieves a list of deliveries from the database, paginated and limited, and returns them as a JSON response
+* @async
+* @function findAllDeliveries
+* @param {object} request - The request object containing the page number for pagination
+* @param {object} response - The response object.
+* @memberof DeliveryController
+*/
   async findAllDeliveries(request, response) {
+    // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} findAllDeliveries`);
+    // Extracts the page number from the query parameter, defaults to 1 if not provided
     const page = Number(request.query.page) || 1;
-    const limit = 5;
-    const results = await this.constructor.dataMapper.findAllDeliveries(page, limit);
+    // Sets the limit for number of records to retrieve
+    const limit = 15;
+    // Retrieves the deliveries from the database using the dataMapper
+    const results = await this.constructor.dataMapper.findAllDeliveries(
+      page,
+      limit,
+    );
+    // Sends the results as a JSON response
     response.json(results);
   }
 
+  /**
+   * Creates a new delivery record in the database with an optional image URL and returns the created record as a JSON response
+   * @async
+   * @function createDelivery
+   * @param {Object} request - The HTTP request object
+   * @param {Object} request.file - The file object containing the optional image file
+   * @param {Object} request.body - The delivery information
+   * @param {Object} response - The HTTP response object
+   * @memberof DeliveryController
+   */
   async createDelivery(request, response) {
+    // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} createDelivery`);
+<<<<<<< HEAD
 
     // Upload into Cloudinary
     let imageUrl = '';
@@ -60,32 +76,58 @@ class DeliveryController extends CoreController {
     const delivery = request.body;
     const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
 
+=======
+    // Creates and retrieves the image URL for the delivery, if provided
+    let imageUrl;
+    if (
+      typeof request.file === 'undefined'
+      || typeof request.file.filename === 'undefined'
+    ) {
+      imageUrl = '';
+    } else {
+      imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
+    }
+    // Retrieves the delivery information from the request body
+    const delivery = request.body;
+    // Creates a new delivery record in the database using the dataMapper
+    const createdDelivery = await this.constructor.dataMapper.createDelivery(
+      delivery,
+      imageUrl,
+    );
+    // Sends the created delivery record as a JSON response
+>>>>>>> main
     response.json(createdDelivery);
   }
 
   /**
-* Update a delivery with the given ID using the provided data
-* @async
-* @function updateDeliveryById
-* @param {Object} request - The HTTP request object.
-* @param {integer} request.params.id - The ID of the delivery to update.
-* @param {Object} request.body - The delivery data to use for updating.
-* @param {Object} response - The HTTP response object.
-* @returns {Object} Returns a JSON object containing the updated delivery information.
-* @throws {Error} Throws an error that is passed to the error handling middleware
-* @memberof DeliveryController
-*/
+   * Updates a delivery with the given ID using the provided updates and returns the updated record as a JSON response
+   * @async
+   * @function updateDeliveryById
+   * @param {Object} request - The HTTP request object
+   * @param {integer} request.params.id - The ID of the delivery to update
+   * @param {Object} request.body - The delivery data to use for updating
+   * @param {Object} response - The HTTP response object.
+   * @returns {Object} Returns a JSON object containing the updated delivery information.
+   * @memberof DeliveryController
+   */
   async updateDeliveryById(request, response) {
+    // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} updateDeliveryById`);
+    // Extracts the ID of the delivery to update from the request parameters
     const deliveryId = request.params.id;
+    // Extracts the updates to apply to the delivery record from the request body
     const updates = request.body;
-    // eslint-disable-next-line max-len
-    const updatedCarrier = await this.constructor.dataMapper.updateDeliveryById(deliveryId, updates);
+    // Updates the delivery record in the database using the dataMapper
+    const updatedCarrier = await this.constructor.dataMapper.updateDeliveryById(
+      deliveryId,
+      updates,
+    );
+    // Sends the updated delivery record as a JSON response
     return response.json(updatedCarrier);
   }
 
   /**
-   * Find deliveries by city or zipcode
+   * Searches for delivery records in the database by city or zipcode and returns the matching records as a JSON response
    * @async
    * @function findByCityOrZipcode
    * @param {Object} request - The HTTP request object
@@ -96,14 +138,22 @@ class DeliveryController extends CoreController {
    * @memberof DeliveryController
    */
   async findByCityOrZipcode(request, response) {
+    // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} searchDeliveries`);
+    // Extracts the search criteria (city and/or zipcode) from the request query parameters
     const { city, zipcode } = request.query;
-
+    // Checks that at least one search criteria is provided
     if (!city && !zipcode) {
-      return response.status(400).json({ error: 'Ville ou departement pas trouvé' });
+      return response
+        .status(400)
+        .json({ error: 'Ville ou departement pas trouvé' });
     }
-
-    const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(city, zipcode);
+    // Searches for delivery records in the database using the dataMapper and the provided search criteria
+    const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(
+      city,
+      zipcode,
+    );
+    // Sends the matching delivery records as a JSON response
     return response.json(deliveries);
   }
 }

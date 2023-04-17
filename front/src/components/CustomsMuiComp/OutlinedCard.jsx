@@ -11,8 +11,8 @@ const InsideCard = ({ courseData }) => {
   const deleteCourse = async () => {
     try {
       const response = await fetch(
-        `https://projet-colis-and-co-production.up.railway.app/api/deliveries/${courseData.id}`,
-        // `http://localhost:3000/api/deliveries/${courseData.id}`,
+        // `https://projet-colis-and-co-production.up.railway.app/api/deliveries/${courseData.id}`,
+        `http://localhost:3000/api/deliveries/${courseData.id}`,
         {
           method: 'DELETE',
           headers: {

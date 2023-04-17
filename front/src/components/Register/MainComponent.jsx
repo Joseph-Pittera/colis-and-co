@@ -1,18 +1,18 @@
-import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
-import { AuthContext } from "@/utils/context/auth";
+import { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
+import { AuthContext } from '@/utils/context/auth';
 
-import { Button, Typography, Box, Stack, Alert } from "@mui/material";
-import { TextField, Autocomplete, FormControl } from "@mui/material";
-import { useMediaQuery, InputLabel, OutlinedInput } from "@mui/material";
-import { InputAdornment, IconButton, FormHelperText } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useTheme } from "@mui/material/styles";
+import { Button, Typography, Box, Stack, Alert } from '@mui/material';
+import { TextField, Autocomplete, FormControl } from '@mui/material';
+import { useMediaQuery, InputLabel, OutlinedInput } from '@mui/material';
+import { InputAdornment, IconButton, FormHelperText } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
 
-import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
-import { ResponsiveTextField } from "@/components/CustomsMuiComp/ResponsiveTextField";
-import { connexionDataValidation } from "@/components/Register/connexionDataValidation";
-import { Typo } from "@/components/CustomsMuiComp/LabelTypo";
+import { ConnexionBox } from '@/components/Connexion/ConnexionBox';
+import { ResponsiveTextField } from '@/components/CustomsMuiComp/ResponsiveTextField';
+import { connexionDataValidation } from '@/components/Register/connexionDataValidation';
+import { Typo } from '@/components/CustomsMuiComp/LabelTypo';
 
 export const MainComponent = () => {
   const [serverDataErrors, setServerDataErrors] = useState(false);
@@ -21,7 +21,7 @@ export const MainComponent = () => {
   const { login, userData } = useContext(AuthContext);
   const [error, setError] = useState(false);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   // handle password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -38,21 +38,21 @@ export const MainComponent = () => {
 
   // hangle Input changes
   const [values, setValues] = useState({
-    email: "",
-    password: "",
-    passwordConfirm: "",
-    first_name: "",
-    last_name: "",
-    address: "",
-    zipcode: "",
-    city: "",
-    birth_date: "",
-    phone_number: "",
+    email: '',
+    password: '',
+    passwordConfirm: '',
+    first_name: '',
+    last_name: '',
+    address: '',
+    zipcode: '',
+    city: '',
+    birth_date: '',
+    phone_number: '',
   });
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
     setErrorDataValidation((c) => (c = false));
-    console.log("values", values);
+    console.log('values', values);
   };
 
   // handle password confirmation
@@ -67,7 +67,7 @@ export const MainComponent = () => {
   const [errorDataValidation, setErrorDataValidation] = useState(null);
   const handleForm = async (e) => {
     setErrorDataValidation(connexionDataValidation(values));
-    console.log("errorDataValidation", errorDataValidation);
+    console.log('errorDataValidation', errorDataValidation);
     if (Object.keys(errorDataValidation).length !== 0) {
       return;
     }
@@ -85,28 +85,27 @@ export const MainComponent = () => {
         city: values.city,
         carrier: true,
         identity_verified: true,
-        role: "user",
+        role: 'user',
       });
-      console.log("bodyRequest", bodyRequest);
-      const response = await fetch(
-        `https://projet-colis-and-co-production.up.railway.app/api/users/register`,
-        {
-          // const response = await fetch(`http://localhost:3000/api/users/register`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: bodyRequest,
-        }
-      );
+      console.log('bodyRequest', bodyRequest);
+      //   const response = await fetch(
+      //     `https://projet-colis-and-co-production.up.railway.app/api/users/register`,
+      //     {
+      const response = await fetch(`http://localhost:3000/api/users/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: bodyRequest,
+      });
 
-      console.log("response", response);
+      console.log('response', response);
       if (!response.ok) {
         const respData = await response.json();
-        console.log("respData", respData.message);
+        console.log('respData', respData.message);
         setServerDataErrors({
           status: response.status,
           message: respData.message,
         });
-        console.log("ServerDataErrors", serverDataErrors);
+        console.log('ServerDataErrors', serverDataErrors);
         return;
       }
 
@@ -114,10 +113,10 @@ export const MainComponent = () => {
       //*********************************** PROD *******************************/
 
       login(respData); // add user data to context and local storage
-      router.push("/");
+      router.push('/');
     } catch (error) {
       console.log(error);
-      if (error.message === "Failed to fetch") {
+      if (error.message === 'Failed to fetch') {
         setConnexionToServerErrors(true);
       }
     }
@@ -160,7 +159,7 @@ export const MainComponent = () => {
         Inscription
       </Typography>
       {connexionToServerErrors && (
-        <Alert variant="outlined" severity="error" sx={{ m: "1rem" }}>
+        <Alert variant="outlined" severity="error" sx={{ m: '1rem' }}>
           Problème de connexion au serveur, veuillez réessayer plus tard...
         </Alert>
       )}
@@ -179,15 +178,15 @@ export const MainComponent = () => {
       <ConnexionBox handleForm={handleForm}>
         <Box
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
           }}
         >
           <Stack
             direction="column"
             m={1}
-            sx={{ minWidth: "20rem", maxWidth: "30rem", width: "45%" }}
+            sx={{ minWidth: '20rem', maxWidth: '30rem', width: '45%' }}
           >
             <ResponsiveTextField
               name="email"
@@ -197,12 +196,12 @@ export const MainComponent = () => {
                 (errorDataValidation && !!errorDataValidation.email) ||
                 serverDataErrors?.status === 409
               }
-              helperText={errorDataValidation?.email && "Email incorrect"}
+              helperText={errorDataValidation?.email && 'Email incorrect'}
             />
             <FormControl
               sx={{ m: 1 }}
               variant="outlined"
-              size={matches ? "small" : "normal"}
+              size={matches ? 'small' : 'normal'}
               error={
                 errorDataValidation &&
                 (!!errorDataValidation.password ||
@@ -215,7 +214,7 @@ export const MainComponent = () => {
               <OutlinedInput
                 id="outlined-adornment-password"
                 name="password"
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -241,7 +240,7 @@ export const MainComponent = () => {
             <FormControl
               sx={{ m: 1 }}
               variant="outlined"
-              size={matches ? "small" : "normal"}
+              size={matches ? 'small' : 'normal'}
               error={dataErrors}
             >
               <InputLabel htmlFor="outlined-adornment-password" required>
@@ -250,7 +249,7 @@ export const MainComponent = () => {
               <OutlinedInput
                 id="outlined-adornment-confirm-password"
                 name="passwordConfirm"
-                type={showConfirmPassword ? "text" : "password"}
+                type={showConfirmPassword ? 'text' : 'password'}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -270,7 +269,7 @@ export const MainComponent = () => {
                 }}
               />
               <FormHelperText id="component-error-text">
-                {dataErrors && "Mot de passe différent"}
+                {dataErrors && 'Mot de passe différent'}
               </FormHelperText>
             </FormControl>
             <ResponsiveTextField
@@ -278,7 +277,7 @@ export const MainComponent = () => {
               label="Nom"
               name="first_name"
               placeholder="Nom"
-              sx={{ maxWidth: "16rem" }}
+              sx={{ maxWidth: '16rem' }}
               onChange={handleChange}
             />
             <ResponsiveTextField
@@ -286,21 +285,21 @@ export const MainComponent = () => {
               label="Prénom"
               name="last_name"
               placeholder="Prénom"
-              sx={{ maxWidth: "16rem" }}
+              sx={{ maxWidth: '16rem' }}
               onChange={handleChange}
             />
           </Stack>
           <Stack
             direction="column"
             m={1}
-            sx={{ minWidth: "20rem", maxWidth: "30rem", width: "45%" }}
+            sx={{ minWidth: '20rem', maxWidth: '30rem', width: '45%' }}
           >
             <TextField
               required
               label="Date de naissance"
               name="birth_date"
               type="date"
-              size={matches ? "small" : "normal"}
+              size={matches ? 'small' : 'normal'}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -312,20 +311,20 @@ export const MainComponent = () => {
               name="phone_number"
               placeholder="Téléphone"
               type="tel"
-              sx={{ maxWidth: "16rem" }}
+              sx={{ maxWidth: '16rem' }}
               onChange={handleChange}
             />
             <Box>
               <Autocomplete
                 id="address"
-                size={matches ? "small" : "normal"}
+                size={matches ? 'small' : 'normal'}
                 sx={{ mr: 1 }}
                 options={addresses}
                 onChange={handleAddressSelection}
                 onInputChange={handleAddressInput}
                 renderInput={(params) => (
                   <TextField
-                    sx={{ width: "100%", pr: 1 }}
+                    sx={{ width: '100%', pr: 1 }}
                     label="Adresse"
                     {...params}
                     name="address"
@@ -339,7 +338,7 @@ export const MainComponent = () => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ mt: 3, width: 160, textAlign: "center" }}
+          sx={{ mt: 3, width: 160, textAlign: 'center' }}
         >
           Register
         </Button>

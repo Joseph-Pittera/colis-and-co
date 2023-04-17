@@ -1,3 +1,9 @@
+/**
+ * Middleware to authenticate token
+ * @param {Object} req - Request object
+ * @param {Object} res - Response object
+ * @param {function} next - Callback function to move to next middleware
+*/
 const debug = require('debug')('colis:middlewareJwt');
 const jwt = require('jsonwebtoken');
 

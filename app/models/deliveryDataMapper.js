@@ -41,14 +41,20 @@ class DeliveryDataMapper extends CoreDataMapper {
              WHERE delivery.id = $1`,
       values: [deliveryId],
     };
-    const { rows: [deliveryWithUser] } = await client.query(query);
+    const {
+      rows: [deliveryWithUser],
+    } = await client.query(query);
 
     return deliveryWithUser;
   }
 
   // Update a delivery by its id
   async updateDeliveryById(userId, updates) {
-    debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
+    debug(
+      `${
+        this.constructor.name
+      } updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`
+    );
     const setClause = Object.keys(updates)
       .map((key, index) => `"${key}"=$${index + 2}`)
       .join(', ');
