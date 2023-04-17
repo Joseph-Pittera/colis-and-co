@@ -1,6 +1,5 @@
-# Projet-Colis-and-Co
-## Titre du projet 
-Colis and Co 
+# Colis&Co
+
 ## Description du projet 
 
 ## Technologies utilisées
