@@ -38,13 +38,13 @@ const router = express.Router();
  */
 router.get('/', controllerHandler(usersController.findAll.bind(usersController)));
 /**
- * Define a GET route for user's login
+ * Define a POST route for user's login
  * @route POST /users/login
  * @group Users - Operations about user
  * @param {string} email.query.required - email
  * @param {string} password.query.required - user's password
  * @returns {object} 200 - An object with "result"
- * @returns {Error}  default - Unexpected error
+ * @returns {Error}  401
  */
 router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersController.loginAction.bind(usersController)));
 
