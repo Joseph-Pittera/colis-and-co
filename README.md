@@ -12,9 +12,24 @@ Il aura la possibilité lorsqu'il sera connecté de créer des courses et d'en a
 
 ## Technologies utilisées
 
-Front-end
+**Front-end
 
-*
+* REACT
+* Material UI
+* NextJs
+
+la partie front a été déployée sur Vercel.
+
+**Back-end
+
+* Node.js
+* Express
+* PostreSql
+* Sqitch pour les migrations
+* Git pour le versioning
+
+L'API a été déployée sur Railway. [projet-colis-and-co-production.up.railway.app](https://projet-colis-and-co-production.up.railway.app/)
+
 
 ## Comment utiliser le projet
 
