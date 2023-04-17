@@ -136,21 +136,34 @@ class DeliveryController extends CoreController {
     return response.json(deliveries);
   }
 
+  /**
+   *
+   * @async
+   * @function acceptDelivery
+   * @param {Object} request - The request object
+   * @param {Object} response - The response object
+   * @returns {Promise} - Promise object represents the response of the API call
+   * @description Accepts a delivery by updating the delivery object with the ID of the user who accepted it
+*/
   async acceptDelivery(request, response) {
     debug(`${this.constructor.name} acceptDelivery`);
     const deliveryId = request.params.id;
     const { user } = request;
+    // Retrieves the delivery object from the dataMapper
     const delivery = await this.constructor.dataMapper.findByPk(deliveryId);
+    // If delivery does not exist, return a 404 status and an error message
     if (!delivery) {
       return response.status(404).json({ message: 'La course n\'existe pas.' });
     }
-    // Vérifie si l'utilisateur connecté est un transporteur
+    // Checks if the connected user is a carrier
     if (!user.carrier) {
       return response.status(403).json({ message: 'Vous n\'êtes pas autorisé à accepter cette course.' });
     }
-    // Met à jour la course avec l'ID de l'utilisateur connecté comme transporteur
+    // Updates the delivery object with the ID of the connected user as the carrier
     delivery.carrier_id = user.id;
+    // Calls the dataMapper method to update the delivery object in the database
     await this.constructor.dataMapper.acceptDelivery(delivery.id, delivery.carrier_id);
+    // Return a success message in a JSON format
     return response.json({ message: 'La course a été acceptée.' });
   }
 }

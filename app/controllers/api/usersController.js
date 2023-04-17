@@ -28,32 +28,32 @@ class UsersController extends CoreController {
    * @returns {Object} - JSON object containing user information and token
   */
   async loginAction(request, response) {
-      debug(`${this.constructor.name} loginAction`);
+    debug(`${this.constructor.name} loginAction`);
 
-      const { email, password } = request.body;
+    const { email, password } = request.body;
 
-      // We need to verify if the user's email and password exist in the database
-      // We must call the userDatamapper to make the request and store it in a variable
-      const result = await this.constructor.dataMapper.loginAction(
-        email,
-        password,
-      );
-      debug('result', result);
+    // We need to verify if the user's email and password exist in the database
+    // We must call the userDatamapper to make the request and store it in a variable
+    const result = await this.constructor.dataMapper.loginAction(
+      email,
+      password,
+    );
+    debug('result', result);
 
-      // Generates a token with JWT
-      const token = jwt.sign(result, process.env.SECRET, { expiresIn: '86400s' });
-      // Sends back the user's JSON with token
-      const user = {
-        id: result.id,
-        email: result.email,
-        firstName: result.firstName,
-        lastName: result.lastName,
-        token,
-      };
+    // Generates a token with JWT
+    const token = jwt.sign(result, process.env.SECRET, { expiresIn: '86400s' });
+    // Sends back the user's JSON with token
+    const user = {
+      id: result.id,
+      email: result.email,
+      firstName: result.firstName,
+      lastName: result.lastName,
+      token,
+    };
 
-      response.json({ user });
-      response.status(401);
-    }
+    response.json({ user });
+    response.status(401);
+  }
 
   /**
    * Creates a new user with secure password storage
@@ -169,7 +169,7 @@ class UsersController extends CoreController {
     }
   }
 
-/**
+  /**
  * Update a carrier by its ID
  * @async
  * @function
