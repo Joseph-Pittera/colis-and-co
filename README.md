@@ -1,16 +1,16 @@
 # Projet-Colis-and-Co
-# Titre du projet 
+## Titre du projet 
 Colis and Co 
-# Description du projet 
+## Description du projet 
 
-# Technologies utilisées
+## Technologies utilisées
 
-# Comment utiliser le projet
+## Comment utiliser le projet
 
-# Fonctionalités clés
+## Fonctionalités clés
 
-# Capture d'écran
+## Capture d'écran
 
-# Licence
+## Licence
 
-# Remerciments
+## Remerciments
