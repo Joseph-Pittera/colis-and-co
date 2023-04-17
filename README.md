@@ -18,7 +18,7 @@ Il aura la possibilité lorsqu'il sera connecté de créer des courses et d'en a
 * Material UI
 * NextJs
 
-La partie front a été déployée sur Vercel(https://projet-colis-and-co.vercel.app/).
+La partie front a été déployée sur Vercel https://projet-colis-and-co.vercel.app/.
 
 **Back-end**
 
