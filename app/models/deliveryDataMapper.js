@@ -66,30 +66,23 @@ class DeliveryDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
-  async findByCityOrZipcode(city, zipcode) {
-    debug(`${this.constructor.name} findByCityOrZipcode(${city},${zipcode})`);
+  async findByCityOrZipcode(searchData) {
+    debug(`${this.constructor.name} findByCityOrZipcode(${searchData})`);
     let preparedQuery;
 
-    if (city) {
-      preparedQuery = {
-        text: `SELECT * FROM "${this.constructor.tableName}" WHERE city = $1`,
-        values: [city],
-      };
-    } else if (zipcode) {
-      preparedQuery = {
-        text: `SELECT *, LEFT(SUBSTRING(zipcode, 1, 2), 2) AS department FROM "${this.constructor.tableName}" WHERE zipcode LIKE $1 || '%'`,
-        values: [zipcode],
-      };
-    } else {
-      throw new Error('Entrer la ville ou le codepostal/departement');
-    }
+    preparedQuery = {
+      text: `SELECT * FROM "${this.constructor.tableName}" WHERE city ILIKE '%' || $1 || '%' OR zipcode LIKE $1 || '%' OR arrival_city ILIKE '%' || $1 || '%'`,
+      values: [searchData],
+    };
 
     const result = await client.query(preparedQuery);
     return result.rows;
   }
 
   async acceptDelivery(deliveryId, carrierId) {
-    debug(`${this.constructor.name} acceptDelivery(${deliveryId}, ${carrierId})`);
+    debug(
+      `${this.constructor.name} acceptDelivery(${deliveryId}, ${carrierId})`
+    );
     const preparedQuery = {
       text: `UPDATE "${this.constructor.tableName}"  SET carrier_id = $1 WHERE id = $2 AND carrier_id IS NULL RETURNING *`,
       values: [carrierId, deliveryId],
@@ -97,7 +90,7 @@ class DeliveryDataMapper extends CoreDataMapper {
     const result = await client.query(preparedQuery);
 
     if (result.rowCount === 0) {
-      throw new Error('La course n\'existe pas.');
+      throw new Error("La course n'existe pas.");
     }
     return result.rows[0];
   }
