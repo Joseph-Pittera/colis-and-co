@@ -2,6 +2,8 @@ const debug = require('debug')('colis:controllers');
 const CoreController = require('./CoreController');
 const DeliveryDataMapper = require('../../models/deliveryDataMapper');
 require('dotenv').config();
+const cloudinary = require('../helpers/imageUpload');
+const fse = require('fs-extra');
 
 /** Class representing a delivery controller. */
 class DeliveryController extends CoreController {
@@ -21,24 +23,45 @@ class DeliveryController extends CoreController {
  * Handles the creation of one delivery by the user
  * @async
  * @function createDelivery
- * @param {Object} req - The HTTP request object
- * @param {Object} req.file - The file object containing the image of the delivery
- * @param {Object} req.body - The delivery information
- * @param {Object} res - The HTTP response object
+ * @param {Object} request - The HTTP request object
+ * @param {Object} request.file - The file object containing the image of the delivery
+ * @param {Object} request.body - The delivery information
+ * @param {Object} response - The HTTP response object
  * @param {Function} next - The callback function to handle errors
  * @memberof DeliveryController
  */
-  async createDelivery(req, res, next) {
-        debug(`${this.constructor.name} createDelivery`);
-      // Création et Récupération de l'URL de l'image
-      const imageUrl = `${process.env.IMAGE_URL}${req.file.filename}`;
-      const delivery = req.body;
 
-      const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
-      res.json(createdDelivery);
+  async findAllDeliveries(request, response) {
+    debug(`${this.constructor.name} findAllDeliveries`);
+    const page = Number(request.query.page) || 1;
+    const limit = 5;
+    const results = await this.constructor.dataMapper.findAllDeliveries(page, limit);
+    response.json(results);
+  }
 
-      next(error);
-   }
+  async createDelivery(request, response) {
+    debug(`${this.constructor.name} createDelivery`);
+
+    // Upload into Cloudinary
+    let imageUrl = '';
+    if (request.file) {
+      const result = await cloudinary.uploader.upload(request.file.path, {
+        public_id: `${request.file.filename}`,
+        width: 500,
+        height: 500,
+        crop: 'fill',
+      });
+      imageUrl = result.url;
+
+      // Remove image from local storage
+      await fse.remove(request.file.path);
+    }
+
+    const delivery = request.body;
+    const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
+
+    response.json(createdDelivery);
+  }
 
   /**
 * Update a delivery with the given ID using the provided data

@@ -1,7 +1,8 @@
+-- SQLBook: Code
 -- Deploy colisandco:init to pg
 BEGIN;
 
-CREATE DOMAIN email_validator AS text CHECK(
+CREATE DOMAIN "email_validator" AS text CHECK(
     value ~ '^[a-zA-Z0-9.!#$%&''+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$'
 );
 
@@ -50,17 +51,17 @@ CREATE TABLE "delivery" (
     "departure_address" TEXT NOT NULL,
     "zipcode" ZIPCODE NOT NULL,
     "city" TEXT NOT NULL,
-    "sender_phonenumber" TEXT NOT NULL,
+    "departure_phone_number" TEXT NOT NULL,
     "arrival_address" TEXT NOT NULL,
     "arrival_zipcode" ZIPCODE NOT NULL,
     "arrival_city" TEXT NOT NULL,
-    "recipient_phonenumber" TEXT NOT NULL,
+    "arrival_phone_number" TEXT NOT NULL,
     "departure_date" TEXT NOT NULL,
     "arrival_date" TEXT NOT NULL,
     "price" POSNUM NOT NULL,
     "image" VARCHAR(255),
-    "creator_id " INT REFERENCES "users"("id"),
-    "carrier_id " INT REFERENCES "users"("id"),
+    "creator_id" INT REFERENCES "users"("id"),
+    "carrier_id" INT REFERENCES "users"("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updated_at" TIMESTAMPTZ
 );

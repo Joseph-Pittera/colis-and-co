@@ -49,7 +49,6 @@ class CoreController {
     const createObj = request.body;
     const createdObj = await this.constructor.dataMapper.create(createObj);
     response.status(201).json(createdObj);
-    
   }
 
   /**
