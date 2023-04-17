@@ -1,25 +1,25 @@
-import * as React from "react";
-import { Box, Typography, Modal, Stack } from "@mui/material";
-import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
+import * as React from 'react';
+import { Box, Typography, Modal, Stack } from '@mui/material';
+import { LinkButton } from '@/components/CustomsMuiComp/LinkButton';
 
 const style = {
-  position: "absolute",
-  bottom: "0",
-  left: "50%",
-  transform: "translate(-50%, -10%)",
-  width: "90%",
-  maxWidth: "500px",
-  bgcolor: "background.paper",
-  border: "1px solid #00000075",
+  position: 'absolute',
+  bottom: '0',
+  left: '50%',
+  transform: 'translate(-50%, -10%)',
+  width: '90%',
+  maxWidth: '500px',
+  bgcolor: 'background.paper',
+  border: '1px solid #00000075',
   boxShadow: 24,
-  borderRadius: "10px",
+  borderRadius: '10px',
   p: 4,
   outline: 0,
 };
 
-export function CookiesModal({ isOpen, onRequestClose }) {
+export function CookiesModal({ isOpen, onRequestClose, setShowCookieModal }) {
   const handleAcceptCookies = () => {
-    localStorage.setItem("colisandcoCookieConsent", true);
+    localStorage.setItem('colisandcoCookieConsent', true);
     setShowCookieModal(false);
   };
 
@@ -41,7 +41,7 @@ export function CookiesModal({ isOpen, onRequestClose }) {
           </Typography>
           <Stack
             spacing={2}
-            direction={{ xs: "column", sm: "row" }}
+            direction={{ xs: 'column', sm: 'row' }}
             justifyContent="center"
             mt={2}
           >
