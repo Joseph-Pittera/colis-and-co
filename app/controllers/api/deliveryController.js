@@ -2,6 +2,8 @@ const debug = require('debug')('colis:controllers');
 const CoreController = require('./CoreController');
 const DeliveryDataMapper = require('../../models/deliveryDataMapper');
 require('dotenv').config();
+const cloudinary = require('../helpers/imageUpload');
+const fse = require('fs-extra');
 
 /** Class representing a delivery controller. */
 class DeliveryController extends CoreController {
@@ -54,24 +56,25 @@ class DeliveryController extends CoreController {
   async createDelivery(request, response) {
     // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} createDelivery`);
-    // Creates and retrieves the image URL for the delivery, if provided
-    let imageUrl;
-    if (
-      typeof request.file === 'undefined'
-      || typeof request.file.filename === 'undefined'
-    ) {
-      imageUrl = '';
-    } else {
-      imageUrl = `${process.env.IMAGE_URL}${request.file.filename}`;
+
+    // Upload into Cloudinary
+    let imageUrl = '';
+    if (request.file) {
+      const result = await cloudinary.uploader.upload(request.file.path, {
+        public_id: `${request.file.filename}`,
+        width: 500,
+        height: 500,
+        crop: 'fill',
+      });
+      imageUrl = result.url;
+
+      // Remove image from local storage
+      await fse.remove(request.file.path);
     }
-    // Retrieves the delivery information from the request body
+
     const delivery = request.body;
-    // Creates a new delivery record in the database using the dataMapper
-    const createdDelivery = await this.constructor.dataMapper.createDelivery(
-      delivery,
-      imageUrl,
-    );
-    // Sends the created delivery record as a JSON response
+    const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
+
     response.json(createdDelivery);
   }
 
@@ -131,6 +134,24 @@ class DeliveryController extends CoreController {
     );
     // Sends the matching delivery records as a JSON response
     return response.json(deliveries);
+  }
+
+  async acceptDelivery(request, response) {
+    debug(`${this.constructor.name} acceptDelivery`);
+    const deliveryId = request.params.id;
+    const { user } = request;
+    const delivery = await this.constructor.dataMapper.findByPk(deliveryId);
+    if (!delivery) {
+      return response.status(404).json({ message: 'La course n\'existe pas.' });
+    }
+    // Vérifie si l'utilisateur connecté est un transporteur
+    if (!user.carrier) {
+      return response.status(403).json({ message: 'Vous n\'êtes pas autorisé à accepter cette course.' });
+    }
+    // Met à jour la course avec l'ID de l'utilisateur connecté comme transporteur
+    delivery.carrier_id = user.id;
+    await this.constructor.dataMapper.acceptDelivery(delivery.id, delivery.carrier_id);
+    return response.json({ message: 'La course a été acceptée.' });
   }
 }
 

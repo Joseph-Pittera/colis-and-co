@@ -90,7 +90,8 @@ router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.b
  * @group Deliveries - Operations about deliveries
  * @returns {object} 204 - An object with "result"
  */
-router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findByPk.bind(deliveryController)));
+
+router.get('/:id', controllerHandler(deliveryController.findByPk.bind(deliveryController)));
 
 /**
  * Define a PUT route to update one delivery
@@ -99,7 +100,7 @@ router.get('/:id', authenticationJwt, controllerHandler(deliveryController.findB
  * @returns {object} An object
  */
 
-router.put('/:id', authenticationJwt, validate(schemas.put, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
+router.put('/:id', validate(schemas.put, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
 /**
  * Define a DELETE route to suppress one delivery
@@ -110,5 +111,7 @@ router.put('/:id', authenticationJwt, validate(schemas.put, 'body'), controllerH
 // Degine a DELETE route to delete a delivery by ID
 
 router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
+
+router.put('/:id/accept', validate(schemas.put, 'body'), controllerHandler(deliveryController.acceptDelivery.bind(deliveryController)));
 
 module.exports = router;
