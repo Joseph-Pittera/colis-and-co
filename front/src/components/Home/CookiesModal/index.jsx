@@ -14,9 +14,15 @@ const style = {
   boxShadow: 24,
   borderRadius: "10px",
   p: 4,
+  outline: 0,
 };
 
-export function CookiesModal({ isOpen, onRequestClose, onAccept }) {
+export function CookiesModal({ isOpen, onRequestClose }) {
+  const handleAcceptCookies = () => {
+    localStorage.setItem("colisandcoCookieConsent", true);
+    setShowCookieModal(false);
+  };
+
   return (
     <div>
       <Modal
@@ -39,8 +45,11 @@ export function CookiesModal({ isOpen, onRequestClose, onAccept }) {
             justifyContent="center"
             mt={2}
           >
-            <LinkButton onClick={onAccept} size="small">
+            <LinkButton onClick={handleAcceptCookies} size="small">
               Accepter
+            </LinkButton>
+            <LinkButton onClick={onRequestClose} size="small">
+              Refuser
             </LinkButton>
           </Stack>
         </Box>

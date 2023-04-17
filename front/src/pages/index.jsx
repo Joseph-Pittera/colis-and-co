@@ -15,11 +15,6 @@ export default function Home() {
     }
   }, []);
 
-  const handleAcceptCookies = () => {
-    localStorage.setItem("colisandcoCookieConsent", true);
-    setShowCookieModal(false);
-  };
-
   return (
     <Layout>
       <HeadCard />
@@ -28,7 +23,6 @@ export default function Home() {
         <CookiesModal
           isOpen={true}
           onRequestClose={() => setShowCookieModal(false)}
-          onAccept={handleAcceptCookies}
         />
       )}
     </Layout>
