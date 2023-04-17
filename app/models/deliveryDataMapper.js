@@ -11,6 +11,13 @@ class DeliveryDataMapper extends CoreDataMapper {
     debug('delivery data mapper created');
   }
 
+  /** Retrieves a specified page of delivery records from the corresponding database table
+   * @async
+   * @function findAllDeliveries
+   * @param {number} page - The page number to retrieve
+   * @param {number} limit - The maximum number of records to retrieve per page
+   * @returns {Promise<Array<Object>>} - A promise that resolves with an array of delivery records
+*/
   async findAllDeliveries(page, limit) {
     debug(`${this.constructor.name} findAllDeliveries ${page} ${limit}`);
     const pageSize = (page - 1) * limit;
@@ -22,6 +29,14 @@ class DeliveryDataMapper extends CoreDataMapper {
     return results.rows;
   }
 
+  /**
+   * Creates a new delivery with the given delivery object and image URL
+   * @async
+   * @function createDelivery
+   * @param {Object} delivery - The delivery object to be created
+   * @param {string} imageUrl - The URL of the image associated with the delivery
+   * @returns {Object} - The newly created delivery object along with the user who created it
+*/
   // Create a new delivery in the database
   async createDelivery(delivery, imageUrl) {
     const keys = Object.keys(delivery).filter((key) => key !== 'creator_id');
@@ -48,12 +63,19 @@ class DeliveryDataMapper extends CoreDataMapper {
     return deliveryWithUser;
   }
 
-  // Update a delivery by its id
+  /**
+   * Updates a delivery by its ID with the provided updates
+   * @async
+   * @function updateDeliveryById
+   * @param {number} userId - The ID of the delivery to update
+   * @param {object} updates - The updates to apply to the delivery
+   * @returns {Promise<object>} The updated delivery object
+*/
   async updateDeliveryById(userId, updates) {
     debug(
       `${
         this.constructor.name
-      } updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`
+      } updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`,
     );
     const setClause = Object.keys(updates)
       .map((key, index) => `"${key}"=$${index + 2}`)
@@ -66,6 +88,15 @@ class DeliveryDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
+  /**
+   * Finds deliveries by city or zipcode
+   * @async
+   * @function findByCityOrZipcode
+   * @param {string} city - The city name to search for deliveries
+   * @param {string} zipcode - The zipcode or department code to search for deliveries
+   * @throws {Error} If neither city nor zipcode is provided
+   * @returns {Array} An array of deliveries matching the search criteria
+*/
   async findByCityOrZipcode(city, zipcode) {
     debug(`${this.constructor.name} findByCityOrZipcode(${city},${zipcode})`);
     let preparedQuery;
@@ -88,6 +119,15 @@ class DeliveryDataMapper extends CoreDataMapper {
     return result.rows;
   }
 
+  /**
+   * Accepts a delivery by updating the carrier_id field of a delivery with the specified deliveryId, if the delivery exists and has no carrier assigned to it yet
+   * @async
+   * @function acceptDelivery
+   * @param {number} deliveryId - The ID of the delivery to accept
+   * @param {number} carrierId - The ID of the carrier accepting the delivery
+   * @throws {Error} If the delivery does not exist or already has a carrier assigned to it
+   * @returns {Object} The updated delivery object
+*/
   async acceptDelivery(deliveryId, carrierId) {
     debug(`${this.constructor.name} acceptDelivery(${deliveryId}, ${carrierId})`);
     const preparedQuery = {

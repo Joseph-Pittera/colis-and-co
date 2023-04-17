@@ -6,6 +6,13 @@ class CoreDataMapper {
 
   static viewName; // if viewName is defined, it will be used for find methods
 
+  /**
+   * Fetches all rows from the corresponding database table or view
+   * @async
+   * @function findAll
+   * @returns {Promise<Object[]>} - An array of objects representing the fetched rows
+   * Each object corresponds to a row in the database, and contains key-value pairs representing the columns and their values
+*/
   // Trouver tous les éléments dans la table ou la vue correspondant à la classe appelante
   async findAll() {
     debug(`${this.constructor.name} findAll`);
@@ -17,6 +24,13 @@ class CoreDataMapper {
     return results.rows;
   }
 
+  /**
+   * Fetches a single row from the corresponding database table or view by its primary key
+   * @async
+   * @function findByPk
+   * @param {number} id - The value of the primary key to search for
+   * @returns {Promise<Object>} - An object representing the fetched row
+*/
   // Trouver un élément dans la table ou la vue correspondant à la classe
   // appelante à partir de son ID
   async findByPk(id) {
@@ -30,6 +44,13 @@ class CoreDataMapper {
     return results.rows[0];
   }
 
+  /**
+   * Creates a new row in the corresponding database table with the specified column values
+   * @async
+   * @function
+   * @param {Object} createObj - An object representing the column names and their values for the new rows
+   * @returns {Promise<Object>} - An object representing the newly created row
+  */
   // Crée un nouvel élément dans la table correspondant à la classe appelante
   async create(createObj) {
     debug(`${this.constructor.name} create`);
@@ -42,10 +63,17 @@ class CoreDataMapper {
     return results.rows[0];
   }
 
-  // Update  un élément dans la table correspondant à la classe appelante à partir de son ID
+  /**
+   * Updates a row in the corresponding database table with the specified column values
+   * @async
+   * @function update
+   * @param {number} id - The value of the primary key to search for
+   * @param {Object} modObject - An object representing the column names and their updated values for the row
+   * @returns {Promise<Object>} - An object representing the updated row
+   * */
+  // Update un élément dans la table correspondant à la classe appelante à partir de son ID
   async update(id, modObject) {
     // Ajoute un message de debug pour suivre l'exécution de la fonction
-
     debug(`${this.constructor.name} modify(${id})`);
     // Fait une copie de l'objet de modification pour éviter de modifier l'original
     const modifiedItem = { ...modObject };
@@ -62,6 +90,13 @@ class CoreDataMapper {
     return results.rows[0];
   }
 
+  /**
+   * Deletes a row from the corresponding database table or view by its primary key
+   * @async
+   * @function delete
+   * @param {number} id - The value of the primary key to search for
+   * @returns {Promise<void>} - A promise that resolves when the delete operation is complete
+   */
   async delete(id) {
     debug(`${this.constructor.name} delete(${id})`);
     const preparedQuery = {

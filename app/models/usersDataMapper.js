@@ -19,8 +19,13 @@ class UserDataMapper extends CoreDataMapper {
     debug('users data mapper created');
   }
 
-  // On créé la méthode loginAction
-
+  /**
+   * Finds a user in the database by their email address
+   * @async
+   * @function getUserByEmail
+   * @param {string} email - The email address of the user to find
+   * @returns {Promise<object>} - A Promise that resolves with an object representing the user with the given email
+*/
   async getUserByEmail(email) {
     debug(`${this.constructor.name} loginAction(${email}`);
 
@@ -42,6 +47,15 @@ class UserDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
+  /**
+   * Logs a user in by their email and password
+   * @async
+   * @function loginAction
+   * @param {string} email - The email address of the user to log in
+   * @param {string} password - The password of the user to log in
+   * @returns {Promise<object>} - A Promise that resolves with an object representing the logged-in user's information, including their ID, email address, first name, and last name.
+   * @throws {Error} - If the email or password is invalid
+*/
   async loginAction(email, password) {
     const user = await this.getUserByEmail(email);
 
@@ -63,6 +77,13 @@ class UserDataMapper extends CoreDataMapper {
     };
   }
 
+  /**
+   * Finds a user by their email
+   * @async
+   * @function findByEmail
+   * @param {string} email - Email of the user to be found
+   * @returns {object} - Returns the user
+*/
   async findByEmail(email) {
     debug(`${this.constructor.name} findByEmail`);
     const preparedQuery = {
@@ -73,6 +94,17 @@ class UserDataMapper extends CoreDataMapper {
     return results.rows[0];
   }
 
+  /**
+   * Creates a new user with a hashed password
+   * @async
+   * @function createSecureUser
+   * @param {object} newUser - Object containing user details to be created
+   * @param {string} newUser.email - Email of the user to be created
+   * @param {string} newUser.password - Password of the user to be created
+   * @param {string} newUser.firstName - First name of the user to be created
+   * @param {string} newUser.lastName - Last name of the user to be created
+   * @returns {object} - Returns the created user object with the hashed password
+*/
   async createSecureUser(newUser) {
     debug(`${this.constructor.name} CreateSecureUser`);
     // Hasher le mot de passe avant de l'ajouter à la base de données
@@ -89,6 +121,13 @@ class UserDataMapper extends CoreDataMapper {
     return results.rows[0];
   }
 
+  /**
+   * Finds an specific account by their user's ID
+   * @async
+   * @function findAccountByUserId
+   * @param {number} userId - ID of the user whose account is to be found
+   * @returns {object|null} - Returns the account object if found, otherwise returns null
+*/
   async findAccountByUserId(userId) {
     debug(`${this.constructor.name} findAccountByUserId`);
     const query = {
@@ -102,6 +141,18 @@ class UserDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
+  /**
+   * Allows a user to update their account information
+   * @async
+   * @function updateUserById
+   * @param {number} userId - ID of the user to be updated
+   * @param {object} updates - Object containing fields to be updated
+   * @param {string} [updates.email] - Email of the user to be updated
+   * @param {string} [updates.password] - Password of the user to be updated
+   * @param {string} [updates.firstName] - First name of the user to be updated
+   * @param {string} [updates.lastName] - Last name of the user to be updated
+   * @returns {object} - Returns the updated user object
+*/
   async updateUserById(userId, updates) {
     debug(`${this.constructor.name} updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`);
     if (updates.password) {
@@ -121,6 +172,12 @@ class UserDataMapper extends CoreDataMapper {
     return result.rows[0];
   }
 
+  /**
+   * Deletes a specific user's account found by their ID
+   * @async
+   * @function deleteUserById
+   * @param {number} id - ID of the user to be deleted
+*/
   async deleteUserById(id) {
     debug(`${this.constructor.name} delete(${id})`);
     const preparedQuery = {
@@ -130,6 +187,13 @@ class UserDataMapper extends CoreDataMapper {
     await client.query(preparedQuery);
   }
 
+  /**
+   * Finds a specific user who is a carrier
+   * @async
+   * @function findCarrierByUserId
+   * @param {number} userId - ID of the carrier to be found
+   * @returns {object} - Returns the carrier object
+   * */
   async findCarrierByUserId(userId) {
     debug(`${this.constructor.name} findCarrierByUserId(${userId})`);
     const preparedQuery = {
@@ -140,6 +204,18 @@ class UserDataMapper extends CoreDataMapper {
     return rows[0];
   }
 
+  /**
+   * Updates a carrier's account information
+   * @async
+   * @function updateCarrierById
+   * @param {number} carrierId - ID of the carrier to be updated
+   * @param {object} updated - Object containing fields to be updated
+   * @param {string} [updated.email] - Email of the carrier to be updated
+   * @param {string} [updated.password] - Password of the carrier to be updated
+   * @param {string} [updated.firstName] - First name of the carrier to be updated
+   * @param {string} [updated.lastName] - Last name of the carrier to be updated
+   * @returns {object} - Returns the updated carrier object
+*/
   async updateCarrierById(carrierId, updated) {
     debug(`${this.constructor.name} updateCarrierByUserId(${carrierId}, ${JSON.stringify(updated)})`);
     const setClause = Object.keys(updated)

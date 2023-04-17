@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Router for the API endpoints
+ * @module routes/api/index
+ * @requires express
+ * @requires ./users
+ * @requires ./delivery
+ * @requires ../../controllers/api
+ * @requires ../../errors/NoResourceFoundError
+ * @requires ../../errors/helpers/apiErrorHandler
+*/
 const express = require('express');
 const usersRouter = require('./users');
 const deliveryRouter = require('./delivery');
