@@ -10,13 +10,12 @@ function setupSwagger(app) {
         title: 'Colis&co Swagger',
         version: '1.0.0',
       },
-      /* host: `localhost:${process.env.PORT}`, */
-      host: 'projet-colis-and-co-production.up.railway.app',
+      host: `localhost:${process.env.PORT}`,
       basePath: '/api',
       produces: [
         'application/json',
       ],
-      schemes: ['https'],
+      schemes: ['http'],
       securityDefinitions: {
         JWT: {
           type: 'apiKey',
