@@ -18,7 +18,7 @@ Il aura la possibilité lorsqu'il sera connecté de créer des courses et d'en a
 * Material UI
 * NextJs
 
-la partie front a été déployée sur Vercel.
+La partie front a été déployée sur Vercel https://projet-colis-and-co.vercel.app/.
 
 **Back-end**
 
@@ -31,12 +31,4 @@ la partie front a été déployée sur Vercel.
 L'API a été déployée sur Railway. [projet-colis-and-co-production.up.railway.app](https://projet-colis-and-co-production.up.railway.app/)
 
 
-## Comment utiliser le projet
 
-## Fonctionalités clés
-
-## Capture d'écran
-
-## Licence
-
-## Remerciments
