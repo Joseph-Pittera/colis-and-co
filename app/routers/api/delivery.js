@@ -86,6 +86,7 @@ router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.b
  * @group Deliveries - Operations about deliveries
  * @returns {object} 204 - An object with "result"
  */
+
 router.get('/:id', controllerHandler(deliveryController.findByPk.bind(deliveryController)));
 
 /**
@@ -94,7 +95,7 @@ router.get('/:id', controllerHandler(deliveryController.findByPk.bind(deliveryCo
  * @group Deliveries - Operations about deliveries
  * @returns {object} An object
  */
-router.put('/:id/accept', validate(schemas.put, 'body'), controllerHandler(deliveryController.acceptDelivery.bind(deliveryController)));
+
 router.put('/:id', validate(schemas.put, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
 
 /**
@@ -106,5 +107,7 @@ router.put('/:id', validate(schemas.put, 'body'), controllerHandler(deliveryCont
 // Degine a DELETE route to delete a delivery by ID
 
 router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
+
+router.put('/:id/accept', validate(schemas.put, 'body'), controllerHandler(deliveryController.acceptDelivery.bind(deliveryController)));
 
 module.exports = router;
