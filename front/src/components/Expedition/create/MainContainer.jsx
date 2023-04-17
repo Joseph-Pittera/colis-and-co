@@ -16,10 +16,23 @@ import { schema } from './yupSchema';
 export function MainContainer() {
   //   const center = { lat: 46.227638, lng: 2.213749 };
   //   const zoom = 5.5;
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, userData } = useContext(AuthContext);
+  if (!isLoggedIn) {
+    return (
+      <>
+        <Typography component="h1" m={4} fontSize={32} textAlign="center">
+          Formulaire d'expédition
+        </Typography>
+        <Alert severity="error">
+          Vous devez être connecté pour accéder aux informations de cette page
+        </Alert>
+      </>
+    );
+  }
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -45,18 +58,19 @@ export function MainContainer() {
     } else setLoginError(false);
     try {
       // insert the data in values object into data object
-      data = { ...data, ...values };
-      console.log(data);
+      const volume = data.length * data.width * data.height;
+      data = { ...data, ...values, volume };
       const bodyRequest = JSON.stringify(data);
       console.log('bodyRequest', bodyRequest);
-      //   const response = await fetch(
-      // `https://projet-colis-and-co-production.up.railway.app/api/deliveries`,
-      // {
-      const response = await fetch(`http://localhost:3000/api/deliveries`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: bodyRequest,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          Authorization: 'Bearer ' + userData?.user?.token,
+          body: bodyRequest,
+        }
+      );
       if (!response.ok) {
         const respData = await response.json();
         console.log('respData', respData.message);
@@ -72,6 +86,7 @@ export function MainContainer() {
       // pour éviter les redondances
       // const respData = await response.json();
       setIsSubmitted(true);
+      reset();
     } catch (error) {
       console.log(error);
     }

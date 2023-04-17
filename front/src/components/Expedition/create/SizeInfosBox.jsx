@@ -1,13 +1,15 @@
-import React from "react";
-import { Controller } from "react-hook-form";
+import React from 'react';
+import { Controller } from 'react-hook-form';
 
-import { Stack } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import { Stack, TextField, useMediaQuery } from '@mui/material';
 
-import { FormSubBox } from "./FormSubBox";
-import { Typo } from "../../CustomsMuiComp/LabelTypo";
-import { ResponsiveTextField } from "../../CustomsMuiComp/ResponsiveTextField";
+import { FormSubBox } from './FormSubBox';
+import { Typo } from '../../CustomsMuiComp/LabelTypo';
 
 export const SizeInfosBox = ({ control, errors }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <FormSubBox>
       <Typo>Dimensions (en cm) :</Typo>
@@ -17,12 +19,13 @@ export const SizeInfosBox = ({ control, errors }) => {
           control={control}
           defaultValue={0}
           render={({ field }) => (
-            <ResponsiveTextField
+            <TextField
               {...field}
               type="number"
               label="Longueur"
-              sx={{ width: "8rem" }}
-              helperText={errors?.length ? errors?.length?.message : ""}
+              sx={{ width: '8rem' }}
+              size={matches ? 'small' : 'normal'}
+              helperText={errors?.length ? errors?.length?.message : ''}
               error={errors?.length ? true : false}
             />
           )}
@@ -32,12 +35,13 @@ export const SizeInfosBox = ({ control, errors }) => {
           control={control}
           defaultValue={0}
           render={({ field }) => (
-            <ResponsiveTextField
+            <TextField
               {...field}
               type="number"
               label="Largeur"
-              sx={{ width: "8rem" }}
-              helperText={errors?.width ? errors?.width?.message : ""}
+              sx={{ width: '8rem' }}
+              size={matches ? 'small' : 'normal'}
+              helperText={errors?.width ? errors?.width?.message : ''}
               error={errors?.width ? true : false}
             />
           )}
@@ -47,12 +51,13 @@ export const SizeInfosBox = ({ control, errors }) => {
           control={control}
           defaultValue={0}
           render={({ field }) => (
-            <ResponsiveTextField
+            <TextField
               {...field}
               type="number"
               label="Hauteur"
-              sx={{ width: "8rem" }}
-              helperText={errors?.height ? errors?.height?.message : ""}
+              sx={{ width: '8rem' }}
+              size={matches ? 'small' : 'normal'}
+              helperText={errors?.height ? errors?.height?.message : ''}
               error={errors?.height ? true : false}
             />
           )}

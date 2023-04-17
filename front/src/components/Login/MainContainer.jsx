@@ -5,7 +5,7 @@ import { AuthContext } from '@/utils/context/auth';
 
 import { Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
-import { useMediaQuery, TextField, Alert } from '@mui/material';
+import { useMediaQuery, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 
@@ -32,7 +32,6 @@ export const MainContainer = () => {
     password: '',
   });
   const handleChange = (e) => {
-    console.log(values);
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
@@ -44,8 +43,7 @@ export const MainContainer = () => {
     try {
       //*********************************** PROD *******************************/
       const response = await fetch(
-        // `https://projet-colis-and-co-production.up.railway.app/api/users/login`,
-        `http://localhost:3000/api/users/login`,
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/users/login`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

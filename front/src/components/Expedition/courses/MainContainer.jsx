@@ -12,11 +12,9 @@ import { SearchForm } from './SearchForm';
 
 export const MainContainer = () => {
   const router = useRouter();
-
   // manage fetch list of courses
   const { data, isLoading, error } = useFetch(
-    // `https://projet-colis-and-co-production.up.railway.app/api/deliveries`
-    `http://localhost:3000/api/deliveries`
+    `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries`
   );
   console.log(data);
   if (error) {
@@ -88,7 +86,7 @@ export const MainContainer = () => {
                       </Typography>
                       <Typography fontSize={{ xs: 14, md: 16 }}>
                         Départ à {delivery.city}, arrivée à{' '}
-                        {delivery.arrival_adddress}
+                        {delivery.arrival_city}
                       </Typography>
                       <Typography fontSize={{ xs: 14, md: 16 }}>
                         Date de départ : {delivery.departure_date}

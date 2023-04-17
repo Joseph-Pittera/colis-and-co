@@ -1,13 +1,15 @@
-import React from "react";
-import { Controller } from "react-hook-form";
+import React from 'react';
+import { Controller } from 'react-hook-form';
 
-import { Stack } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
+import { Stack, TextField, useMediaQuery } from '@mui/material';
 
-import { Typo } from "../../CustomsMuiComp/LabelTypo";
-import { FormSubBox } from "./FormSubBox";
-import { ResponsiveTextField } from "../../CustomsMuiComp/ResponsiveTextField";
+import { Typo } from '../../CustomsMuiComp/LabelTypo';
+import { FormSubBox } from './FormSubBox';
 
 export const ObjectInfosBox = ({ control, errors }) => {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   return (
     <FormSubBox>
       <Stack>
@@ -18,14 +20,15 @@ export const ObjectInfosBox = ({ control, errors }) => {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <ResponsiveTextField
+            <TextField
               {...field}
               placeholder="livres, canapé..."
-              sx={{ maxWidth: "36rem" }}
+              sx={{ maxWidth: '36rem' }}
+              size={matches ? 'small' : 'normal'}
               helperText={
                 errors?.type_of_marchandise
                   ? errors?.type_of_marchandise?.message
-                  : ""
+                  : ''
               }
               error={errors?.type_of_marchandise ? true : false}
             />
@@ -40,12 +43,13 @@ export const ObjectInfosBox = ({ control, errors }) => {
             control={control}
             defaultValue={0}
             render={({ field }) => (
-              <ResponsiveTextField
+              <TextField
                 {...field}
                 placeholder="1"
                 type="number"
-                sx={{ maxWidth: "16rem" }}
-                helperText={errors?.quantity ? errors?.quantity?.message : ""}
+                sx={{ maxWidth: '16rem' }}
+                size={matches ? 'small' : 'normal'}
+                helperText={errors?.quantity ? errors?.quantity?.message : ''}
                 error={errors?.quantity ? true : false}
               />
             )}
@@ -58,12 +62,13 @@ export const ObjectInfosBox = ({ control, errors }) => {
             control={control}
             defaultValue={0}
             render={({ field }) => (
-              <ResponsiveTextField
+              <TextField
                 {...field}
                 placeholder="0.1"
                 type="number"
-                sx={{ maxWidth: "16rem" }}
-                helperText={errors?.weight ? errors?.weight?.message : ""}
+                sx={{ maxWidth: '16rem' }}
+                size={matches ? 'small' : 'normal'}
+                helperText={errors?.weight ? errors?.weight?.message : ''}
                 error={errors?.weight ? true : false}
               />
             )}

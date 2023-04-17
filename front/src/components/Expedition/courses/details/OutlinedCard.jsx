@@ -4,6 +4,19 @@ import { AuthContext } from '@/utils/context/auth';
 import { Card, CardActions, CardContent, Button } from '@mui/material';
 import { Typography, Box, Stack, Alert } from '@mui/material';
 
+export function OutlinedCard({ data }) {
+  const { isLoggedIn } = useContext(AuthContext);
+  return (
+    <Box sx={{ minWidth: 275 }}>
+      {isLoggedIn && (
+        <Card variant="outlined">
+          <InsideCard courseData={data} />
+        </Card>
+      )}
+    </Box>
+  );
+}
+
 const InsideCard = ({ courseData }) => {
   const { userData } = useContext(AuthContext);
   const [courseDeleted, setCourseDeleted] = useState(false);
@@ -11,8 +24,7 @@ const InsideCard = ({ courseData }) => {
   const deleteCourse = async () => {
     try {
       const response = await fetch(
-        // `https://projet-colis-and-co-production.up.railway.app/api/deliveries/${courseData.id}`,
-        `http://localhost:3000/api/deliveries/${courseData.id}`,
+        `${process.env.BACK_URL}/api/deliveries/${courseData.id}`,
         {
           method: 'DELETE',
           headers: {
@@ -97,14 +109,14 @@ const InsideCard = ({ courseData }) => {
           </Box>
         </CardContent>
       )}
-      {!courseDeleted && userData.id === courseData.creator_id && (
+      {!courseDeleted && userData.user.id === courseData.creator_id && (
         <CardActions sx={{ justifyContent: 'center' }}>
           <Button variant="contained" size="small" onClick={deleteCourse}>
             Supprimer la course
           </Button>
         </CardActions>
       )}
-      {!courseDeleted && userData.id !== courseData.creator_id && (
+      {!courseDeleted && userData.user.id !== courseData.creator_id && (
         <CardActions sx={{ justifyContent: 'center' }}>
           <Button variant="contained" size="small">
             Accepter la course
@@ -117,16 +129,3 @@ const InsideCard = ({ courseData }) => {
     </>
   );
 };
-
-export function OutlinedCard({ data }) {
-  const { isLoggedIn } = useContext(AuthContext);
-  return (
-    <Box sx={{ minWidth: 275 }}>
-      {isLoggedIn && (
-        <Card variant="outlined">
-          <InsideCard courseData={data} />
-        </Card>
-      )}
-    </Box>
-  );
-}

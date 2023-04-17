@@ -1,18 +1,17 @@
-import { useState } from "react";
-import { Controller } from "react-hook-form";
+import { useState } from 'react';
+import { Controller } from 'react-hook-form';
 
-import { Stack, Autocomplete, TextField, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Stack, Autocomplete, TextField, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
-import { Typo } from "../../CustomsMuiComp/LabelTypo";
-import { FormSubBox } from "./FormSubBox";
-import { ResponsiveTextField } from "../../CustomsMuiComp/ResponsiveTextField";
+import { Typo } from '../../CustomsMuiComp/LabelTypo';
+import { FormSubBox } from './FormSubBox';
 
 export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
   const [addresses, setAddresses] = useState([]);
+  const [arrivalAddresses, setArrivalAddresses] = useState([]);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   // manage address input with API call
   const handleAddressInput = async (e) => {
     if (e.target.value?.length > 3) {
@@ -25,6 +24,22 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
           (feature) => feature.properties
         );
         setAddresses(formattedAddresses);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const handleArrivalAddressInput = async (e) => {
+    if (e.target.value?.length > 3) {
+      try {
+        const response = await fetch(
+          `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
+        );
+        const data = await response.json();
+        const formattedAddresses = data.features.map(
+          (feature) => feature.properties
+        );
+        setArrivalAddresses(formattedAddresses);
       } catch (error) {
         console.log(error);
       }
@@ -62,7 +77,7 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
 
           <Autocomplete
             id="departure_address"
-            size={matches ? "small" : "normal"}
+            size={matches ? 'small' : 'normal'}
             options={addresses}
             // options={addresses.map((address) => address.label)}
             onChange={handleDepartureAddressSelection}
@@ -76,14 +91,14 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                   <TextField
                     {...field}
                     type="text"
-                    sx={{ width: "16rem" }}
+                    sx={{ width: '16rem' }}
                     {...params}
                     name="departure_address"
                     placeholder="1 Avenue des Champs-Elysée, 75008 PARIS"
                     helperText={
                       errors?.departure_address
                         ? errors?.departure_address?.message
-                        : ""
+                        : ''
                     }
                     error={errors?.departure_address ? true : false}
                   />
@@ -99,15 +114,16 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <ResponsiveTextField
+              <TextField
                 {...field}
                 placeholder="06 01 02 03 04"
                 type="tel"
-                sx={{ width: "12rem" }}
+                sx={{ width: '12rem' }}
+                size={matches ? 'small' : 'normal'}
                 helperText={
                   errors?.departure_phone_number
                     ? errors?.departure_phone_number?.message
-                    : ""
+                    : ''
                 }
                 error={errors?.departure_phone_number ? true : false}
               />
@@ -120,10 +136,10 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
           <Typo>Adresse d'arrivée :</Typo>
           <Autocomplete
             id="arrival_address"
-            size={matches ? "small" : "normal"}
-            options={addresses}
+            size={matches ? 'small' : 'normal'}
+            options={arrivalAddresses}
             onChange={handleArrivalAddressSelection}
-            onInputChange={handleAddressInput}
+            onInputChange={handleArrivalAddressInput}
             renderInput={(params) => (
               <Controller
                 name="arrival_address"
@@ -132,13 +148,13 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    sx={{ width: "16rem" }}
+                    sx={{ width: '16rem' }}
                     {...params}
                     placeholder="1 Avenue des Champs-Elysée, 75008 PARIS"
                     helperText={
                       errors?.arrival_address
                         ? errors?.arrival_address?.message
-                        : ""
+                        : ''
                     }
                     error={errors?.arrival_address ? true : false}
                   />
@@ -155,15 +171,16 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <ResponsiveTextField
+              <TextField
                 {...field}
                 placeholder="06 01 02 03 04"
                 type="tel"
-                sx={{ width: "12rem" }}
+                sx={{ width: '12rem' }}
+                size={matches ? 'small' : 'normal'}
                 helperText={
                   errors?.arrival_phone_number
                     ? errors?.arrival_phone_number?.message
-                    : ""
+                    : ''
                 }
                 error={errors?.arrival_phone_number ? true : false}
               />
@@ -178,14 +195,15 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <ResponsiveTextField
+                <TextField
                   {...field}
                   type="date"
-                  sx={{ maxWidth: "16rem" }}
+                  sx={{ maxWidth: '16rem' }}
+                  size={matches ? 'small' : 'normal'}
                   helperText={
                     errors?.departure_date
                       ? errors?.departure_date?.message
-                      : ""
+                      : ''
                   }
                   error={errors?.departure_date ? true : false}
                 />
@@ -199,12 +217,13 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <ResponsiveTextField
+                <TextField
                   {...field}
                   type="date"
-                  sx={{ maxWidth: "16rem" }}
+                  sx={{ maxWidth: '16rem' }}
+                  size={matches ? 'small' : 'normal'}
                   helperText={
-                    errors?.arrival_date ? errors?.arrival_date?.message : ""
+                    errors?.arrival_date ? errors?.arrival_date?.message : ''
                   }
                   error={errors?.arrival_date ? true : false}
                 />
