@@ -24,7 +24,7 @@ la partie front a été déployée sur Vercel.
 
 * Node.js
 * Express
-* PostreSql
+* PostgreSql
 * Sqitch pour les migrations
 * Git pour le versioning
 
