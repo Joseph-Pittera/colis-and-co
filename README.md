@@ -12,7 +12,7 @@ Il aura la possibilité lorsqu'il sera connecté de créer des courses et d'en a
 
 ## Technologies utilisées
 
-**Front-end
+**Front-end**
 
 * REACT
 * Material UI
@@ -20,7 +20,7 @@ Il aura la possibilité lorsqu'il sera connecté de créer des courses et d'en a
 
 la partie front a été déployée sur Vercel.
 
-**Back-end
+**Back-end**
 
 * Node.js
 * Express
