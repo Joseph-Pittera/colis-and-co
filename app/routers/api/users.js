@@ -37,6 +37,7 @@ const router = express.Router();
  * @returns {Error}  default - Unexpected error
  */
 router.get('/', controllerHandler(usersController.findAll.bind(usersController)));
+
 /**
  * Define a POST route for user's login
  * @route POST /users/login
@@ -57,6 +58,7 @@ router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersCo
  * @param {string} firstname.query.required - user's firstname
  * @param {string} lastname.query.required - user's lastname
  * @param {string} address.query.required - user's address
+ * @param {string} comp_address - user's comp_address
  * @param {number} zipcode.query.required - user's zipcode
  * @param {Date} birthdate.query - user's birthdate
  * @param {string} phonenumber.query.required - user's phonenumber

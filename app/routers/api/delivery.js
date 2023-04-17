@@ -24,9 +24,11 @@ const router = express.Router();
  * @property {string} departure_address - delivery departure_address
  * @property {number} zipcode - delivery zipcode
  * @property {string} city - delivery city
+ * @property {number} departure_phone_number - delivery departure_phone_number
  * @property {string} arrival_address - delivery arrival_address
  * @property {number} arrival_zipcode - delivery arrival_zipcode
  * @property {string} arrival_city - delivery arrival_city
+ * @property {number} arrival_phone_number - delivery arrival_phone_number
  * @property {string} departure_date - delivery departure_date
  * @property {string} arrival_date - delivery arrival_date
  * @property {number} price - delivery price
@@ -59,9 +61,11 @@ router.get('/', controllerHandler(deliveryController.findAllDeliveries.bind(deli
  * @param {string} departure_address.query.required - delivery departure_address
  * @param {number} zipcode.query.required - delivery zipcode
  * @param {string} city.query.required - delivery city
+ * @param {number} departure_phone_number.required - delivery departure_phone_number
  * @param {string} arrival_address.query.required - delivery arrival_address
  * @param {number} arrival_zipcode.query.required - delivery arrival_zipcode
  * @param {string} arrival_city.query.required - delivery arrival_city
+ * @param {number} arrival_phone_number.required - delivery arrival_phone_number
  * @param {string} departure_date.query.required - delivery departure_date
  * @param {string} arrival_date.query.required - delivery arrival_date
  * @param {number} price.query.required - delivery price
