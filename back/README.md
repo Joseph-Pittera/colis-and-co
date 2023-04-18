@@ -29,7 +29,12 @@ $ sudo -i -u postgres psql
 $ CREATE USER nomDuLutilisateur WITH PASSWORD 'motDePasse';
 $ CREATE DATABASE nomDeLaBase OWNER nomDuLutilisateur;
 ```
-:triangular_flag_on_post: Configurer PostgreSQL (ou fournir les variables d'environnement nécessaires à la connexion) pour que les commandes creatdb et sqitch puissent s'éxécuter correctement
+
+Deployer avec sqitch
+```
+$ sqitch deploy
+```
+:triangular_flag_on_post: Fournir les variables d'environnement nécessaires à la connexion pour que les commandes sqitch puissent s'éxécuter correctement
 
 ## Insertion des données
 
