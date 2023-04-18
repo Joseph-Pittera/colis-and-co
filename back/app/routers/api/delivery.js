@@ -71,24 +71,24 @@ router.get(
  * Define a POST route to create a new delivery
  * @route POST /deliveries
  * @group Deliveries - Operations about deliveries
- * @param {string} type_of_marchandise.query - delivery type_of_marchandise
- * @param {posint} quantity.query.required - delivery quantity
- * @param {number} volume.query.required - delivery volume
- * @param {number} length.query.required - delivery length
- * @param {number} width.query.required - delivery width
- * @param {number} height.query.required - delivery height
- * @param {number} weight.query.required - delivery weight
- * @param {string} departure_address.query.required - delivery departure_address
- * @param {number} zipcode.query.required - delivery zipcode
- * @param {string} city.query.required - delivery city
+ * @param {string} type_of_marchandise.body - delivery type_of_marchandise
+ * @param {posint} quantity.body.required - delivery quantity
+ * @param {number} volume.body.required - delivery volume
+ * @param {number} length.body.required - delivery length
+ * @param {number} width.body.required - delivery width
+ * @param {number} height.body.required - delivery height
+ * @param {number} weight.body.required - delivery weight
+ * @param {string} departure_address.body.required - delivery departure_address
+ * @param {number} zipcode.body.required - delivery zipcode
+ * @param {string} city.body.required - delivery city
  * @param {number} departure_phone_number.required - delivery departure_phone_number
- * @param {string} arrival_address.query.required - delivery arrival_address
- * @param {number} arrival_zipcode.query.required - delivery arrival_zipcode
- * @param {string} arrival_city.query.required - delivery arrival_city
+ * @param {string} arrival_address.body.required - delivery arrival_address
+ * @param {number} arrival_zipcode.body.required - delivery arrival_zipcode
+ * @param {string} arrival_city.body.required - delivery arrival_city
  * @param {number} arrival_phone_number.required - delivery arrival_phone_number
- * @param {string} departure_date.query.required - delivery departure_date
- * @param {string} arrival_date.query.required - delivery arrival_date
- * @param {number} price.query.required - delivery price
+ * @param {string} departure_date.body.required - delivery departure_date
+ * @param {string} arrival_date.body.required - delivery arrival_date
+ * @param {number} price.body.required - delivery price
  * @returns {object} 200 - An object
  * @returns {Error}  500 - Internal server error
  */

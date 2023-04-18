@@ -42,8 +42,8 @@ router.get('/', controllerHandler(usersController.findAll.bind(usersController))
  * Define a POST route for user's login
  * @route POST /users/login
  * @group Users - Operations about user
- * @param {string} email.query.required - email
- * @param {string} password.query.required - user's password
+ * @param {string} email.body.required - email
+ * @param {string} password.body.required - user's password
  * @returns {object} 200 - An object with "result"
  * @returns {Error}  401
  */
