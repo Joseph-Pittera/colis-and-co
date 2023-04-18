@@ -23,10 +23,11 @@ Installez les dépendances NPM
 $ npm install
 ```
 
-Créer une base de données PostgreSQL et déployer avec sqitch
+Créer un user et une base de données PostgreSQL 
 ```
-$ createdb [nom de la Database]
-$ sqitch deploy
+$ sudo -i -u postgres psql
+$ CREATE USER nomDuLutilisateur WITH PASSWORD 'motDePasse';
+$ CREATE DATABASE nomDeLaBase OWNER nomDuLutilisateur;
 ```
 :triangular_flag_on_post: Configurer PostgreSQL (ou fournir les variables d'environnement nécessaires à la connexion) pour que les commandes creatdb et sqitch puissent s'éxécuter correctement
 
