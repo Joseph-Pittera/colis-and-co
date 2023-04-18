@@ -34,7 +34,7 @@ export const MainContainer = () => {
     e.preventDefault();
     console.log('searchInputValue', searchInputValue);
     const url =
-      searchInputValue === null
+      searchInputValue === null || searchInputValue === ''
         ? `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/`
         : `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/search?search=${searchInputValue}`;
     try {
