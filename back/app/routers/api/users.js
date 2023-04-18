@@ -18,7 +18,7 @@ const router = express.Router();
  * @property {string} last_name - user's last_name
  * @property {string} address - user's address
  * @property {string} comp_address - user's comp_address
- * @property {number} zipcode - user's zipcode
+ * @property {string} zipcode - user's zipcode
  * @property {string} city - user's city
  * @property {string} birth_date - user's birth_date
  * @property {string} phone_number - user's phone_number
@@ -50,22 +50,22 @@ router.get('/', controllerHandler(usersController.findAll.bind(usersController))
 router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersController.loginAction.bind(usersController)));
 
 /**
- * Define a POST route to create a new user
- * @route POST /users/register
- * @group Users - Operations about user
- * @param {string} email.query.required - email
- * @param {string} password.query.required - user's password
- * @param {string} first_name.query.required - user's firstname
- * @param {string} last_name.query.required - user's lastname
- * @param {string} address.query.required - user's address
- * @param {string} comp_address.query - user's comp_address
- * @param {string} zipcode.query.required - user's zipcode
- * @param {string} city.query.required - city - user's city
- * @param {string} birth_date.query - user's birthdate
- * @param {string} phone_number.query.required - user's phonenumber
- * @returns {object} 200 - An object
- * @returns {Error}  500 - Internal server error
- */
+Create a new user
+* @route POST /users/register
+* @group Users - Operations about user
+* @param {string} email.body.required - User's email address
+* @param {string} password.body.required - User's password
+* @param {string} first_name.body.required - User's first name
+* @param {string} last_name.body.required - User's last name
+* @param {string} address.body.required - User's address
+* @param {string} compAddress.body - User's complementary address
+* @param {string} zipcode.body.required - User's zip code
+* @param {string} city.body.required - User's city
+* @param {string} birth_date.body - User's birth date
+* @param {string} phone_number.body.required - User's phone number
+* @returns {object} 200 - An object representing the created user
+* @returns {Error} 500 - Internal server error
+*/
 router.post('/register', validate(schemas.post, 'body'), controllerHandler(usersController.createSecureUser.bind(usersController)));
 
 /**
