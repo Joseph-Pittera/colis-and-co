@@ -32,7 +32,7 @@ Deployer avec sqitch
 ```
 $ sqitch deploy
 ```
-:triangular_flag_on_post: Fournir les variables d'environnement nécessaires à la connexion pour que les commandes sqitch puissent s'éxécuter correctement
+:triangular_flag_on_post: Fournir les données nécessaires dans le sqitch.conf pour que les commandes sqitch puissent s'éxécuter correctement
 
 ## Insertion des données
 
