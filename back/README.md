@@ -16,5 +16,10 @@ Ouvrez un terminal à la racine du projet.
 $ cd back 
 ```
 
+Installez les dépendances NPM
+```
+npm install
+```
+
 
 
