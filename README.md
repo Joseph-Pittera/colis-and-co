@@ -28,7 +28,7 @@ La partie front a été déployée sur Vercel https://projet-colis-and-co.vercel
 * Sqitch pour les migrations
 * Git pour le versioning
 
-L'API a été déployée sur Railway. [projet-colis-and-co-production.up.railway.app](https://colis-and-co.up.railway.app/)
+L'API a été déployée sur Railway. [Colis&Co](https://colis-and-co.up.railway.app/)
 
 
 
