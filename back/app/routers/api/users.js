@@ -55,14 +55,14 @@ router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersCo
  * @group Users - Operations about user
  * @param {string} email.query.required - email
  * @param {string} password.query.required - user's password
- * @param {string} firstname.query.required - user's firstname
- * @param {string} lastname.query.required - user's lastname
+ * @param {string} first_name.query.required - user's firstname
+ * @param {string} last_name.query.required - user's lastname
  * @param {string} address.query.required - user's address
  * @param {string} comp_address - user's comp_address
  * @param {number} zipcode.query.required - user's zipcode
  * @param {string} city.query.required - city - user's city
- * @param {Date} birthdate.query - user's birthdate
- * @param {string} phonenumber.query.required - user's phonenumber
+ * @param {Date} birth_date.query - user's birthdate
+ * @param {string} phone_number.query.required - user's phonenumber
  * @returns {object} 200 - An object
  * @returns {Error}  500 - Internal server error
  */
