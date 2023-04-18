@@ -31,7 +31,7 @@ export const MainContainer = () => {
 
   // handle search form submit
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     console.log('searchInputValue', searchInputValue);
     const url =
       searchInputValue === null
