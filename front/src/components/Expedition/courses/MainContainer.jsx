@@ -53,7 +53,7 @@ export const MainContainer = () => {
       <Typography component="h1" mt={3} fontSize={24} textAlign="center">
         Liste des courses disponibles
       </Typography>
-      <SearchForm>
+      <SearchForm onSubmit={handleSubmit}>
         <TextField
           name="SearchInput"
           type="text"
@@ -62,11 +62,10 @@ export const MainContainer = () => {
         />
 
         <Button
-          type="button"
+          type="submit"
           variant="contained"
           sx={{ my: 1.5, maxWidth: 150, textAlign: 'center' }}
           size="small"
-          onClick={handleSubmit}
         >
           Recherche
         </Button>
