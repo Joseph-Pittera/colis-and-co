@@ -13,8 +13,8 @@ const schemas = {
     city: Joi.string().required(),
     birth_date: Joi.string(),
     phone_number: Joi.string().required(),
-    carrier: Joi.boolean().required(),
-    identity_verified: Joi.boolean().required(),
+    carrier: Joi.boolean(),
+    identity_verified: Joi.boolean(),
     role: Joi.string().default('user'),
   }).required(),
   put: Joi.object({
