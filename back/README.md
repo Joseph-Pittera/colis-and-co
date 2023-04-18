@@ -23,5 +23,13 @@ Installez les dépendances NPM
 $ npm install
 ```
 
+Créer une base de données PostgreSQL et déployer avec sqitch
+```
+$ createdb [nom de la Database]
+$ sqitch deploy
+```
+
+
+
 
 
