@@ -60,7 +60,7 @@ router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersCo
  * @param {string} address.query.required - user's address
  * @param {string} comp_address - user's comp_address
  * @param {number} zipcode.query.required - user's zipcode
- * @param {number} {string} city - user's city
+ * @param {number} city.query.required - city - user's city
  * @param {Date} birthdate.query - user's birthdate
  * @param {string} phonenumber.query.required - user's phonenumber
  * @returns {object} 200 - An object
