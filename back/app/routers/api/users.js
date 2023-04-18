@@ -51,7 +51,7 @@ router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersCo
 
 /**
  * Define a POST route to create a new user
- * @route POST /users/signin
+ * @route POST /users/register
  * @group Users - Operations about user
  * @param {string} email.query.required - email
  * @param {string} password.query.required - user's password
@@ -94,7 +94,7 @@ router.put('/:id/account', authenticationJwt, validate(schemas.put, 'body'), con
 
 /**
  * Define a DELETE route to suppress one user's account
- * @route DELETE /users/:id/accountchat
+ * @route DELETE /users/:id/account
  * @group Users - Operations about user
  * @returns {Response} 204
  */
