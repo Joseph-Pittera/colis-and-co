@@ -28,6 +28,7 @@ Créer une base de données PostgreSQL et déployer avec sqitch
 $ createdb [nom de la Database]
 $ sqitch deploy
 ```
+:triangular_flag_on_post: Configurer PostgreSQL (ou fournir les variables d'environnement nécessaires à la connexion) pour que les commandes creatdb et sqitch puissent s'éxécuter correctement
 
 
 
