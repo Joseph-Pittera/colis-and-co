@@ -20,13 +20,13 @@ class DeliveryController extends CoreController {
   }
 
   /**
-* Retrieves a list of deliveries from the database, paginated and limited, and returns them as a JSON response
-* @async
-* @function findAllDeliveries
-* @param {object} request - The request object containing the page number for pagination
-* @param {object} response - The response object.
-* @memberof DeliveryController
-*/
+   * Retrieves a list of deliveries from the database, paginated and limited, and returns them as a JSON response
+   * @async
+   * @function findAllDeliveries
+   * @param {object} request - The request object containing the page number for pagination
+   * @param {object} response - The response object.
+   * @memberof DeliveryController
+   */
   async findAllDeliveries(request, response) {
     // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} findAllDeliveries`);
@@ -37,7 +37,7 @@ class DeliveryController extends CoreController {
     // Retrieves the deliveries from the database using the dataMapper
     const results = await this.constructor.dataMapper.findAllDeliveries(
       page,
-      limit,
+      limit
     );
     // Sends the results as a JSON response
     response.json(results);
@@ -73,7 +73,10 @@ class DeliveryController extends CoreController {
     }
 
     const delivery = request.body;
-    const createdDelivery = await this.constructor.dataMapper.createDelivery(delivery, imageUrl);
+    const createdDelivery = await this.constructor.dataMapper.createDelivery(
+      delivery,
+      imageUrl
+    );
 
     response.json(createdDelivery);
   }
@@ -99,7 +102,7 @@ class DeliveryController extends CoreController {
     // Updates the delivery record in the database using the dataMapper
     const updatedCarrier = await this.constructor.dataMapper.updateDeliveryById(
       deliveryId,
-      updates,
+      updates
     );
     // Sends the updated delivery record as a JSON response
     return response.json(updatedCarrier);
@@ -120,17 +123,15 @@ class DeliveryController extends CoreController {
     // Logs a debug message with the class name and method name
     debug(`${this.constructor.name} searchDeliveries`);
     // Extracts the search criteria (city and/or zipcode) from the request query parameters
-    const { city, zipcode } = request.query;
+    const searchData = request.query.search;
     // Checks that at least one search criteria is provided
-    if (!city && !zipcode) {
-      return response
-        .status(400)
-        .json({ error: 'Ville ou departement pas trouvé' });
+    if (!searchData) {
+      //   return response.status(400).json({ error: 'Invalid research' });
+      next();
     }
     // Searches for delivery records in the database using the dataMapper and the provided search criteria
     const deliveries = await this.constructor.dataMapper.findByCityOrZipcode(
-      city,
-      zipcode,
+      searchData
     );
     // Sends the matching delivery records as a JSON response
     return response.json(deliveries);
@@ -144,7 +145,7 @@ class DeliveryController extends CoreController {
    * @param {Object} response - The response object
    * @returns {Promise} - Promise object represents the response of the API call
    * @description Accepts a delivery by updating the delivery object with the ID of the user who accepted it
-*/
+   */
   async acceptDelivery(request, response) {
     debug(`${this.constructor.name} acceptDelivery`);
     const deliveryId = request.params.id;
@@ -153,16 +154,21 @@ class DeliveryController extends CoreController {
     const delivery = await this.constructor.dataMapper.findByPk(deliveryId);
     // If delivery does not exist, return a 404 status and an error message
     if (!delivery) {
-      return response.status(404).json({ message: 'La course n\'existe pas.' });
+      return response.status(404).json({ message: "La course n'existe pas." });
     }
     // Checks if the connected user is a carrier
     if (!user.carrier) {
-      return response.status(403).json({ message: 'Vous n\'êtes pas autorisé à accepter cette course.' });
+      return response
+        .status(403)
+        .json({ message: "Vous n'êtes pas autorisé à accepter cette course." });
     }
     // Updates the delivery object with the ID of the connected user as the carrier
     delivery.carrier_id = user.id;
     // Calls the dataMapper method to update the delivery object in the database
-    await this.constructor.dataMapper.acceptDelivery(delivery.id, delivery.carrier_id);
+    await this.constructor.dataMapper.acceptDelivery(
+      delivery.id,
+      delivery.carrier_id
+    );
     // Return a success message in a JSON format
     return response.json({ message: 'La course a été acceptée.' });
   }

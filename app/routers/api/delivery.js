@@ -45,7 +45,27 @@ const router = express.Router();
  * @returns {object} 200 - An object with "result"
  * @returns {Error}  default - Unexpected error
  */
-router.get('/', controllerHandler(deliveryController.findAllDeliveries.bind(deliveryController)));
+router.get(
+  '/',
+  controllerHandler(
+    deliveryController.findAllDeliveries.bind(deliveryController)
+  )
+);
+
+/**
+ * Define a GET route to search delivery by city or zipcode
+ * @route GET /deliveries/search
+ * @group Deliveries - Operations about deliveries
+ * @returns {object} 200 - An object
+ * @returns {Error}  500 - Unexpected error
+ * @returns {Error}  400
+ */
+router.get(
+  '/search',
+  controllerHandler(
+    deliveryController.findByCityOrZipcode.bind(deliveryController)
+  )
+);
 
 /**
  * Define a POST route to create a new delivery
@@ -72,17 +92,12 @@ router.get('/', controllerHandler(deliveryController.findAllDeliveries.bind(deli
  * @returns {object} 200 - An object
  * @returns {Error}  500 - Internal server error
  */
-router.post('/', multer, validate(schemas.post, 'body'), controllerHandler(deliveryController.createDelivery.bind(deliveryController)));
-
-/**
- * Define a GET route to search delivery by city or zipcode
- * @route GET /deliveries/search
- * @group Deliveries - Operations about deliveries
- * @returns {object} 200 - An object
- * @returns {Error}  500 - Unexpected error
- * @returns {Error}  400
- */
-router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.bind(deliveryController)));
+router.post(
+  '/',
+  multer,
+  validate(schemas.post, 'body'),
+  controllerHandler(deliveryController.createDelivery.bind(deliveryController))
+);
 
 /**
  * Define a GET route for one delivery
@@ -90,7 +105,10 @@ router.get('/search', controllerHandler(deliveryController.findByCityOrZipcode.b
  * @group Deliveries - Operations about deliveries
  * @returns {object} 204 - An object with "result"
  */
-router.get('/:id', controllerHandler(deliveryController.findByPk.bind(deliveryController)));
+router.get(
+  '/:id',
+  controllerHandler(deliveryController.findByPk.bind(deliveryController))
+);
 
 /**
  * Define a PUT route to update one delivery
@@ -98,7 +116,13 @@ router.get('/:id', controllerHandler(deliveryController.findByPk.bind(deliveryCo
  * @group Deliveries - Operations about deliveries
  * @returns {object} An object
  */
-router.put('/:id', validate(schemas.put, 'body'), controllerHandler(deliveryController.updateDeliveryById.bind(deliveryController)));
+router.put(
+  '/:id',
+  validate(schemas.put, 'body'),
+  controllerHandler(
+    deliveryController.updateDeliveryById.bind(deliveryController)
+  )
+);
 
 /**
  * Define a PUT route to put a user as a carrier and confirm delivery
@@ -106,7 +130,11 @@ router.put('/:id', validate(schemas.put, 'body'), controllerHandler(deliveryCont
  * @group Deliveries - Operations about deliveries
  * @returns {object} - A message to confirm delivery
  */
-router.put('/:id/accept', validate(schemas.put, 'body'), controllerHandler(deliveryController.acceptDelivery.bind(deliveryController)));
+router.put(
+  '/:id/accept',
+  validate(schemas.put, 'body'),
+  controllerHandler(deliveryController.acceptDelivery.bind(deliveryController))
+);
 
 /**
  * Define a DELETE route to suppress one delivery
@@ -114,6 +142,10 @@ router.put('/:id/accept', validate(schemas.put, 'body'), controllerHandler(deliv
  * @group Deliveries - Operations about deliveries
  * @returns {Response} 204
  */
-router.delete('/:id', authenticationJwt, controllerHandler(deliveryController.delete.bind(deliveryController)));
+router.delete(
+  '/:id',
+  authenticationJwt,
+  controllerHandler(deliveryController.delete.bind(deliveryController))
+);
 
 module.exports = router;

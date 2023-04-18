@@ -17,7 +17,7 @@ class DeliveryDataMapper extends CoreDataMapper {
    * @param {number} page - The page number to retrieve
    * @param {number} limit - The maximum number of records to retrieve per page
    * @returns {Promise<Array<Object>>} - A promise that resolves with an array of delivery records
-*/
+   */
   async findAllDeliveries(page, limit) {
     debug(`${this.constructor.name} findAllDeliveries ${page} ${limit}`);
     const pageSize = (page - 1) * limit;
@@ -36,7 +36,7 @@ class DeliveryDataMapper extends CoreDataMapper {
    * @param {Object} delivery - The delivery object to be created
    * @param {string} imageUrl - The URL of the image associated with the delivery
    * @returns {Object} - The newly created delivery object along with the user who created it
-*/
+   */
   // Create a new delivery in the database
   async createDelivery(delivery, imageUrl) {
     const keys = Object.keys(delivery).filter((key) => key !== 'creator_id');
@@ -70,12 +70,12 @@ class DeliveryDataMapper extends CoreDataMapper {
    * @param {number} userId - The ID of the delivery to update
    * @param {object} updates - The updates to apply to the delivery
    * @returns {Promise<object>} The updated delivery object
-*/
+   */
   async updateDeliveryById(userId, updates) {
     debug(
       `${
         this.constructor.name
-      } updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`,
+      } updateCarrierByUserId(${userId}, ${JSON.stringify(updates)})`
     );
     const setClause = Object.keys(updates)
       .map((key, index) => `"${key}"=$${index + 2}`)
@@ -96,40 +96,33 @@ class DeliveryDataMapper extends CoreDataMapper {
    * @param {string} zipcode - The zipcode or department code to search for deliveries
    * @throws {Error} If neither city nor zipcode is provided
    * @returns {Array} An array of deliveries matching the search criteria
-*/
-  async findByCityOrZipcode(city, zipcode) {
-    debug(`${this.constructor.name} findByCityOrZipcode(${city},${zipcode})`);
-    let preparedQuery;
+   */
+  async findByCityOrZipcode(searchData) {
+    debug(`${this.constructor.name} findByCityOrZipcode(${searchData})`);
 
-    if (city) {
-      preparedQuery = {
-        text: `SELECT * FROM "${this.constructor.tableName}" WHERE city = $1`,
-        values: [city],
-      };
-    } else if (zipcode) {
-      preparedQuery = {
-        text: `SELECT *, LEFT(SUBSTRING(zipcode, 1, 2), 2) AS department FROM "${this.constructor.tableName}" WHERE zipcode LIKE $1 || '%'`,
-        values: [zipcode],
-      };
-    } else {
-      throw new Error('Entrer la ville ou le codepostal/departement');
-    }
+    const preparedQuery = {
+      text: `SELECT * FROM "${this.constructor.tableName}" WHERE city ILIKE '%' || $1 || '%' OR zipcode LIKE $1 || '%' OR arrival_city ILIKE '%' || $1 || '%'`,
+      values: [searchData],
+    };
 
     const result = await client.query(preparedQuery);
     return result.rows;
   }
 
   /**
-   * Accepts a delivery by updating the carrier_id field of a delivery with the specified deliveryId, if the delivery exists and has no carrier assigned to it yet
+   * Accepts a delivery by updating the carrier_id field of a delivery with the specified deliveryId
+   * if the delivery exists and has no carrier assigned to it yet
    * @async
    * @function acceptDelivery
    * @param {number} deliveryId - The ID of the delivery to accept
    * @param {number} carrierId - The ID of the carrier accepting the delivery
    * @throws {Error} If the delivery does not exist or already has a carrier assigned to it
    * @returns {Object} The updated delivery object
-*/
+   */
   async acceptDelivery(deliveryId, carrierId) {
-    debug(`${this.constructor.name} acceptDelivery(${deliveryId}, ${carrierId})`);
+    debug(
+      `${this.constructor.name} acceptDelivery(${deliveryId}, ${carrierId})`
+    );
     const preparedQuery = {
       text: `UPDATE "${this.constructor.tableName}"  SET carrier_id = $1 WHERE id = $2 AND carrier_id IS NULL RETURNING *`,
       values: [carrierId, deliveryId],
@@ -137,7 +130,7 @@ class DeliveryDataMapper extends CoreDataMapper {
     const result = await client.query(preparedQuery);
 
     if (result.rowCount === 0) {
-      throw new Error('La course n\'existe pas.');
+      throw new Error("La course n'existe pas.");
     }
     return result.rows[0];
   }
