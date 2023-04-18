@@ -11,6 +11,7 @@ import { ListSubBox } from './ListSubBox';
 import { SearchForm } from './SearchForm';
 
 export const MainContainer = () => {
+  const [courseList, setCourseList] = useState([]);
   const router = useRouter();
   // manage fetch list of courses
   const { data, isLoading, error } = useFetch(
@@ -18,8 +19,9 @@ export const MainContainer = () => {
   );
   console.log(data);
   if (error) {
-    router.push('/404');
+    router.push('/500');
   }
+  setCourseList(data);
 
   // hangle Input changes
   const [searchInputValue, setSearchInputValue] = useState(null);
@@ -27,12 +29,26 @@ export const MainContainer = () => {
     setSearchInputValue(e.target.value);
   };
 
+  // handle search form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('searchInputValue', searchInputValue);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/search?search=${searchInputValue}`
+      );
+      setCourseList(response.json());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Typography component="h1" mt={3} fontSize={24} textAlign="center">
         Liste des courses disponibles
       </Typography>
-      <SearchForm>
+      <SearchForm onSubmit={handleSubmit}>
         <TextField
           name="SearchInput"
           type="text"
@@ -53,57 +69,56 @@ export const MainContainer = () => {
         <CircularProgress />
       ) : (
         <Box>
-          {Array.isArray(data) &&
-            data?.map((delivery) => {
-              return (
-                <Link
-                  key={delivery.id}
-                  href={'/expedition/courses/' + delivery.id}
-                  style={{
-                    textDecoration: 'none',
-                    color: 'inherit',
-                  }}
-                >
-                  <ListSubBox>
-                    <Typography
-                      display="flex"
-                      alignItems="center"
-                      ml={{ xs: 2, md: 0 }}
-                      mr={2}
-                      width={100}
-                    >
-                      {delivery.type_of_marchandise}
+          {courseList?.map((delivery) => {
+            return (
+              <Link
+                key={delivery.id}
+                href={'/expedition/courses/' + delivery.id}
+                style={{
+                  textDecoration: 'none',
+                  color: 'inherit',
+                }}
+              >
+                <ListSubBox>
+                  <Typography
+                    display="flex"
+                    alignItems="center"
+                    ml={{ xs: 2, md: 0 }}
+                    mr={2}
+                    width={100}
+                  >
+                    {delivery.type_of_marchandise}
+                  </Typography>
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    mx={2}
+                    width={{ xs: 260, md: 300 }}
+                  >
+                    <Typography fontSize={{ xs: 14, md: 16 }}>
+                      Format :{' '}
+                      {`${delivery.length}cmx${delivery.width}cmx${delivery.height}cm`}
                     </Typography>
-                    <Box
-                      display="flex"
-                      flexDirection="column"
-                      mx={2}
-                      width={{ xs: 260, md: 300 }}
-                    >
-                      <Typography fontSize={{ xs: 14, md: 16 }}>
-                        Format :{' '}
-                        {`${delivery.length}cmx${delivery.width}cmx${delivery.height}cm`}
-                      </Typography>
-                      <Typography fontSize={{ xs: 14, md: 16 }}>
-                        Départ à {delivery.city}, arrivée à{' '}
-                        {delivery.arrival_city}
-                      </Typography>
-                      <Typography fontSize={{ xs: 14, md: 16 }}>
-                        Date de départ : {delivery.departure_date}
-                      </Typography>
-                    </Box>
-                    <Typography
-                      display="flex"
-                      alignItems="center"
-                      ml={2}
-                      width={{ xs: '150px', sm: '100px' }}
-                    >
-                      Prix : {delivery.price}€
+                    <Typography fontSize={{ xs: 14, md: 16 }}>
+                      Départ à {delivery.city}, arrivée à{' '}
+                      {delivery.arrival_city}
                     </Typography>
-                  </ListSubBox>
-                </Link>
-              );
-            })}
+                    <Typography fontSize={{ xs: 14, md: 16 }}>
+                      Date de départ : {delivery.departure_date}
+                    </Typography>
+                  </Box>
+                  <Typography
+                    display="flex"
+                    alignItems="center"
+                    ml={2}
+                    width={{ xs: '150px', sm: '100px' }}
+                  >
+                    Prix : {delivery.price}€
+                  </Typography>
+                </ListSubBox>
+              </Link>
+            );
+          })}
         </Box>
       )}
     </>
