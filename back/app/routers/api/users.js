@@ -94,7 +94,7 @@ router.put('/:id/account', authenticationJwt, validate(schemas.put, 'body'), con
 
 /**
  * Define a DELETE route to suppress one user's account
- * @route DELETE /users/:id/account
+ * @route DELETE /users/:id/accountchat
  * @group Users - Operations about user
  * @returns {Response} 204
  */
