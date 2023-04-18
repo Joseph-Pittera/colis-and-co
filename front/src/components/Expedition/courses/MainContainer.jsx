@@ -31,10 +31,10 @@ export const MainContainer = () => {
 
   // handle search form submit
   const handleSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     console.log('searchInputValue', searchInputValue);
     const url =
-      searchInputValue === null
+      searchInputValue === null || searchInputValue === ''
         ? `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/`
         : `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/search?search=${searchInputValue}`;
     try {
@@ -53,7 +53,7 @@ export const MainContainer = () => {
       <Typography component="h1" mt={3} fontSize={24} textAlign="center">
         Liste des courses disponibles
       </Typography>
-      <SearchForm>
+      <SearchForm onSubmit={handleSubmit}>
         <TextField
           name="SearchInput"
           type="text"
@@ -62,11 +62,10 @@ export const MainContainer = () => {
         />
 
         <Button
-          type="button"
+          type="submit"
           variant="contained"
           sx={{ my: 1.5, maxWidth: 150, textAlign: 'center' }}
           size="small"
-          onClick={handleSubmit}
         >
           Recherche
         </Button>
