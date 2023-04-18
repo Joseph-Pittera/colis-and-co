@@ -30,6 +30,19 @@ $ sqitch deploy
 ```
 :triangular_flag_on_post: Configurer PostgreSQL (ou fournir les variables d'environnement nécessaires à la connexion) pour que les commandes creatdb et sqitch puissent s'éxécuter correctement
 
+## Insertion des données
+
+Lancer la commande :
+```
+$ node data/import.js
+```
+
+## Lancement
+
+```
+$ npm run start
+```
+
 
 
 
