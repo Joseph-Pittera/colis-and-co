@@ -59,7 +59,7 @@ router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersCo
  * @param {string} last_name.query.required - user's lastname
  * @param {string} address.query.required - user's address
  * @param {string} comp_address.query - user's comp_address
- * @param {number} zipcode.query.required - user's zipcode
+ * @param {string} zipcode.query.required - user's zipcode
  * @param {string} city.query.required - city - user's city
  * @param {string} birth_date.query - user's birthdate
  * @param {string} phone_number.query.required - user's phonenumber
