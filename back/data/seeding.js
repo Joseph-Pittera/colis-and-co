@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const deliveries = require('.');
-const users = require('./users-10.json/delivery-10.json');
+const deliveries = require('./delivery-10.json');
+const users = require('./users-10.json');
 
 let transaction = 'BEGIN;';
 
@@ -19,11 +19,11 @@ async function generateSQL() {
       "departure_address",
       "zipcode",
       "city",
-      "sender_phonenumber",
+      "departure_phone_number",
       "arrival_address",
       "arrival_zipcode",
       "arrival_city",
-      "recipient_phonenumber",
+      "arrival_phone_number",
       "departure_date",
       "arrival_date",
       "price"
@@ -40,11 +40,11 @@ async function generateSQL() {
         '${delivery.departure_address}',
         '${delivery.zipCode}',
         '${delivery.city}',
-        '${delivery.sender_phoneNumber}',
+        '${delivery.departure_phone_number}',
         '${delivery.arrival_address}',
         '${delivery.arrival_zipcode}',
         '${delivery.arrival_city}',
-        '${delivery.recipient_phoneNumber}',
+        '${delivery.arrival_phone_number}',
         '${delivery.departure_date}',
         '${delivery.arrival_date}',
         '${delivery.price}'
