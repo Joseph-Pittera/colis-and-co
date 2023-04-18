@@ -48,8 +48,8 @@ const router = express.Router();
 router.get(
   '/',
   controllerHandler(
-    deliveryController.findAllDeliveries.bind(deliveryController)
-  )
+    deliveryController.findAllDeliveries.bind(deliveryController),
+  ),
 );
 
 /**
@@ -63,13 +63,13 @@ router.get(
 router.get(
   '/search',
   controllerHandler(
-    deliveryController.findByCityOrZipcode.bind(deliveryController)
-  )
+    deliveryController.findByCityOrZipcode.bind(deliveryController),
+  ),
 );
 
 /**
  * Define a POST route to create a new delivery
- * @route POST /delivery
+ * @route POST /deliveries
  * @group Deliveries - Operations about deliveries
  * @param {string} type_of_marchandise.query - delivery type_of_marchandise
  * @param {posint} quantity.query.required - delivery quantity
@@ -96,7 +96,7 @@ router.post(
   '/',
   multer,
   validate(schemas.post, 'body'),
-  controllerHandler(deliveryController.createDelivery.bind(deliveryController))
+  controllerHandler(deliveryController.createDelivery.bind(deliveryController)),
 );
 
 /**
@@ -107,7 +107,7 @@ router.post(
  */
 router.get(
   '/:id',
-  controllerHandler(deliveryController.findByPk.bind(deliveryController))
+  controllerHandler(deliveryController.findByPk.bind(deliveryController)),
 );
 
 /**
@@ -120,8 +120,8 @@ router.put(
   '/:id',
   validate(schemas.put, 'body'),
   controllerHandler(
-    deliveryController.updateDeliveryById.bind(deliveryController)
-  )
+    deliveryController.updateDeliveryById.bind(deliveryController),
+  ),
 );
 
 /**
@@ -133,7 +133,7 @@ router.put(
 router.put(
   '/:id/accept',
   validate(schemas.put, 'body'),
-  controllerHandler(deliveryController.acceptDelivery.bind(deliveryController))
+  controllerHandler(deliveryController.acceptDelivery.bind(deliveryController)),
 );
 
 /**
@@ -145,7 +145,7 @@ router.put(
 router.delete(
   '/:id',
   authenticationJwt,
-  controllerHandler(deliveryController.delete.bind(deliveryController))
+  controllerHandler(deliveryController.delete.bind(deliveryController)),
 );
 
 module.exports = router;
