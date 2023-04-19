@@ -36,7 +36,7 @@ class UsersController extends CoreController {
     // We must call the userDatamapper to make the request and store it in a variable
     const result = await this.constructor.dataMapper.loginAction(
       email,
-      password
+      password,
     );
     debug('result', result);
 
@@ -67,14 +67,14 @@ class UsersController extends CoreController {
     debug(`${this.constructor.name} create`);
     const createObj = request.body;
     const existingUser = await this.constructor.dataMapper.findByEmail(
-      createObj.email
+      createObj.email,
     );
     if (existingUser) {
       response.status(409).json({ message: 'Email déjà utilisé' });
       return;
     }
     const createdUser = await this.constructor.dataMapper.createSecureUser(
-      createObj
+      createObj,
     );
     const user = {
       id: createdUser.id,
@@ -102,7 +102,7 @@ class UsersController extends CoreController {
     debug(`${this.constructor.name} getAccount`);
     const userId = request.user.id;
     const account = await this.constructor.dataMapper.findAccountByUserId(
-      userId
+      userId,
     );
     response.json(account);
   }
@@ -130,7 +130,7 @@ class UsersController extends CoreController {
     // Update user in database using dataMapper
     const updatedCarrier = await this.constructor.dataMapper.updateUserById(
       userId,
-      updates
+      updates,
     );
 
     return response.json(updatedCarrier);
@@ -171,7 +171,7 @@ class UsersController extends CoreController {
     debug(`${this.constructor.name} findCarrierByUserId`);
     const userId = request.params.id;
     const carrierInfo = await this.constructor.dataMapper.findCarrierByUserId(
-      userId
+      userId,
     );
     if (carrierInfo) {
       response.json(carrierInfo);
@@ -186,7 +186,7 @@ class UsersController extends CoreController {
    * @function
    * @param {Object} request - The HTTP request object
    * @param {Object} response - The HTTP response object
-   *  @returns {Object}
+   * @returns {Object}
    */
   async updateCarrierById(request, response) {
     debug(`${this.constructor.name} updateCarrierById`);
@@ -196,7 +196,7 @@ class UsersController extends CoreController {
     const updated = request.body;
     const updatedCarrier = await this.constructor.dataMapper.updateCarrierById(
       carrierId,
-      updated
+      updated,
     );
     // If the carrier is not found, returns a 404 error response
     if (!updatedCarrier) {
