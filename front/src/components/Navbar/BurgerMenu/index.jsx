@@ -5,6 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
 export const BurgerMenu = () => {
   const router = useRouter();
@@ -33,8 +34,9 @@ export const BurgerMenu = () => {
         justifyContent: "flex-end",
       }}
     >
+      <ThemeSwitch />
       <IconButton
-        size="large"
+        size="small"
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"

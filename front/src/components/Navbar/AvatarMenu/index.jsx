@@ -1,10 +1,13 @@
+import { useState, useContext } from "react";
+import { useRouter } from "next/router";
+
 import { Avatar, Menu, MenuItem, Box } from "@mui/material";
 import { IconButton, ListItemIcon } from "@mui/material";
 import Logout from "@mui/icons-material/Logout";
-import { useState, useContext } from "react";
+
 import { stringAvatar } from "../functions/stringAvatar";
-import { useRouter } from "next/router";
 import { AuthContext } from "../../../utils/context/auth";
+import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
 export const AvatarMenu = ({ firstName, lastName }) => {
   const router = useRouter();
@@ -31,6 +34,7 @@ export const AvatarMenu = ({ firstName, lastName }) => {
         justifyContent: "flex-end",
       }}
     >
+      <ThemeSwitch />
       <IconButton
         size="small"
         sx={{ ml: 2 }}

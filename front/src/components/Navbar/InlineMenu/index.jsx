@@ -1,15 +1,12 @@
-import { Box, Button, IconButton } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import { useRouter } from "next/router";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+
+import { Box, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useContext } from "react";
-import { ColorModeContext } from "../../../utils/context/theme";
+
+import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
 export const InlineMenu = () => {
   const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
   const router = useRouter();
   const handleLogin = () => {
     router.push("/login");
@@ -53,13 +50,7 @@ export const InlineMenu = () => {
       >
         Inscription
       </Button>
-      <IconButton sx={{ ml: 1 }} onClick={colorMode} color="inherit">
-        {theme.palette.mode === "dark" ? (
-          <LightModeIcon fontSize="small" />
-        ) : (
-          <DarkModeIcon fontSize="small" />
-        )}
-      </IconButton>
+      <ThemeSwitch />
     </Box>
   );
 };
