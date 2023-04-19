@@ -45,6 +45,7 @@ export function MainContainer() {
     arrival_address: "",
     arrival_zipcode: "",
     arrival_city: "",
+    creator_id: userData?.user?.id,
   });
 
   // handle form submit with Data Validation

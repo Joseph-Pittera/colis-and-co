@@ -20,6 +20,7 @@ export function OutlinedCard({ data }) {
 const InsideCard = ({ courseData }) => {
   const { userData } = useContext(AuthContext);
   const [courseDeleted, setCourseDeleted] = useState(false);
+  const [courseAccepted, setCourseAccepted] = useState(false);
   const deleteCourse = async () => {
     try {
       const response = await fetch(
@@ -40,6 +41,9 @@ const InsideCard = ({ courseData }) => {
       console.log("error", error);
       return;
     }
+  };
+  const acceptCourse = async () => {
+    setCourseAccepted(true);
   };
 
   return (
@@ -117,13 +121,16 @@ const InsideCard = ({ courseData }) => {
       )}
       {!courseDeleted && userData.user.id !== courseData.creator_id && (
         <CardActions sx={{ justifyContent: "center" }}>
-          <Button variant="contained" size="small">
+          <Button variant="contained" size="small" onclick={acceptCourse}>
             Accepter la course
           </Button>
         </CardActions>
       )}
       {courseDeleted && (
         <Alert severity="success">Cette course a bien été supprimée !</Alert>
+      )}
+      {courseAccepted && (
+        <Alert severity="success">Cette course a bien été acceptée !</Alert>
       )}
     </>
   );
