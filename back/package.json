@@ -6,7 +6,7 @@
   "scripts": {
     "db": "sqitch deploy && node data/import.js",
     "dev": " DEBUG=colis:*  npx nodemon index.js",
-    "test": "jest",
+    "test": "jest --forceExit",
     "start": "node index.js"
   },
   "repository": {

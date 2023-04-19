@@ -33,7 +33,7 @@ class DeliveryController extends CoreController {
     // Extracts the page number from the query parameter, defaults to 1 if not provided
     const page = Number(request.query.page) || 1;
     // Sets the limit for number of records to retrieve
-    const limit = 15;
+    const limit = 100;
     // Retrieves the deliveries from the database using the dataMapper
     const results = await this.constructor.dataMapper.findAllDeliveries(
       page,
