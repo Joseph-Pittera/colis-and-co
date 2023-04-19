@@ -1,11 +1,11 @@
 import * as React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { AuthContext } from "@/utils/context/auth";
 
 import { Button, Typography, InputAdornment, IconButton } from "@mui/material";
 import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
-import { useMediaQuery, TextField } from "@mui/material";
+import { useMediaQuery, TextField, Alert } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
 
@@ -58,6 +58,7 @@ export const MainContainer = () => {
       }
 
       const respData = await response.json(); // extraire les données JSON de la réponse
+      console.log("respData", respData);
       //*********************************** PROD *******************************/
 
       login(respData); // add user data to context and local storage
