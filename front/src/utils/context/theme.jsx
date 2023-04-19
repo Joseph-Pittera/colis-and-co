@@ -1,7 +1,11 @@
 import { createTheme } from "@mui/material";
 import { blue } from "@mui/material/colors";
+import { createContext, useState, useMemo, useEffect } from "react";
+import { ThemeProvider as MUIThemeProvider, CssBaseline } from "@mui/material";
 
-export const theme = createTheme({
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+
+const getDesignTokens = (mode) => ({
   overrides: {
     MuiTextField: {
       root: {
@@ -20,26 +24,56 @@ export const theme = createTheme({
     danger: "#e53e3e",
   },
   palette: {
-    mode: "light",
-    primary: {
-      main: blue[200],
-    },
-    secondary: {
-      main: blue[200],
-    },
-    customBlue: {
-      main: blue[900],
-      light: blue[200],
-      dark: blue[900],
-    },
+    mode,
+    ...(mode === "light"
+      ? {
+          // palette values for light mode
+          primary: {
+            main: blue[200],
+          },
+          secondary: {
+            main: blue[100],
+          },
+          customBlue: {
+            main: blue[900],
+            light: blue[200],
+            dark: blue[900],
+          },
+        }
+      : {
+          // palette values for dark mode
+          primary: {
+            main: blue[800],
+          },
+          secondary: {
+            main: blue[800],
+          },
+          customBlue: {
+            main: blue[900],
+            light: blue[200],
+            dark: blue[900],
+          },
+        }),
   },
 });
 
-export const colors = {
-  primary: blue[200],
-  secondary: "#8186A0",
-  backgroundLight: "#E8E8E8",
-  backgroundDark: "#4F4C6B",
-  bodyDark: "#040433",
-  bodyLight: "#FAFAFA",
+export const ToggleColorModeProvider = ({ children }) => {
+  const [mode, setMode] = useState(
+    localStorage.getItem("colisandcoTheme") || "light"
+  );
+  const [theme, setTheme] = useState(createTheme(getDesignTokens(mode)));
+  const colorMode = () => {
+    setMode((c) => (c === "dark" ? "light" : "dark"));
+    setTheme((c) => (c = createTheme(getDesignTokens(mode))));
+    localStorage.setItem("colisandcoTheme", mode);
+  };
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <MUIThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </MUIThemeProvider>
+    </ColorModeContext.Provider>
+  );
 };

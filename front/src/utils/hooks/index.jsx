@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
-import { theme } from '../context/theme';
+import { useState, useEffect } from "react";
 
 // ******************* useFetch *******************
 export function useFetch(url, options) {
@@ -13,18 +12,17 @@ export function useFetch(url, options) {
     setLoading(true);
     async function fetchData() {
       try {
-        console.log('url', url);
+        console.log("url", url);
         const response = await fetch(url, options);
         const respData = await response.json();
-        console.log('respData', respData);
         setData(respData);
       } catch (error) {
         console.log(error);
         setError(error);
-        if (typeof response !== 'undefined') {
+        if (typeof response !== "undefined") {
           const errorData = {
             status: response.status,
-            message: respData.message || 'Something went wrong',
+            message: respData.message || "Something went wrong",
           };
           console.log(errorData);
           setError(errorData);
@@ -37,10 +35,4 @@ export function useFetch(url, options) {
   }, [url]);
 
   return { isLoading, data, error };
-}
-
-// ******************* useTheme *******************
-export function useTheme() {
-  const { theme, toggleTheme } = useContext(theme);
-  return { theme, toggleTheme };
 }

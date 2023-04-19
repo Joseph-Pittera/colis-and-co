@@ -1,15 +1,15 @@
-import * as React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
-import { AuthContext } from '@/utils/context/auth';
+import * as React from "react";
+import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
+import { AuthContext } from "@/utils/context/auth";
 
-import { Button, Typography, InputAdornment, IconButton } from '@mui/material';
-import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
-import { useMediaQuery, TextField } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
+import { Button, Typography, InputAdornment, IconButton } from "@mui/material";
+import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
+import { useMediaQuery, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
 
-import { ConnexionBox } from '@/components/Connexion/ConnexionBox';
+import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
 
 export const MainContainer = () => {
   const router = useRouter();
@@ -17,7 +17,7 @@ export const MainContainer = () => {
   const [connexionToServerError, setConnexionToServerError] = useState(false);
   const [serverDataError, setServerDataError] = useState(null);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   // handle password visibility
   const [showPassword, setShowPassword] = useState(false);
@@ -28,8 +28,8 @@ export const MainContainer = () => {
 
   // handle email and password Input changes
   const [values, setValues] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -39,22 +39,19 @@ export const MainContainer = () => {
   const handleForm = async (e) => {
     setServerDataError((c) => (c = null));
     setConnexionToServerError((c) => (c = false));
-    console.log(values);
     try {
       //*********************************** PROD *******************************/
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/users/login`,
         {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: values.email,
             password: values.password,
           }),
         }
       );
-
-      console.log(response);
       if (!response.ok) {
         setServerDataError((c) => (c = response));
         throw new Error(response.message);
@@ -64,10 +61,10 @@ export const MainContainer = () => {
       //*********************************** PROD *******************************/
 
       login(respData); // add user data to context and local storage
-      router.push('/');
+      router.push("/");
     } catch (error) {
       console.log(error);
-      if (error.message === 'Failed to fetch') {
+      if (error.message === "Failed to fetch") {
         setConnexionToServerError((c) => (c = true));
       }
     }
@@ -79,12 +76,12 @@ export const MainContainer = () => {
         Connexion
       </Typography>
       {connexionToServerError && (
-        <Alert variant="outlined" severity="error" sx={{ m: '1rem' }}>
+        <Alert variant="outlined" severity="error" sx={{ m: "1rem" }}>
           Problème de connexion au serveur, veuillez réessayer plus tard...
         </Alert>
       )}
       {serverDataError && (
-        <Alert variant="outlined" severity="error" sx={{ m: '1rem' }}>
+        <Alert variant="outlined" severity="error" sx={{ m: "1rem" }}>
           Email ou mot de passe incorrect
         </Alert>
       )}
@@ -93,16 +90,16 @@ export const MainContainer = () => {
         <TextField
           label="Email"
           name="email"
-          sx={{ m: 1, width: '25ch' }}
-          size={matches ? 'small' : 'normal'}
+          sx={{ m: 1, width: "25ch" }}
+          size={matches ? "small" : "normal"}
           onChange={handleChange}
           //   error={dataErrors && !!dataErrors.email}
           //   helperText={dataErrors?.email && "Email incorrect"}
         />
         <FormControl
-          sx={{ m: 1, width: '25ch' }}
+          sx={{ m: 1, width: "25ch" }}
           variant="outlined"
-          size={matches ? 'small' : 'normal'}
+          size={matches ? "small" : "normal"}
         >
           <InputLabel htmlFor="outlined-adornment-password">
             Password
@@ -110,7 +107,7 @@ export const MainContainer = () => {
           <OutlinedInput
             id="outlined-adornment-password"
             name="password"
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -143,7 +140,7 @@ export const MainContainer = () => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ mt: 3, maxWidth: 150, textAlign: 'center' }}
+          sx={{ mt: 3, maxWidth: 150, textAlign: "center" }}
         >
           Connexion
         </Button>

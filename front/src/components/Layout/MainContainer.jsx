@@ -1,21 +1,18 @@
-import { Container } from '@mui/material';
-import { ResponsiveAppBar as Navbar } from '../Navbar';
-import { Footer } from '../Footer';
-import { AuthContext } from '../../utils/context/auth';
-import { useContext } from 'react';
+import { Container } from "@mui/material";
+import { ResponsiveAppBar as Navbar } from "../Navbar";
+import { Footer } from "../Footer";
+import { AuthContext } from "../../utils/context/auth";
+import { useContext } from "react";
 
 export const MainContainer = ({ children }) => {
-  const { userData, isLoggedIn } = useContext(AuthContext);
-  console.log('userData', userData);
-  console.log('isLoggedIn', isLoggedIn);
   return (
     <Container
       sx={{
         p: { xs: 0, sm: 0 },
-        minHeight: '100vh',
-        minWidth: '100%',
-        display: 'flex',
-        flexDirection: 'column',
+        minHeight: "100vh",
+        minWidth: "100%",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Navbar />
@@ -23,11 +20,11 @@ export const MainContainer = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
           p: 0,
-          position: 'relative',
+          position: "relative",
         }}
       >
         {children}

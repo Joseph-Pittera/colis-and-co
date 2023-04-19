@@ -1,9 +1,8 @@
 import Head from "next/head";
-import { ThemeProvider, CssBaseline } from "@mui/material";
-import { theme } from "../../utils/context/theme";
 import { LocalStorageLoadedProvider } from "../../utils/context/localStorageLoaded";
 import { AuthProvider } from "../../utils/context/auth";
 import { MainContainer } from "./MainContainer";
+import { ToggleColorModeProvider } from "../../utils/context/theme";
 
 export const siteTitle = "Colis & Co";
 
@@ -16,14 +15,13 @@ export const Layout = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/icon_colis&co_light.png" />
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <ToggleColorModeProvider>
         <LocalStorageLoadedProvider>
           <AuthProvider>
             <MainContainer>{children}</MainContainer>
           </AuthProvider>
         </LocalStorageLoadedProvider>
-      </ThemeProvider>
+      </ToggleColorModeProvider>
     </>
   );
 };
