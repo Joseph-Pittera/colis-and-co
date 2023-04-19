@@ -58,15 +58,29 @@ const getDesignTokens = (mode) => ({
 });
 
 export const ToggleColorModeProvider = ({ children }) => {
-  const [mode, setMode] = useState(
-    localStorage.getItem("colisandcoTheme") || "light"
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  const [mode, setMode] = useState("light");
   const [theme, setTheme] = useState(createTheme(getDesignTokens(mode)));
+
   const colorMode = () => {
     setMode((c) => (c === "dark" ? "light" : "dark"));
     setTheme((c) => (c = createTheme(getDesignTokens(mode))));
     localStorage.setItem("colisandcoTheme", mode);
   };
+
+  useEffect(() => {
+    const colorTheme = localStorage.getItem("colisandcoTheme");
+    if (colorTheme) {
+      setMode((c) => (c === "dark" ? "light" : "dark"));
+      setTheme((c) => (c = createTheme(getDesignTokens(colorTheme))));
+      localStorage.setItem("colisandcoTheme", colorTheme);
+    }
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <ColorModeContext.Provider value={colorMode}>
