@@ -127,9 +127,11 @@ const InsideCard = ({ courseData }) => {
       )}
       {!courseDeleted && userData.user.id !== courseData.creator_id && (
         <CardActions sx={{ justifyContent: "center" }}>
-          <Button variant="contained" size="small" onClick={acceptCourse}>
-            Accepter la course
-          </Button>
+          {!courseAccepted && (
+            <Button variant="contained" size="small" onClick={acceptCourse}>
+              Accepter la course
+            </Button>
+          )}
           {courseAccepted && (
             <Alert severity="success">Cette course a bien été acceptée !</Alert>
           )}
