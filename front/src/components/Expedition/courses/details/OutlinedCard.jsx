@@ -21,10 +21,15 @@ const InsideCard = ({ courseData }) => {
   const { userData } = useContext(AuthContext);
   const [courseDeleted, setCourseDeleted] = useState(false);
   const [courseAccepted, setCourseAccepted] = useState(false);
+
   const deleteCourse = async () => {
+    console.log(
+      "url",
+      `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/${courseData.id}`
+    );
     try {
       const response = await fetch(
-        `${process.env.BACK_URL}/api/deliveries/${courseData.id}`,
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/${courseData.id}`,
         {
           method: "DELETE",
           headers: {
@@ -42,6 +47,7 @@ const InsideCard = ({ courseData }) => {
       return;
     }
   };
+
   const acceptCourse = async () => {
     setCourseAccepted(true);
   };
