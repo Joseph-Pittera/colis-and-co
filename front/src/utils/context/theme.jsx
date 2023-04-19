@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 import { blue } from "@mui/material/colors";
-import { createContext, useState, useMemo, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import { ThemeProvider as MUIThemeProvider, CssBaseline } from "@mui/material";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
