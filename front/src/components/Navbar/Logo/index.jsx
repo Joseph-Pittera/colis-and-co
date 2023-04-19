@@ -1,7 +1,9 @@
+import { useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import { BlueLink } from "../../CustomsMuiComp/BlueLink";
 
 export const Logo = () => {
+  const theme = useTheme();
   return (
     <BlueLink href="/">
       <Box
@@ -11,7 +13,11 @@ export const Logo = () => {
           display: "flex",
         }}
         alt="Parcel logo of Colis&Co"
-        src="/logo_colis&co_dark.png"
+        src={
+          theme.palette.mode === "light"
+            ? "/logo_colis&co_dark.png"
+            : "/logo_colis&co_light.png"
+        }
       />
     </BlueLink>
   );

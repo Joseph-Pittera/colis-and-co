@@ -1,9 +1,12 @@
-import { Box, Button } from "@mui/material";
-import { BlueLink } from "../../CustomsMuiComp/BlueLink";
-import { blue } from "@mui/material/colors";
 import { useRouter } from "next/router";
 
+import { Box, Button } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+
+import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
+
 export const InlineMenu = () => {
+  const theme = useTheme();
   const router = useRouter();
   const handleLogin = () => {
     router.push("/login");
@@ -19,36 +22,35 @@ export const InlineMenu = () => {
         justifyContent: "flex-end",
       }}
     >
-      <>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            mx: 1,
-            display: "block",
-            fontWeight: "bold",
-            fontSize: "0.7rem",
-            backgroundColor: blue[100],
-          }}
-          onClick={handleLogin}
-        >
-          Connexion
-        </Button>
-        <Button
-          variant="contained"
-          size="small"
-          sx={{
-            mx: 1,
-            display: "block",
-            fontWeight: "bold",
-            fontSize: "0.7rem",
-            backgroundColor: blue[100],
-          }}
-          onClick={handleRegister}
-        >
-          Inscription
-        </Button>
-      </>
+      <Button
+        variant="contained"
+        size="small"
+        sx={{
+          mx: 1,
+          display: "block",
+          fontWeight: "bold",
+          fontSize: "0.7rem",
+          backgroundColor: theme.palette.secondary.main,
+        }}
+        onClick={handleLogin}
+      >
+        Connexion
+      </Button>
+      <Button
+        variant="contained"
+        size="small"
+        sx={{
+          mx: 1,
+          display: "block",
+          fontWeight: "bold",
+          fontSize: "0.7rem",
+          backgroundColor: theme.palette.secondary.main,
+        }}
+        onClick={handleRegister}
+      >
+        Inscription
+      </Button>
+      <ThemeSwitch />
     </Box>
   );
 };

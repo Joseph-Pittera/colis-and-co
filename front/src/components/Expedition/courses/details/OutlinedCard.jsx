@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '@/utils/context/auth';
+import { useContext, useState } from "react";
+import { AuthContext } from "@/utils/context/auth";
 
-import { Card, CardActions, CardContent, Button } from '@mui/material';
-import { Typography, Box, Stack, Alert } from '@mui/material';
+import { Card, CardActions, CardContent, Button } from "@mui/material";
+import { Typography, Box, Stack, Alert } from "@mui/material";
 
 export function OutlinedCard({ data }) {
   const { isLoggedIn } = useContext(AuthContext);
@@ -20,15 +20,20 @@ export function OutlinedCard({ data }) {
 const InsideCard = ({ courseData }) => {
   const { userData } = useContext(AuthContext);
   const [courseDeleted, setCourseDeleted] = useState(false);
-  console.log('courseData', courseData);
+  const [courseAccepted, setCourseAccepted] = useState(false);
+
   const deleteCourse = async () => {
+    console.log(
+      "url",
+      `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/${courseData.id}`
+    );
     try {
       const response = await fetch(
-        `${process.env.BACK_URL}/api/deliveries/${courseData.id}`,
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/${courseData.id}`,
         {
-          method: 'DELETE',
+          method: "DELETE",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${userData.user.token}`,
           },
         }
@@ -38,9 +43,13 @@ const InsideCard = ({ courseData }) => {
         setCourseDeleted(true);
       }
     } catch (error) {
-      console.log('error', error);
+      console.log("error", error);
       return;
     }
+  };
+
+  const acceptCourse = async () => {
+    setCourseAccepted(true);
   };
 
   return (
@@ -110,17 +119,22 @@ const InsideCard = ({ courseData }) => {
         </CardContent>
       )}
       {!courseDeleted && userData.user.id === courseData.creator_id && (
-        <CardActions sx={{ justifyContent: 'center' }}>
+        <CardActions sx={{ justifyContent: "center" }}>
           <Button variant="contained" size="small" onClick={deleteCourse}>
             Supprimer la course
           </Button>
         </CardActions>
       )}
       {!courseDeleted && userData.user.id !== courseData.creator_id && (
-        <CardActions sx={{ justifyContent: 'center' }}>
-          <Button variant="contained" size="small">
-            Accepter la course
-          </Button>
+        <CardActions sx={{ justifyContent: "center" }}>
+          {!courseAccepted && (
+            <Button variant="contained" size="small" onClick={acceptCourse}>
+              Accepter la course
+            </Button>
+          )}
+          {courseAccepted && (
+            <Alert severity="success">Cette course a bien été acceptée !</Alert>
+          )}
         </CardActions>
       )}
       {courseDeleted && (

@@ -1,13 +1,14 @@
-import * as React from 'react';
-import { Logo } from './Logo';
-import { useScrollTrigger, Slide } from '@mui/material';
-import { Container, AppBar, Toolbar } from '@mui/material';
-import { BurgerMenu } from './BurgerMenu';
-import { InlineMenu } from './InlineMenu';
-import { AvatarMenu } from './AvatarMenu';
-import { AuthContext } from '../../utils/context/auth';
+import * as React from "react";
+import { Logo } from "./Logo";
+import { useScrollTrigger, Slide } from "@mui/material";
+import { Container, AppBar, Toolbar } from "@mui/material";
+import { BurgerMenu } from "./BurgerMenu";
+import { InlineMenu } from "./InlineMenu";
+import { AvatarMenu } from "./AvatarMenu";
+import { AuthContext } from "../../utils/context/auth";
+import { useTheme } from "@mui/material/styles";
 
-const pages = ['Connexion', 'Inscription'];
+const pages = ["Connexion", "Inscription"];
 
 function HideOnScroll(props) {
   const { children } = props;
@@ -21,6 +22,7 @@ function HideOnScroll(props) {
 }
 
 export const ResponsiveAppBar = () => {
+  const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const { userData, isLoggedIn } = React.useContext(AuthContext);
 
@@ -30,7 +32,7 @@ export const ResponsiveAppBar = () => {
         <Container component="nav" maxWidth="xl">
           <Toolbar
             disableGutters
-            sx={{ minHeight: { sm: '56px', md: '60px' } }}
+            sx={{ minHeight: { sm: "56px", md: "60px" } }}
           >
             <Logo />
             {isLoggedIn ? (
