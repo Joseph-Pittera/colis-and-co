@@ -11,16 +11,11 @@ export const ThemeSwitch = () => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   return (
-    <IconButton
-      sx={{ mx: 1, height: 25 }}
-      onClick={colorMode}
-      color="inherit"
-      size="small"
-    >
+    <IconButton sx={{ mx: 1 }} onClick={colorMode} color="inherit">
       {theme.palette.mode === "dark" ? (
-        <LightModeIcon fontSize="small" sx={{ mx: 1, maxHeight: 25 }} />
+        <LightModeIcon fontSize="small" />
       ) : (
-        <DarkModeIcon fontSize="small" sx={{ mx: 1, maxHeight: 25 }} />
+        <DarkModeIcon fontSize="small" />
       )}
     </IconButton>
   );
