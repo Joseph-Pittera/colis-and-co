@@ -53,6 +53,10 @@ const getDesignTokens = (mode) => ({
             light: blue[200],
             dark: blue[900],
           },
+          background: {
+            default: "#00162c",
+            paper: "#00162c",
+          },
         }),
   },
 });
