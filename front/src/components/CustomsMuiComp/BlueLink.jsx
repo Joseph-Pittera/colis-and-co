@@ -1,5 +1,6 @@
-import { styled } from "@mui/material/styles";
 import Link from "next/link";
+
+import { styled } from "@mui/material/styles";
 
 export const BlueLink = styled(Link)(({ theme }) => ({
   color: theme.palette.customBlue.dark,
