@@ -43,7 +43,7 @@ const getDesignTokens = (mode) => ({
       : {
           // palette values for dark mode
           primary: {
-            main: blue[800],
+            main: blue[900],
           },
           secondary: {
             main: blue[800],
@@ -52,6 +52,10 @@ const getDesignTokens = (mode) => ({
             main: blue[900],
             light: blue[200],
             dark: blue[900],
+          },
+          background: {
+            default: "#00162c",
+            paper: "#00162c",
           },
         }),
   },

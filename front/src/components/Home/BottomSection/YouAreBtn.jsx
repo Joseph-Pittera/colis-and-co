@@ -19,6 +19,7 @@ export default function YouAreBtn({ youAre, setYouAre }) {
   return (
     <ButtonGroup disableElevation>
       <Button
+        id="expeditor-btn"
         onClick={handleClick}
         sx={{ width: 120 }}
         variant={isOutlined ? "outlined" : "contained"}
@@ -26,6 +27,7 @@ export default function YouAreBtn({ youAre, setYouAre }) {
         Expéditeur
       </Button>
       <Button
+        id="deliverer-btn"
         onClick={handleClick}
         sx={{ width: 120 }}
         variant={isOutlined ? "contained" : "outlined"}

@@ -1,7 +1,9 @@
+import { useState } from "react";
+
+import { Box } from "@mui/material";
+
 import { BottomCards } from "./BottomCards";
 import YouAreBtn from "./YouAreBtn";
-import { Box } from "@mui/material";
-import { useState } from "react";
 
 export const BottomSection = () => {
   const [youAre, setYouAre] = useState("expeditor");
@@ -12,9 +14,6 @@ export const BottomSection = () => {
         flexDirection: "column",
         alignItems: "center",
         mt: 2,
-        // "& > *": {
-        //   m: 1,
-        // },
       }}
     >
       <YouAreBtn youAre={youAre} setYouAre={setYouAre} />
