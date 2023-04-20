@@ -44,7 +44,7 @@ router.get('/', controllerHandler(usersController.findAll.bind(usersController))
  * @group Users - Operations about user
  * @param {string} email.body.required - email
  * @param {string} password.body.required - user's password
- * @returns {object} 200 - success response
+ * @returns {User} 200 - success response
  * @returns {object}  401
  */
 router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersController.loginAction.bind(usersController)));
@@ -53,16 +53,6 @@ router.post('/login', validate(userAuth.post, 'body'), controllerHandler(usersCo
 Create a new user
  * @route POST /users/register
  * @group Users - Operations about user
- * @param {string} email.body.required - User's email address
- * @param {string} password.body.required - User's password
- * @param {string} first_name.body.required - User's first name
- * @param {string} last_name.body.required - User's last name
- * @param {string} address.body.required - User's address
- * @param {string} compAddress.body - User's complementary address
- * @param {string} zipcode.body.required - User's zip code
- * @param {string} city.body.required - User's city
- * @param {string} birth_date.body - User's birth date
- * @param {string} phone_number.body.required - User's phone number
  * @returns {object} 201 - An object representing the created user
  * @returns {object} 409
 */
@@ -72,7 +62,6 @@ router.post('/register', validate(schemas.post, 'body'), controllerHandler(users
  * Define a GET route for one user
  * @route GET /users/{id}
  * @group Users - Operations about user
- * @param {number} id.path - user id
  * @returns {object} 200 - success response
  * @returns {object} 204
  */
@@ -82,7 +71,6 @@ router.get('/:id', authenticationJwt, controllerHandler(usersController.findByPk
  * Define a GET route for one user's account
  * @route GET /users/{id}/account
  * @group Users - Operations about user
- * @param {number} id.path - user id
  * @returns {object} 200 - success response
  */
 router.get('/:id/account', authenticationJwt, controllerHandler(usersController.findAccountByUserId.bind(usersController)));
@@ -91,17 +79,6 @@ router.get('/:id/account', authenticationJwt, controllerHandler(usersController.
  * Define a PUT route to update one user's account
  * @route PUT /users/{id}/account
  * @group Users - Operations about user
- * @param {number} id.path - user id
- * @param {string} email.body.required - User's email address
- * @param {string} password.body.required - User's password
- * @param {string} first_name.body.required - User's first name
- * @param {string} last_name.body.required - User's last name
- * @param {string} address.body.required - User's address
- * @param {string} compAddress.body - User's complementary address
- * @param {string} zipcode.body.required - User's zip code
- * @param {string} city.body.required - User's city
- * @param {string} birth_date.body - User's birth date
- * @param {string} phone_number.body.required - User's phone number
  * @returns {object} 200 - success response
  * @returns {object} 500 - internal server error
  */
@@ -111,7 +88,6 @@ router.put('/:id/account', authenticationJwt, validate(schemas.put, 'body'), con
  * Define a DELETE route to suppress one user's account
  * @route DELETE /users/{id}/account
  * @group Users - Operations about user
- * @param {number} id.path - user id
  * @returns {object} 204 - success response
  * @returns {object} 500 - internal server error
  */
@@ -121,7 +97,6 @@ router.delete('/:id/account', authenticationJwt, controllerHandler(usersControll
  * Define a GET route for one carrier's account
  * @route GET /users/{id}/carrier
  * @group Users - Operations about user
- * @param {number} id.path - user id
  * @returns {object} 200 - User
  * @returns {object} 404
  */
@@ -131,17 +106,6 @@ router.get('/:id/carrier', authenticationJwt, controllerHandler(usersController.
  * Define a PUT route to update one carrier's account
  * @route PUT /users/{id}/carrier
  * @group Users - Operations about user
- * @param {number} id.path - user id
- * @param {string} email.body.required - User's email address
- * @param {string} password.body.required - User's password
- * @param {string} first_name.body.required - User's first name
- * @param {string} last_name.body.required - User's last name
- * @param {string} address.body.required - User's address
- * @param {string} compAddress.body - User's complementary address
- * @param {string} zipcode.body.required - User's zip code
- * @param {string} city.body.required - User's city
- * @param {string} birth_date.body - User's birth date
- * @param {string} phone_number.body.required - User's phone number
  * @returns {object} 200 - success response
  * @returns {object} 404
  */
@@ -151,7 +115,6 @@ router.put('/:id/carrier', authenticationJwt, validate(schemas.put, 'body'), con
  * Define a DELETE route to suppress one carrier's account
  * @route DELETE /users/{id}/carrier
  * @group Users - Operations about user
- * @param {number} id.path - user id
  * @returns {object} 204 - success response
  * @returns {object} 500 - internal server error
  */
