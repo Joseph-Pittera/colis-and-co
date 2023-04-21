@@ -101,7 +101,7 @@ router.post(
 
 /**
  * Define a GET route for one delivery
- * @route GET /deliveries/:id
+ * @route GET /deliveries/{id}
  * @group Deliveries - Operations about deliveries
  * @returns {object} 204 - An object with "result"
  */
@@ -112,7 +112,7 @@ router.get(
 
 /**
  * Define a PUT route to update one delivery
- * @route PUT /deliveries/:id
+ * @route PUT /deliveries/{id}
  * @group Deliveries - Operations about deliveries
  * @returns {object} An object
  */
@@ -126,7 +126,7 @@ router.put(
 
 /**
  * Define a PUT route to put a user as a carrier and confirm delivery
- * @route PUT /deliveries/:id/accept
+ * @route PUT /deliveries/{id}/accept
  * @group Deliveries - Operations about deliveries
  * @returns {object} - A message to confirm delivery
  */
@@ -138,7 +138,7 @@ router.put(
 
 /**
  * Define a DELETE route to suppress one delivery
- * @route DELETE /deliveries/:id
+ * @route DELETE /deliveries/{id}
  * @group Deliveries - Operations about deliveries
  * @returns {Response} 204
  */
