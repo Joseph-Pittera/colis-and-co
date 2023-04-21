@@ -72,7 +72,7 @@ router.get(
  * @route POST /deliveries
  * @group Deliveries - Operations about deliveries
  * @param {string} type_of_marchandise.body - delivery type_of_marchandise
- * @param {posint} quantity.body.required - delivery quantity
+ * @param {number} quantity.body.required - delivery quantity
  * @param {number} volume.body.required - delivery volume
  * @param {number} length.body.required - delivery length
  * @param {number} width.body.required - delivery width
