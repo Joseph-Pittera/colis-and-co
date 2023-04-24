@@ -333,7 +333,7 @@ export const MainComponent = () => {
           variant="contained"
           sx={{ mt: 3, width: 160, textAlign: "center" }}
         >
-          Register
+          Inscription
         </Button>
       </ConnexionBox>
     </>

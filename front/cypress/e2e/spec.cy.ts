@@ -141,10 +141,16 @@ describe.only("The Register Page", () => {
     cy.get('input[name="birth_date"]').should("exist");
     cy.get('input[name="phone_number"]').should("exist");
   });
-  it("successfully show alert if ", () => {
+  it("successfully show alert if email alreay used", () => {
     cy.get('input[name="email"]').type("test@test.com");
-    cy.get('input[name="password"]').type("azer");
-    cy.get("button[type=submit]").contains("Connexion").click();
+    cy.get('input[name="password"]').type("Azerty1!");
+    cy.get('input[name="passwordConfirm"]').type("Azerty1!");
+    cy.get('input[name="first_name"]').type("test");
+    cy.get('input[name="last_name"]').type("test");
+    cy.get('input[name="birth_date"]').type("2001-01-01");
+    cy.get('input[name="phone_number"]').type("0102030405");
+    cy.get('input[name="address"]').type("10 rue de la paix 75000 Paris");
+    cy.get("button[type=submit]").contains("Inscription").click();
     cy.get('div[role="alert"]').should("exist");
   });
 });
