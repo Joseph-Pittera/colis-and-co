@@ -75,7 +75,7 @@ export const MainComponent = () => {
         first_name: values.first_name,
         last_name: values.last_name,
         address: values.address,
-        zipcode: values.zipcode,
+        zipcode: values.zipcode || 11111,
         birth_date: values.birth_date,
         phone_number: values.phone_number,
         city: values.city,
@@ -116,7 +116,6 @@ export const MainComponent = () => {
   // handle address input with gouvernment API
   const [addresses, setAddresses] = useState([]);
   const handleAddressInput = async (e) => {
-    // handleChange(e);
     if (e.target.value?.length > 3) {
       try {
         const response = await fetch(

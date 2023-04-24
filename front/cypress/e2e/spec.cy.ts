@@ -149,8 +149,9 @@ describe.only("The Register Page", () => {
     cy.get('input[name="last_name"]').type("test");
     cy.get('input[name="birth_date"]').type("2001-01-01");
     cy.get('input[name="phone_number"]').type("0102030405");
-    cy.get('input[name="address"]').type("10 rue de la paix 75000 Paris");
+    cy.get('input[name="address"]').type("10 rue de la paix 75002 Paris");
     cy.get("button[type=submit]").contains("Inscription").click();
+
     cy.get('div[role="alert"]').should("exist");
   });
 });
