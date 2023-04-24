@@ -108,7 +108,7 @@ describe("The Connexion Page", () => {
     cy.get('div[role="alert"]').should("exist");
   });
 });
-describe("The Register Page", () => {
+describe.only("The Register Page", () => {
   it("successfully loads with header, main and footer", () => {
     cy.visit(Cypress.env("baseUrl") + "/register");
     cy.get("header").should("exist");
@@ -119,7 +119,7 @@ describe("The Register Page", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("baseUrl") + "/register");
   });
-  it("successfully loads connexion and password inputs", () => {
+  it("allows connexion and password inputs", () => {
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="password"]').should("exist");
     cy.get('input[name="passwordConfirm"]').should("exist");
@@ -129,7 +129,7 @@ describe("The Register Page", () => {
     cy.get('input[name="birth_date"]').should("exist");
     cy.get('input[name="phone_number"]').should("exist");
   });
-  it("successfully show alert if email alreay used", () => {
+  it("shows alert if email already used", () => {
     cy.get('input[name="email"]').type("test@test.com");
     cy.get('input[name="password"]').type("Azerty1!");
     cy.get('input[name="passwordConfirm"]').type("Azerty1!");
@@ -138,6 +138,10 @@ describe("The Register Page", () => {
     cy.get('input[name="birth_date"]').type("2001-01-01");
     cy.get('input[name="phone_number"]').type("0102030405");
     cy.get('input[name="address"]').type("10 rue de la paix 75002 Paris");
+    cy.get('input[name="address"]').invoke(
+      "val",
+      "10 Rue de la paix 75002 Paris"
+    );
     cy.get("button[type=submit]").contains("Inscription").click();
 
     cy.get('div[role="alert"]').should("exist");

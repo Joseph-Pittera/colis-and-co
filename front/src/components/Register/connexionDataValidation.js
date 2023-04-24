@@ -31,9 +31,9 @@ export const connexionDataValidation = (values) => {
   // if (values.zipcode === "") {
   //   error.zipcode = "Veuillez renseigner un code postal";
   // }
-  if (!zipcode_pattern.test(values.zipcode)) {
-    error.zipcode = "Veuillez renseigner un code postal valide";
-  }
+  // if (!zipcode_pattern.test(values.zipcode)) {
+  //   error.zipcode = "Veuillez renseigner un code postal valide";
+  // }
   console.log("error", error);
   return error;
 };

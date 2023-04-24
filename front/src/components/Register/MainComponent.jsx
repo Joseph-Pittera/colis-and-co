@@ -125,6 +125,7 @@ export const MainComponent = () => {
         const formattedAddresses = data.features.map(
           (feature) => feature.properties
         );
+        console.log("formattedAddresses", formattedAddresses);
         setAddresses(formattedAddresses);
       } catch (error) {
         console.log(error);
