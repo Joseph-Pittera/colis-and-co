@@ -28,9 +28,9 @@ export const connexionDataValidation = (values) => {
   if (values.passwordConfirm === "") {
     error.passwordConfirm = "Veuillez confirmer votre mot de passe";
   }
-  if (values.zipcode === "") {
-    error.zipcode = "Veuillez renseigner un code postal";
-  }
+  // if (values.zipcode === "") {
+  //   error.zipcode = "Veuillez renseigner un code postal";
+  // }
   if (!zipcode_pattern.test(values.zipcode)) {
     error.zipcode = "Veuillez renseigner un code postal valide";
   }

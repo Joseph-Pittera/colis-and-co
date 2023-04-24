@@ -7,11 +7,13 @@ export default defineConfig({
       bundler: "webpack",
     },
   },
-
+  env: {
+    baseUrl: "https://projet-colis-and-co-git-testing-colisandco.vercel.app",
+  },
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
-      baseUrl: "https://projet-colis-and-co.vercel.app";
+      baseUrl: "https://projet-colis-and-co-git-testing-colisandco.vercel.app";
     },
   },
 });
