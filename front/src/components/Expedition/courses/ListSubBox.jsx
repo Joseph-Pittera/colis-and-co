@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, ListItem, useTheme } from "@mui/material";
+import { ListItem, useTheme } from "@mui/material";
 
 export const ListSubBox = ({ children }) => {
   const theme = useTheme();
@@ -12,7 +12,7 @@ export const ListSubBox = ({ children }) => {
         border: `2px solid ${theme.palette.primary.main}`,
         borderRadius: "5px",
         mb: "1rem",
-        mx: "1rem",
+        mx: "auto",
         boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)",
         padding: "1rem",
         flexWrap: "wrap",

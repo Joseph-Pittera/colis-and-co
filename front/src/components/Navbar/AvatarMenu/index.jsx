@@ -36,6 +36,7 @@ export const AvatarMenu = ({ firstName, lastName }) => {
     >
       <ThemeSwitch />
       <IconButton
+        id="avatar-button"
         size="small"
         sx={{ ml: 2 }}
         aria-controls={open ? "account-menu" : undefined}

@@ -1,6 +1,6 @@
 describe("The Home Page", () => {
   it("successfully loads with header, main and footer", () => {
-    cy.visit("https://projet-colis-and-co.vercel.app");
+    cy.visit("https://projet-colis-and-co-git-testing-colisandco.vercel.app/");
     cy.get("header").should("exist");
     cy.get("main").should("exist");
     cy.get("footer").should("exist");
@@ -8,7 +8,7 @@ describe("The Home Page", () => {
 });
 describe("The cookies modal", () => {
   beforeEach(() => {
-    cy.visit("https://projet-colis-and-co.vercel.app");
+    cy.visit("https://projet-colis-and-co-git-testing-colisandco.vercel.app/");
   });
   it("successfully loads", () => {
     cy.get("#cookies-modal").should("be.visible");
@@ -27,7 +27,7 @@ describe("The cookies modal", () => {
 });
 describe("The Home Page Links", () => {
   beforeEach(() => {
-    cy.visit("https://projet-colis-and-co.vercel.app");
+    cy.visit("https://projet-colis-and-co-git-testing-colisandco.vercel.app/");
     cy.get("button").contains("Accepter").click();
   });
   it("successfully redirect to List of courses", () => {
@@ -57,16 +57,62 @@ describe("The Home Page Links", () => {
 });
 describe("The Course list Page", () => {
   it("successfully loads with header, main and footer", () => {
-    cy.visit("https://projet-colis-and-co.vercel.app/expedition/courses");
+    cy.visit(
+      "https://projet-colis-and-co-git-testing-colisandco.vercel.app/expedition/courses"
+    );
     cy.get("header").should("exist");
     cy.get("main").should("exist");
     cy.get("footer").should("exist");
   });
   beforeEach(() => {
-    cy.visit("https://projet-colis-and-co.vercel.app/expedition/courses");
+    cy.visit(
+      "https://projet-colis-and-co-git-testing-colisandco.vercel.app/expedition/courses"
+    );
   });
-  // it("successfully loads with a list of courses", () => {
-  //   cy.get("ul").should("exist");
-  //   cy.get("li").should("exist");
-  // });
+  it("successfully loads with a list of courses", () => {
+    cy.get("ul").should("exist");
+    cy.get("li").should("exist");
+  });
+  it("successfully redirect to the details of a course", () => {
+    cy.get("li").first().click();
+    cy.get("h1").contains("Détails de la course").should("exist");
+  });
+});
+describe.only("The Connexion Page", () => {
+  it("successfully loads with header, main and footer", () => {
+    cy.visit(
+      "https://projet-colis-and-co-git-testing-colisandco.vercel.app/login"
+    );
+    cy.get("header").should("exist");
+    cy.get("main").should("exist");
+    cy.get("footer").should("exist");
+    cy.get("h1").contains("Connexion").should("exist");
+  });
+  beforeEach(() => {
+    cy.visit(
+      "https://projet-colis-and-co-git-testing-colisandco.vercel.app/login"
+    );
+  });
+  it("successfully loads connexion and password inputs", () => {
+    cy.get('input[name="email"]').should("exist");
+    cy.get('input[name="password"]').should("exist");
+  });
+  it.skip("successfully connect allowed user and redirect to home page", () => {
+    cy.get('input[name="email"]').type("test@test.com");
+    cy.get('input[name="password"]').type("Azerty1!");
+    cy.get("button[type=submit]").contains("Connexion").click();
+    cy.location().should((loc) => {
+      expect(loc.host).to.eq(
+        "projet-colis-and-co-git-testing-colisandco.vercel.app"
+      );
+      expect(loc.protocol).to.eq("https:");
+    });
+    cy.get("#avatar-button").should("exist");
+  });
+  it("successfully show alert for not allowed users", () => {
+    cy.get('input[name="email"]').type("test@test.com");
+    cy.get('input[name="password"]').type("azer");
+    cy.get("button[type=submit]").contains("Connexion").click();
+    cy.get('div[role="alert"]').should("exist");
+  });
 });
