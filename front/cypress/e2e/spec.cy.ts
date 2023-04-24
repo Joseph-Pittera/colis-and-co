@@ -78,7 +78,7 @@ describe("The Course list Page", () => {
     cy.get("h1").contains("Détails de la course").should("exist");
   });
 });
-describe.only("The Connexion Page", () => {
+describe("The Connexion Page", () => {
   it("successfully loads with header, main and footer", () => {
     cy.visit(
       "https://projet-colis-and-co-git-testing-colisandco.vercel.app/login"
@@ -110,6 +110,38 @@ describe.only("The Connexion Page", () => {
     cy.get("#avatar-button").should("exist");
   });
   it("successfully show alert for not allowed users", () => {
+    cy.get('input[name="email"]').type("test@test.com");
+    cy.get('input[name="password"]').type("azer");
+    cy.get("button[type=submit]").contains("Connexion").click();
+    cy.get('div[role="alert"]').should("exist");
+  });
+});
+describe.only("The Register Page", () => {
+  it("successfully loads with header, main and footer", () => {
+    cy.visit(
+      "https://projet-colis-and-co-git-testing-colisandco.vercel.app/register"
+    );
+    cy.get("header").should("exist");
+    cy.get("main").should("exist");
+    cy.get("footer").should("exist");
+    cy.get("h1").contains("Inscription").should("exist");
+  });
+  beforeEach(() => {
+    cy.visit(
+      "https://projet-colis-and-co-git-testing-colisandco.vercel.app/register"
+    );
+  });
+  it("successfully loads connexion and password inputs", () => {
+    cy.get('input[name="email"]').should("exist");
+    cy.get('input[name="password"]').should("exist");
+    cy.get('input[name="passwordConfirm"]').should("exist");
+    cy.get('input[name="first_name"]').should("exist");
+    cy.get('input[name="last_name"]').should("exist");
+    cy.get('input[name="address"]').should("exist");
+    cy.get('input[name="birth_date"]').should("exist");
+    cy.get('input[name="phone_number"]').should("exist");
+  });
+  it("successfully show alert if ", () => {
     cy.get('input[name="email"]').type("test@test.com");
     cy.get('input[name="password"]').type("azer");
     cy.get("button[type=submit]").contains("Connexion").click();

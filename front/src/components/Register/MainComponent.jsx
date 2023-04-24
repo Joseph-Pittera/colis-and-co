@@ -162,9 +162,11 @@ export const MainComponent = () => {
             dataErrors.passwordConfirm ||
             dataErrors.zipcode)}
       </Typography>
-      <Typography component="h5" fontSize={26} color="red">
-        {serverDataErrors?.status === 409 && serverDataErrors?.message}
-      </Typography>
+      {serverDataErrors?.status === 409 && (
+        <Alert variant="outlined" severity="error" sx={{ m: "1rem" }}>
+          {serverDataErrors?.message}
+        </Alert>
+      )}
 
       <ConnexionBox handleForm={handleForm}>
         <Box
