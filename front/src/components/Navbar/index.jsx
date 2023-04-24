@@ -1,12 +1,13 @@
 import * as React from "react";
-import { Logo } from "./Logo";
+
 import { useScrollTrigger, Slide } from "@mui/material";
 import { Container, AppBar, Toolbar } from "@mui/material";
+
+import { Logo } from "./Logo";
 import { BurgerMenu } from "./BurgerMenu";
 import { InlineMenu } from "./InlineMenu";
 import { AvatarMenu } from "./AvatarMenu";
 import { AuthContext } from "../../utils/context/auth";
-import { useTheme } from "@mui/material/styles";
 
 const pages = ["Connexion", "Inscription"];
 
@@ -22,7 +23,6 @@ function HideOnScroll(props) {
 }
 
 export const ResponsiveAppBar = () => {
-  const theme = useTheme();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const { userData, isLoggedIn } = React.useContext(AuthContext);
 

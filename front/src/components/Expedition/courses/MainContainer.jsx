@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useFetch } from "@/utils/hooks";
 
 import { TextField, Typography, Box } from "@mui/material";
-import { Button } from "@mui/material";
+import { Button, List } from "@mui/material";
 import { CircularProgress } from "@mui/material";
 
 import { ListSubBox } from "./ListSubBox";
@@ -71,7 +71,7 @@ export const MainContainer = () => {
       {isLoading ? (
         <CircularProgress />
       ) : (
-        <Box>
+        <List>
           {Array.isArray(courses) &&
             courses?.map((delivery) => {
               return (
@@ -89,7 +89,7 @@ export const MainContainer = () => {
                       alignItems="center"
                       ml={{ xs: 2, md: 0 }}
                       mr={2}
-                      width={100}
+                      width={150}
                     >
                       {delivery.type_of_marchandise}
                     </Typography>
@@ -123,7 +123,7 @@ export const MainContainer = () => {
                 </Link>
               );
             })}
-        </Box>
+        </List>
       )}
     </>
   );
