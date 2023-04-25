@@ -62,6 +62,7 @@ export function MainContainer() {
       const volume = data.length * data.width * data.height;
       data = { ...data, ...values, volume };
       const bodyRequest = JSON.stringify(data);
+      console.log("bodyRequest", bodyRequest);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries`,
         {

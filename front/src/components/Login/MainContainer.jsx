@@ -94,8 +94,6 @@ export const MainContainer = () => {
           sx={{ m: 1, width: "25ch" }}
           size={matches ? "small" : "normal"}
           onChange={handleChange}
-          //   error={dataErrors && !!dataErrors.email}
-          //   helperText={dataErrors?.email && "Email incorrect"}
         />
         <FormControl
           sx={{ m: 1, width: "25ch" }}

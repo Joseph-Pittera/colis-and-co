@@ -1,3 +1,4 @@
+// ***************************** HOME PAGE ***************************** //
 describe("The Home Page", () => {
   it("successfully loads with header, main and footer", () => {
     cy.visit(Cypress.env("baseUrl"));
@@ -6,6 +7,7 @@ describe("The Home Page", () => {
     cy.get("footer").should("exist");
   });
 });
+// ***************************** COOKIES MODAL ***************************** //
 describe("The cookies modal", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("baseUrl"));
@@ -25,6 +27,7 @@ describe("The cookies modal", () => {
       .should("eq", "true");
   });
 });
+// ***************************** HOME PAGE LINKS ***************************** //
 describe("The Home Page Links", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("baseUrl"));
@@ -55,6 +58,7 @@ describe("The Home Page Links", () => {
     cy.get("footer").should("exist");
   });
 });
+// ***************************** COURSE LIST PAGE ***************************** //
 describe("The Course list Page", () => {
   it("successfully loads with header, main and footer", () => {
     cy.visit(Cypress.env("baseUrl") + "/expedition/courses");
@@ -63,6 +67,9 @@ describe("The Course list Page", () => {
     cy.get("footer").should("exist");
   });
   beforeEach(() => {
+    cy.intercept("GET", "/api/deliveries", { fixture: "courses.json" }).as(
+      "getCourses"
+    );
     cy.visit(Cypress.env("baseUrl") + "/expedition/courses");
   });
   it("successfully loads with a list of courses", () => {
@@ -74,6 +81,7 @@ describe("The Course list Page", () => {
     cy.get("h1").contains("Détails de la course").should("exist");
   });
 });
+// ***************************** CONNEXION PAGE ***************************** //
 describe("The Connexion Page", () => {
   it("successfully loads with header, main and footer", () => {
     cy.visit(Cypress.env("baseUrl") + "/login");
@@ -92,6 +100,9 @@ describe("The Connexion Page", () => {
   it("successfully connect allowed user and redirect to home page", () => {
     cy.get('input[name="email"]').type("test@test.com");
     cy.get('input[name="password"]').type("Azerty1!");
+    cy.intercept("POST", "/api/users/login", { fixture: "user.json" }).as(
+      "getUser"
+    );
     cy.get("button[type=submit]").contains("Connexion").click();
     cy.location().should((loc) => {
       expect(loc.host).to.eq(
@@ -108,7 +119,8 @@ describe("The Connexion Page", () => {
     cy.get('div[role="alert"]').should("exist");
   });
 });
-describe.only("The Register Page", () => {
+// ***************************** REGISTER PAGE ***************************** //
+describe("The Register Page", () => {
   it("successfully loads with header, main and footer", () => {
     cy.visit(Cypress.env("baseUrl") + "/register");
     cy.get("header").should("exist");
@@ -119,7 +131,7 @@ describe.only("The Register Page", () => {
   beforeEach(() => {
     cy.visit(Cypress.env("baseUrl") + "/register");
   });
-  it("allows connexion and password inputs", () => {
+  it("shows register fields inputs", () => {
     cy.get('input[name="email"]').should("exist");
     cy.get('input[name="password"]').should("exist");
     cy.get('input[name="passwordConfirm"]').should("exist");
@@ -143,7 +155,66 @@ describe.only("The Register Page", () => {
       "10 Rue de la paix 75002 Paris"
     );
     cy.get("button[type=submit]").contains("Inscription").click();
-
+    cy.get('div[role="alert"]').should("exist");
+  });
+});
+// ***************************** SENDING FORM PAGE ***************************** //
+describe.only("The Sending Page", () => {
+  it("successfully loads with header, main and footer", () => {
+    cy.visit(Cypress.env("baseUrl") + "/expedition/create");
+    cy.get("header").should("exist");
+    cy.get("main").should("exist");
+    cy.get("footer").should("exist");
+    cy.get("h1").contains("Formulaire d'expédition").should("exist");
+  });
+  it("doesn't allow to access the form if not connected", () => {
+    cy.window().then((win) => {
+      win.localStorage.clear();
+    });
+    cy.visit(Cypress.env("baseUrl") + "/expedition/create");
+    cy.get('div[role="alert"]').should("exist");
+  });
+  it("shows the form if connected", () => {
+    cy.visit(Cypress.env("baseUrl") + "/login");
+    cy.get('input[name="email"]').type("test@test.com");
+    cy.get('input[name="password"]').type("Azerty1!");
+    cy.intercept("POST", "/api/users/login", { fixture: "user.json" }).as(
+      "getUser"
+    );
+    cy.get("button[type=submit]").contains("Connexion").click();
+    cy.get("button").contains("Accepter").click({ force: true });
+    cy.get("button").contains("Je propose un envoi").click();
+    cy.get("form").should("exist");
+    cy.get("button").contains("Publier la course").should("exist");
+  });
+});
+// ***************************** SENDING FORM PAGE ***************************** //
+describe.only("The Sending Page", () => {
+  beforeEach(() => {
+    cy.visit(Cypress.env("baseUrl") + "/login");
+    cy.get('input[name="email"]').type("test@test.com");
+    cy.get('input[name="password"]').type("Azerty1!");
+    cy.intercept("POST", "/api/users/login", { fixture: "user.json" }).as(
+      "getUser"
+    );
+    cy.get("button[type=submit]").contains("Connexion").click();
+    cy.get("button").contains("Accepter").click({ force: true });
+    cy.get("button").contains("Je propose un envoi").click();
+  });
+  it("shows form fields inputs", () => {
+    cy.fixture("expeditionForm.json").then((data) => {
+      Object.keys(data).forEach((key) => {
+        cy.get(`input[name=${key}]`).should("exist");
+      });
+    });
+  });
+  it("shows alert if form is not valid", () => {
+    cy.fixture("expeditionForm.json").then((data) => {
+      Object.keys(data).forEach((key) => {
+        cy.get(`input[name=${key}]`).type(data[key]);
+      });
+    });
+    cy.get("button").contains("Publier la course").click();
     cy.get('div[role="alert"]').should("exist");
   });
 });
