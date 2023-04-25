@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import { ResponsiveAppBar as Navbar } from "../Navbar";
+import { ResponsiveAppBar as Navbar } from "../Navbar/index.tsx";
 import { Footer } from "../Footer";
 import { AuthContext } from "../../utils/context/auth";
 import { useContext } from "react";

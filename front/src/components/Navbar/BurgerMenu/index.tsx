@@ -1,50 +1,61 @@
-import { useState, useContext } from "react";
-import { useRouter } from "next/router";
-
-import { Avatar, Menu, MenuItem, Box } from "@mui/material";
+import * as React from "react";
+import { Menu, MenuItem, Box } from "@mui/material";
 import { IconButton, ListItemIcon } from "@mui/material";
-import Logout from "@mui/icons-material/Logout";
-
-import { stringAvatar } from "../functions/stringAvatar";
-import { AuthContext } from "../../../utils/context/auth";
+import Login from "@mui/icons-material/Login";
+import MenuIcon from "@mui/icons-material/Menu";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import { useRouter } from "next/router";
 import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
-export const AvatarMenu = ({ firstName, lastName }) => {
+interface BurgerMenuProps {
+  pages: string[];
+  anchorElNav: HTMLElement | null;
+  setAnchorElNav: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+}
+
+export const BurgerMenu: React.FC<BurgerMenuProps> = ({
+  pages,
+  anchorElNav,
+  setAnchorElNav,
+}) => {
   const router = useRouter();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const { logout } = useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = () => {
+  const handleLogin = () => {
     setAnchorEl(null);
-    logout();
-    router.push("/");
+    router.push("/login");
+  };
+  const handleRegister = () => {
+    setAnchorEl(null);
+    router.push("/register");
   };
 
   return (
     <Box
       sx={{
         flexGrow: 1,
-        display: "flex",
+        display: { xs: "flex", sm: "none" },
         justifyContent: "flex-end",
       }}
     >
       <ThemeSwitch />
       <IconButton
-        id="avatar-button"
         size="small"
-        sx={{ ml: 2 }}
-        aria-controls={open ? "account-menu" : undefined}
+        aria-label="account of current user"
+        aria-controls="menu-appbar"
         aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{
+          color: "customBlue.dark",
+        }}
       >
-        <Avatar {...stringAvatar(`${firstName} ${lastName}`)} />
+        <MenuIcon />
       </IconButton>
       <Menu
         anchorEl={anchorEl}
@@ -56,7 +67,7 @@ export const AvatarMenu = ({ firstName, lastName }) => {
           sx: {
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
+            mt: 0,
             "& .MuiAvatar-root": {
               width: 32,
               height: 32,
@@ -68,7 +79,7 @@ export const AvatarMenu = ({ firstName, lastName }) => {
               display: "block",
               position: "absolute",
               top: 0,
-              right: 14,
+              right: 20,
               width: 10,
               height: 10,
               bgcolor: "background.paper",
@@ -80,11 +91,17 @@ export const AvatarMenu = ({ firstName, lastName }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleLogout}>
+        <MenuItem onClick={handleLogin}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Login fontSize="small" />
           </ListItemIcon>
-          Logout
+          Connexion
+        </MenuItem>
+        <MenuItem onClick={handleRegister}>
+          <ListItemIcon>
+            <HowToRegIcon fontSize="small" />
+          </ListItemIcon>
+          Inscription
         </MenuItem>
       </Menu>
     </Box>

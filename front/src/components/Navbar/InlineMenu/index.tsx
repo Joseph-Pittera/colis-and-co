@@ -5,13 +5,21 @@ import { useTheme } from "@mui/material/styles";
 
 import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
-export const InlineMenu = () => {
+interface InlineMenuProps {
+  pages: string[];
+  setAnchorElNav: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+}
+
+export const InlineMenu: React.FC<InlineMenuProps> = ({
+  pages,
+  setAnchorElNav,
+}) => {
   const theme = useTheme();
   const router = useRouter();
-  const handleLogin = () => {
+  const handleLogin = (): void => {
     router.push("/login");
   };
-  const handleRegister = () => {
+  const handleRegister = (): void => {
     router.push("/register");
   };
   return (

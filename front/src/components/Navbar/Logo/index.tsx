@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import { BlueLink } from "../../CustomsMuiComp/BlueLink";
 
-export const Logo = () => {
+export const Logo: React.FC = () => {
   const theme = useTheme();
   return (
     <BlueLink href="/">

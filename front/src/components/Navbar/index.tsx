@@ -7,11 +7,15 @@ import { Logo } from "./Logo";
 import { BurgerMenu } from "./BurgerMenu";
 import { InlineMenu } from "./InlineMenu";
 import { AvatarMenu } from "./AvatarMenu";
-import { AuthContext } from "../../utils/context/auth";
+import { AuthContext } from "../../utils/context/auth.jsx";
 
 const pages = ["Connexion", "Inscription"];
 
-function HideOnScroll(props) {
+interface HideOnScrollProps {
+  children: React.ReactElement;
+}
+
+function HideOnScroll(props: HideOnScrollProps) {
   const { children } = props;
   const trigger = useScrollTrigger();
 
@@ -23,7 +27,9 @@ function HideOnScroll(props) {
 }
 
 export const ResponsiveAppBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
   const { userData, isLoggedIn } = React.useContext(AuthContext);
 
   return (
