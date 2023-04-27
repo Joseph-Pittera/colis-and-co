@@ -9,10 +9,10 @@ import { stringAvatar } from "../functions/stringAvatar";
 import { AuthContext } from "../../../utils/context/auth";
 import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
-interface AvatarMenuProps {
+type AvatarMenuProps = {
   firstName: string;
   lastName: string;
-}
+};
 
 export const AvatarMenu: React.FC<AvatarMenuProps> = ({
   firstName,

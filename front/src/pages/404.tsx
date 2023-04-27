@@ -2,7 +2,7 @@ import { Layout } from "@/components/Layout";
 import { Box, Typography } from "@mui/material";
 import { indigo } from "@mui/material/colors";
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <Layout>
       <Box

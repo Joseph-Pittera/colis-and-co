@@ -5,10 +5,10 @@ import { useTheme } from "@mui/material/styles";
 
 import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
-interface InlineMenuProps {
+type InlineMenuProps = {
   pages: string[];
   setAnchorElNav: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
-}
+};
 
 export const InlineMenu: React.FC<InlineMenuProps> = ({
   pages,

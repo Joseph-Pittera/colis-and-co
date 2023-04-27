@@ -11,18 +11,18 @@ import { useTheme } from "@mui/material/styles";
 
 import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
 
-export const MainContainer = () => {
+export const MainContainer: React.FC = () => {
   const router = useRouter();
   const { login } = useContext(AuthContext);
   const [connexionToServerError, setConnexionToServerError] = useState(false);
-  const [serverDataError, setServerDataError] = useState(null);
+  const [serverDataError, setServerDataError] = useState<Error | null>(null);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   // handle password visibility
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (e) => {
+  const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
   };
 
@@ -31,12 +31,13 @@ export const MainContainer = () => {
     email: "",
     password: "",
   });
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target as HTMLInputElement;
+    setValues({ ...values, [input.name]: input.value });
   };
 
   // handle form submit
-  const handleForm = async (e) => {
+  const handleForm = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setServerDataError((c) => (c = null));
     setConnexionToServerError((c) => (c = false));
     try {
@@ -53,8 +54,8 @@ export const MainContainer = () => {
         }
       );
       if (!response.ok) {
-        setServerDataError((c) => (c = response));
-        throw new Error(response.message);
+        setServerDataError(new Error(response.statusText));
+        throw new Error(response.statusText);
       }
 
       const respData = await response.json(); // extraire les données JSON de la réponse
@@ -64,9 +65,11 @@ export const MainContainer = () => {
       login(respData); // add user data to context and local storage
       router.push("/");
     } catch (error) {
-      console.log(error);
-      if (error.message === "Failed to fetch") {
-        setConnexionToServerError((c) => (c = true));
+      if (error instanceof Error) {
+        console.log(error.message);
+        if (error.message === "Failed to fetch") {
+          setConnexionToServerError((c) => (c = true));
+        }
       }
     }
   };
@@ -92,13 +95,13 @@ export const MainContainer = () => {
           label="Email"
           name="email"
           sx={{ m: 1, width: "25ch" }}
-          size={matches ? "small" : "normal"}
+          size={matches ? "small" : "medium"}
           onChange={handleChange}
         />
         <FormControl
           sx={{ m: 1, width: "25ch" }}
           variant="outlined"
-          size={matches ? "small" : "normal"}
+          size={matches ? "small" : "medium"}
         >
           <InputLabel htmlFor="outlined-adornment-password">
             Password
@@ -123,19 +126,6 @@ export const MainContainer = () => {
             onChange={handleChange}
           />
         </FormControl>
-        {/* <ResponsiveTextField
-          label="Password"
-          name="password"
-          type={showPassword ? 'text' : 'password'}
-            error={
-              dataErrors && (!!dataErrors.password || !!dataErrors.password2)
-            }
-            helperText={
-                (dataErrors?.password || dataErrors?.password2) &&
-                "Mot de passe incorrect"
-              }
-          onChange={handleChange}
-        /> */}
         <Button
           type="submit"
           variant="contained"

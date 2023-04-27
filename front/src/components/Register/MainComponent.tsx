@@ -13,29 +13,57 @@ import { ConnexionBox } from "@/components/Connexion/ConnexionBox";
 import { ResponsiveTextField } from "@/components/CustomsMuiComp/ResponsiveTextField";
 import { connexionDataValidation } from "@/components/Register/connexionDataValidation";
 
-export const MainComponent = () => {
-  const [serverDataErrors, setServerDataErrors] = useState(false);
-  const [connexionToServerErrors, setConnexionToServerErrors] = useState(false);
+type Values = {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  first_name: string;
+  last_name: string;
+  address: string;
+  zipcode: string;
+  city: string;
+  birth_date: string;
+  phone_number: string;
+};
+
+type ErrorDataValidation = {
+  email?: string;
+  password?: string;
+  password2?: string;
+  passwordConfirm?: string;
+  zipcode?: string;
+};
+
+export const MainComponent: React.FC = () => {
+  const [serverDataErrors, setServerDataErrors] = useState<{
+    status?: number;
+    message: string;
+  }>({ message: "" });
+  const [connexionToServerErrors, setConnexionToServerErrors] =
+    useState<boolean>(false);
   const router = useRouter();
   const { login } = useContext(AuthContext);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   // handle password visibility
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (e) => {
+  const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
   };
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<boolean>(false);
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword((show) => !show);
-  const handleMouseDownConfirmPassword = (e) => {
+  const handleMouseDownConfirmPassword = (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
     e.preventDefault();
   };
 
   // hangle Input changes
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<Values>({
     email: "",
     password: "",
     passwordConfirm: "",
@@ -47,22 +75,27 @@ export const MainComponent = () => {
     birth_date: "",
     phone_number: "",
   });
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-    setErrorDataValidation((c) => (c = false));
+    setErrorDataValidation((c) => (c = {}));
   };
 
   // handle password confirmation
-  const [dataErrors, setDataErrors] = useState(null);
-  const handlePwdChange = (e) => {
+  const [dataErrors, setDataErrors] = useState<boolean>(false);
+  const handlePwdChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     if (e.target.value && values.password !== e.target.value) {
       setDataErrors(true);
     } else setDataErrors(false);
   };
 
   // handle form submit with Data Validation
-  const [errorDataValidation, setErrorDataValidation] = useState(null);
-  const handleForm = async (e) => {
+  const [errorDataValidation, setErrorDataValidation] =
+    useState<ErrorDataValidation>({});
+  const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
     setErrorDataValidation(connexionDataValidation(values));
     if (Object.keys(errorDataValidation).length !== 0) {
       return;
@@ -106,24 +139,26 @@ export const MainComponent = () => {
       login(respData); // add user data to context and local storage
       router.push("/");
     } catch (error) {
-      console.log(error);
-      if (error.message === "Failed to fetch") {
-        setConnexionToServerErrors(true);
+      if (error instanceof Error) {
+        console.log(error);
+        if (error.message === "Failed to fetch") {
+          setConnexionToServerErrors(true);
+        }
       }
     }
   };
 
   // handle address input with gouvernment API
-  const [addresses, setAddresses] = useState([]);
-  const handleAddressInput = async (e) => {
-    if (e.target.value?.length > 3) {
+  const [addresses, setAddresses] = useState<Array<any>>([]);
+  const handleAddressInput = async (e: any, value: string) => {
+    if (value?.length > 3) {
       try {
         const response = await fetch(
-          `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
+          `https://api-adresse.data.gouv.fr/search/?q=${value}`
         );
         const data = await response.json();
         const formattedAddresses = data.features.map(
-          (feature) => feature.properties
+          (feature: any) => feature.properties
         );
         console.log("formattedAddresses", formattedAddresses);
         setAddresses(formattedAddresses);
@@ -132,7 +167,8 @@ export const MainComponent = () => {
       }
     }
   };
-  const handleAddressSelection = (e, value) => {
+
+  const handleAddressSelection = (e: any, value: any) => {
     if (value === null) {
       return;
     }
@@ -156,11 +192,11 @@ export const MainComponent = () => {
       )}
       <Typography component="h5" fontSize={14} color="red">
         {dataErrors &&
-          (dataErrors.email ||
-            dataErrors.password ||
-            dataErrors.password2 ||
-            dataErrors.passwordConfirm ||
-            dataErrors.zipcode)}
+          (errorDataValidation.email ||
+            errorDataValidation.password ||
+            errorDataValidation.password2 ||
+            errorDataValidation.passwordConfirm ||
+            errorDataValidation.zipcode)}
       </Typography>
       {serverDataErrors?.status === 409 && (
         <Alert variant="outlined" severity="error" sx={{ m: "1rem" }}>
@@ -190,11 +226,16 @@ export const MainComponent = () => {
                 serverDataErrors?.status === 409
               }
               helperText={errorDataValidation?.email && "Email incorrect"}
+              autoComplete={undefined}
+              type={undefined}
+              props={undefined}
+              placeholder={undefined}
+              sx={undefined}
             />
             <FormControl
               sx={{ m: 1 }}
               variant="outlined"
-              size={matches ? "small" : "normal"}
+              size={matches ? "small" : "medium"}
               error={
                 errorDataValidation &&
                 (!!errorDataValidation.password ||
@@ -233,7 +274,7 @@ export const MainComponent = () => {
             <FormControl
               sx={{ m: 1 }}
               variant="outlined"
-              size={matches ? "small" : "normal"}
+              size={matches ? "small" : "medium"}
               error={dataErrors}
             >
               <InputLabel htmlFor="outlined-adornment-password" required>
@@ -266,20 +307,26 @@ export const MainComponent = () => {
               </FormHelperText>
             </FormControl>
             <ResponsiveTextField
-              required
               label="Nom"
               name="first_name"
               placeholder="Nom"
               sx={{ maxWidth: "16rem" }}
               onChange={handleChange}
+              autoComplete={undefined}
+              type={undefined}
+              props={undefined}
+              error={undefined}
             />
             <ResponsiveTextField
-              required
               label="Prénom"
               name="last_name"
               placeholder="Prénom"
               sx={{ maxWidth: "16rem" }}
               onChange={handleChange}
+              autoComplete={undefined}
+              type={undefined}
+              props={undefined}
+              error={undefined}
             />
           </Stack>
           <Stack
@@ -292,25 +339,27 @@ export const MainComponent = () => {
               label="Date de naissance"
               name="birth_date"
               type="date"
-              size={matches ? "small" : "normal"}
+              size={matches ? "small" : "medium"}
               InputLabelProps={{
                 shrink: true,
               }}
               onChange={handleChange}
             />
             <ResponsiveTextField
-              required
               label="Téléphone"
               name="phone_number"
               placeholder="Téléphone"
               type="tel"
               sx={{ maxWidth: "16rem" }}
               onChange={handleChange}
+              autoComplete={undefined}
+              props={undefined}
+              error={undefined}
             />
             <Box>
               <Autocomplete
                 id="address"
-                size={matches ? "small" : "normal"}
+                size={matches ? "small" : "medium"}
                 sx={{ mr: 1 }}
                 options={addresses}
                 onChange={handleAddressSelection}

@@ -1,6 +1,19 @@
-export const connexionDataValidation = (values) => {
+type Values = {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};
+
+type Errors = {
+  email?: string;
+  password?: string;
+  password2?: string;
+  passwordConfirm?: string;
+};
+
+export const connexionDataValidation = (values: Values): Errors => {
   console.log("values", values);
-  let error = {};
+  let error: Errors = {};
   const email_pattern =
     /^[a-zA-Z0-9.!#$%&''+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/;
   // const email_pattern = /^[^\s@]@[^\s@]+\.[^\s@]+$/;

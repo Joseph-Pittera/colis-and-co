@@ -7,11 +7,11 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { useRouter } from "next/router";
 import { ThemeSwitch } from "../../CustomsMuiComp/themeSwitch";
 
-interface BurgerMenuProps {
+type BurgerMenuProps = {
   pages: string[];
   anchorElNav: HTMLElement | null;
   setAnchorElNav: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
-}
+};
 
 export const BurgerMenu: React.FC<BurgerMenuProps> = ({
   pages,

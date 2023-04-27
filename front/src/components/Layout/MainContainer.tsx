@@ -1,10 +1,12 @@
 import { Container } from "@mui/material";
 import { ResponsiveAppBar as Navbar } from "../Navbar/index.tsx";
-import { Footer } from "../Footer";
-import { AuthContext } from "../../utils/context/auth";
-import { useContext } from "react";
+import { Footer } from "../Footer/index.jsx";
 
-export const MainContainer = ({ children }) => {
+type MainContainerProps = {
+  children: React.ReactNode;
+};
+
+export const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
   return (
     <Container
       sx={{

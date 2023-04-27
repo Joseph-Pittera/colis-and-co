@@ -11,11 +11,13 @@ export function ResponsiveTextField({
   onChange,
   helperText = "",
   placeholder,
+  sx,
 }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <TextField
+      sx={sx}
       required
       type={type}
       size={matches ? "small" : "normal"}
