@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useState, useContext } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthContext } from "@/utils/context/auth";
@@ -13,32 +13,40 @@ import { PriceBox } from "./PriceBox";
 import { schema } from "./yupSchema";
 // import { Map } from "@/components/Expedition/create/Map";
 
+interface Values {
+  departure_address: string;
+  zipcode: string;
+  city: string;
+  arrival_address: string;
+  arrival_zipcode: string;
+  arrival_city: string;
+  creator_id?: number;
+  length: number;
+  width: number;
+  height: number;
+  weight: number;
+  volume?: number;
+}
+
+interface ServerDataErrors {
+  status: number;
+  message: string;
+}
+
 export function MainContainer() {
   //   const center = { lat: 46.227638, lng: 2.213749 };
   //   const zoom = 5.5;
   const { isLoggedIn, userData } = useContext(AuthContext);
-  if (!isLoggedIn) {
-    return (
-      <>
-        <Typography component="h1" m={4} fontSize={32} textAlign="center">
-          Formulaire d'expédition
-        </Typography>
-        <Alert severity="error">
-          Vous devez être connecté pour accéder aux informations de cette page
-        </Alert>
-      </>
-    );
-  }
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<Values>({
     resolver: yupResolver(schema),
   });
 
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<Values>({
     departure_address: "",
     zipcode: "",
     city: "",
@@ -46,19 +54,24 @@ export function MainContainer() {
     arrival_zipcode: "",
     arrival_city: "",
     creator_id: userData?.user?.id,
+    length: 0,
+    width: 0,
+    height: 0,
+    weight: 0,
+    volume: 0,
   });
 
-  // handle form submit with Data Validation
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const [serverDataErrors, setServerDataErrors] =
+    useState<ServerDataErrors | null>(null);
 
-  const handleForm = async (data) => {
+  const handleForm: SubmitHandler<Values> = async (data) => {
     if (!isLoggedIn) {
       setLoginError(true);
       return;
     } else setLoginError(false);
     try {
-      // insert the data in values object into data object
       const volume = data.length * data.width * data.height;
       data = { ...data, ...values, volume };
       const bodyRequest = JSON.stringify(data);
@@ -67,8 +80,11 @@ export function MainContainer() {
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          Authorization: "Bearer " + userData?.user?.token,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + userData?.user?.token,
+          },
+
           body: bodyRequest,
         }
       );
@@ -80,17 +96,12 @@ export function MainContainer() {
         });
         return;
       }
-      // extraire les données JSON de la réponse : utile si on
-      // les comparer à la validation du prochain formulaire
-      // pour éviter les redondances
-      // const respData = await response.json();
       setIsSubmitted(true);
       reset();
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <>
       <Typography component="h1" m={4} fontSize={32} textAlign="center">

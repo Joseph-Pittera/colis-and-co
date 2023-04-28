@@ -1,11 +1,25 @@
-import { createTheme } from "@mui/material";
+import { createContext, useState, useEffect, ReactNode } from "react";
+
+import {
+  createTheme,
+  ThemeProvider as MUIThemeProvider,
+  CssBaseline,
+} from "@mui/material";
 import { blue } from "@mui/material/colors";
-import { createContext, useState, useEffect } from "react";
-import { ThemeProvider as MUIThemeProvider, CssBaseline } from "@mui/material";
 
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+export interface ColorModeContextType {
+  toggleColorMode: () => void;
+}
 
-const getDesignTokens = (mode) => ({
+export const ColorModeContext = createContext<ColorModeContextType>({
+  toggleColorMode: () => {},
+});
+
+interface ToggleColorModeProviderProps {
+  children: ReactNode;
+}
+
+const getDesignTokens = (mode: "light" | "dark") => ({
   overrides: {
     MuiTextField: {
       root: {
@@ -16,7 +30,12 @@ const getDesignTokens = (mode) => ({
   components: {
     MuiLink: {
       styleOverrides: {
-        underline: "none",
+        root: {
+          textDecoration: "none",
+        },
+        underlineHover: {
+          textDecoration: "underline",
+        },
       },
     },
   },
@@ -61,9 +80,11 @@ const getDesignTokens = (mode) => ({
   },
 });
 
-export const ToggleColorModeProvider = ({ children }) => {
+export const ToggleColorModeProvider = ({
+  children,
+}: ToggleColorModeProviderProps) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("light" as "light" | "dark");
   const [theme, setTheme] = useState(createTheme(getDesignTokens(mode)));
 
   const colorMode = () => {
@@ -74,7 +95,7 @@ export const ToggleColorModeProvider = ({ children }) => {
 
   useEffect(() => {
     const colorTheme = localStorage.getItem("colisandcoTheme");
-    if (colorTheme) {
+    if (colorTheme && (colorTheme === "light" || colorTheme === "dark")) {
       setMode((c) => (c === "dark" ? "light" : "dark"));
       setTheme((c) => (c = createTheme(getDesignTokens(colorTheme))));
       localStorage.setItem("colisandcoTheme", colorTheme);
@@ -87,7 +108,7 @@ export const ToggleColorModeProvider = ({ children }) => {
   }
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ColorModeContext.Provider value={{ toggleColorMode: colorMode }}>
       <MUIThemeProvider theme={theme}>
         <CssBaseline />
         {children}

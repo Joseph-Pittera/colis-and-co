@@ -1,15 +1,19 @@
-import { Box, Stack, Card, CardContent, Typography } from '@mui/material';
-import { LinkButton } from '../../CustomsMuiComp/LinkButton';
-import { useRouter } from 'next/router';
+import { Box, Stack, Card, CardContent, Typography } from "@mui/material";
+import { LinkButton } from "../../CustomsMuiComp/LinkButton";
+import { useRouter } from "next/router";
 
-const titles = [
-  ['Livraisons fiables', 'h1', 32],
-  ['&', 'h2', 18],
-  ['économiques entre particuliers à travers la France', 'h3', 16],
+type Title = [text: string, tag: keyof JSX.IntrinsicElements, size: number];
+
+type Button = { text: string; href: string };
+
+const titles: Title[] = [
+  ["Livraisons fiables", "h1", 32],
+  ["&", "h2", 18],
+  ["économiques entre particuliers à travers la France", "h3", 16],
 ];
-const btnTxt = [
-  { text: 'Je propose un envoi', href: '/expedition/create' },
-  { text: 'Liste des courses', href: '/expedition/courses' },
+const btnTxt: Button[] = [
+  { text: "Je propose un envoi", href: "/expedition/create" },
+  { text: "Liste des courses", href: "/expedition/courses" },
 ];
 
 export const HeadCard = () => {
@@ -19,18 +23,18 @@ export const HeadCard = () => {
       sx={{
         p: { xs: 3, md: 6 },
         my: 3,
-        mx: 'auto',
+        mx: "auto",
         boxShadow: {
-          xs: 'none',
-          sm: 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;',
+          xs: "none",
+          sm: "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;",
         },
-        width: '90%',
-        textAlign: 'center',
+        width: "90%",
+        textAlign: "center",
       }}
     >
       <CardContent
         sx={{
-          textAlign: 'center',
+          textAlign: "center",
         }}
       >
         <Box mb={8}>
@@ -47,7 +51,7 @@ export const HeadCard = () => {
         </Box>
         <Stack
           spacing={2}
-          direction={{ xs: 'column', sm: 'row' }}
+          direction={{ xs: "column", sm: "row" }}
           justifyContent="center"
         >
           {btnTxt.map((btn, i) => (

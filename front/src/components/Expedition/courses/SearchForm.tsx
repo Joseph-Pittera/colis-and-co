@@ -1,13 +1,22 @@
-import Box from "@mui/material/Box";
+import { Box, BoxProps } from "@mui/material";
+import React from "react";
 
-export const ExpeditionForm = ({ children, onSubmit }) => {
+interface SearchFormProps extends Omit<BoxProps, "onSubmit"> {
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
+}
+
+export const SearchForm = ({
+  children,
+  onSubmit,
+  ...rest
+}: SearchFormProps) => {
   return (
     <Box
       component="form"
       sx={{
         display: "flex",
         justifyContent: "center",
-        flexDirection: "column",
+        flexDirection: "row",
         flexWrap: "wrap",
         pt: 2,
         mb: 4,
@@ -16,6 +25,7 @@ export const ExpeditionForm = ({ children, onSubmit }) => {
       noValidate
       autoComplete="off"
       onSubmit={onSubmit}
+      {...rest}
     >
       {children}
     </Box>

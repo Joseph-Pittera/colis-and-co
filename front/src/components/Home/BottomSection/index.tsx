@@ -6,7 +6,7 @@ import { BottomCards } from "./BottomCards";
 import YouAreBtn from "./YouAreBtn";
 
 export const BottomSection = () => {
-  const [youAre, setYouAre] = useState("expeditor");
+  const [youAre, setYouAre] = useState<"expeditor" | "deliverer">("expeditor");
   return (
     <Box
       sx={{

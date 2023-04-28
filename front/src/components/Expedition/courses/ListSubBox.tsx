@@ -1,13 +1,14 @@
 import React from "react";
 import { ListItem, useTheme } from "@mui/material";
 
-export const ListSubBox = ({ children }) => {
+interface ListSubBoxProps {
+  children: React.ReactNode;
+}
+
+export const ListSubBox: React.FC<ListSubBoxProps> = ({ children }) => {
   const theme = useTheme();
   return (
     <ListItem
-      display="flex"
-      flexDirection={{ xs: "column", sm: "row" }}
-      alignItems={{ xs: "flex-start", sm: "center" }}
       sx={{
         border: `2px solid ${theme.palette.primary.main}`,
         borderRadius: "5px",
@@ -17,6 +18,9 @@ export const ListSubBox = ({ children }) => {
         padding: "1rem",
         flexWrap: "wrap",
         width: { xs: "90%", sm: 500, md: 660 },
+        display: "flex",
+        flexDirection: { xs: "column", sm: "row" },
+        alignItems: { xs: "flex-start", sm: "center" },
       }}
     >
       {children}

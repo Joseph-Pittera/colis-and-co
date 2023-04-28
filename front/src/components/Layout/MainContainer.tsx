@@ -1,6 +1,6 @@
 import { Container } from "@mui/material";
-import { ResponsiveAppBar as Navbar } from "../Navbar/index.tsx";
-import { Footer } from "../Footer/index.jsx";
+import { ResponsiveAppBar as Navbar } from "../Navbar";
+import { Footer } from "../Footer";
 
 type MainContainerProps = {
   children: React.ReactNode;

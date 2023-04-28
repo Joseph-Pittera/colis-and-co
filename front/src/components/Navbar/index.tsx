@@ -7,7 +7,7 @@ import { Logo } from "./Logo";
 import { BurgerMenu } from "./BurgerMenu";
 import { InlineMenu } from "./InlineMenu";
 import { AvatarMenu } from "./AvatarMenu";
-import { AuthContext } from "../../utils/context/auth.jsx";
+import { AuthContext } from "../../utils/context/auth.tsx";
 
 const pages = ["Connexion", "Inscription"];
 

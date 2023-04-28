@@ -10,10 +10,22 @@ import { CircularProgress } from "@mui/material";
 import { ListSubBox } from "./ListSubBox";
 import { SearchForm } from "./SearchForm";
 
-export const MainContainer = () => {
+interface Delivery {
+  id: number;
+  type_of_marchandise: string;
+  length: number;
+  width: number;
+  height: number;
+  city: string;
+  arrival_city: string;
+  departure_date: string;
+  price: number;
+}
+
+export const MainContainer: React.FC = () => {
   const router = useRouter();
   // manage fetch list of courses
-  const { data, isLoading, error } = useFetch(
+  const { data, isLoading, error } = useFetch<Delivery>(
     `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries`
   );
   if (error) {
@@ -21,15 +33,15 @@ export const MainContainer = () => {
   }
 
   // hangle Input changes
-  const [searchInputValue, setSearchInputValue] = useState(null);
-  const [searchResults, setSearchResults] = useState(null);
+  const [searchInputValue, setSearchInputValue] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<Delivery[] | null>(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
   };
 
   // handle search form submit
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url =
       searchInputValue === null || searchInputValue === ""

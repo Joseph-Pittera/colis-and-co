@@ -2,13 +2,19 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
-export default function YouAreBtn({ youAre, setYouAre }) {
+type YouAreBtnProps = {
+  youAre: "expeditor" | "deliverer";
+  setYouAre: React.Dispatch<React.SetStateAction<"expeditor" | "deliverer">>;
+};
+
+export default function YouAreBtn({ youAre, setYouAre }: YouAreBtnProps) {
   const [isOutlined, setIsOutlined] = useState(false);
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsOutlined(!isOutlined);
+    const target = e.target as HTMLElement;
     if (
-      (e.target.textContent === "Expéditeur" && youAre === "deliverer") ||
-      (e.target.textContent === "Livreur" && youAre === "expeditor")
+      (target.textContent === "Expéditeur" && youAre === "deliverer") ||
+      (target.textContent === "Livreur" && youAre === "expeditor")
     ) {
       setYouAre((c) => {
         return c === "expeditor" ? "deliverer" : "expeditor";

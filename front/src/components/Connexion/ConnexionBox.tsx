@@ -1,6 +1,16 @@
-import Box from "@mui/material/Box";
+import Box, { BoxProps } from "@mui/material/Box";
+import { FormEvent, ReactNode } from "react";
 
-export const ConnexionBox = ({ children, handleForm }) => {
+type ConnexionBoxProps = {
+  children: ReactNode;
+  handleForm: (e: FormEvent<HTMLFormElement>) => void;
+} & BoxProps;
+
+export const ConnexionBox = ({
+  children,
+  handleForm,
+  ...rest
+}: ConnexionBoxProps) => {
   return (
     <Box
       component="form"
@@ -16,10 +26,11 @@ export const ConnexionBox = ({ children, handleForm }) => {
       }}
       noValidate
       autoComplete="off"
-      onSubmit={(e) => {
+      onSubmit={(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleForm(e);
       }}
+      {...rest}
     >
       {children}
     </Box>

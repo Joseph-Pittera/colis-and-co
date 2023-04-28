@@ -10,7 +10,9 @@ const apropos = [
   "Protection des données",
 ];
 
-const icons = [
+type IconType = [JSX.Element, string];
+
+const icons: IconType[] = [
   [<FacebookIcon />, "https://www.facebook.com/"],
   [<InstagramIcon />, "https://www.instagram.com/"],
   [<WhatsAppIcon />, "https://www.whatsapp.com/"],

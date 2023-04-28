@@ -1,6 +1,17 @@
 import { Box, Stack, Card, CardContent, Typography } from "@mui/material";
 
-const cardsTxt = {
+type CardTextType = [string, string];
+
+type CardsTextType = {
+  expeditor: CardTextType[];
+  deliverer: CardTextType[];
+};
+
+type BottomCardsProps = {
+  youAre: keyof CardsTextType;
+};
+
+const cardsTxt: CardsTextType = {
   expeditor: [
     [
       "Déposez une annonce",
@@ -31,7 +42,7 @@ const cardsTxt = {
   ],
 };
 
-export const BottomCards = ({ youAre }) => {
+export const BottomCards = ({ youAre }: BottomCardsProps) => {
   return (
     <Stack
       spacing={{ xs: 1, sm: 2, md: 4 }}

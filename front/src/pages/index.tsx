@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Layout } from "@/components/Layout/index.tsx";
+import { Layout } from "@/components/Layout";
 import { HeadCard } from "@/components/Home/HeadCard";
 import { BottomSection } from "@/components/Home/BottomSection";
 import { CookiesModal } from "@/components/Home/CookiesModal";

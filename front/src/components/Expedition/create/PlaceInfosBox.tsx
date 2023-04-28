@@ -1,19 +1,38 @@
-import { useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { useState } from "react";
+import { Controller, Control } from "react-hook-form";
 
-import { Stack, Autocomplete, TextField, useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Stack, Autocomplete, TextField, useMediaQuery } from "@mui/material";
+import { useTheme, Theme } from "@mui/material/styles";
 
-import { Typo } from '../../CustomsMuiComp/LabelTypo';
-import { FormSubBox } from './FormSubBox';
+import { Typo } from "../../CustomsMuiComp/LabelTypo";
+import { FormSubBox } from "./FormSubBox";
 
-export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
-  const [addresses, setAddresses] = useState([]);
-  const [arrivalAddresses, setArrivalAddresses] = useState([]);
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+type PlaceInfosBoxProps = {
+  control: Control;
+  errors: any;
+  values: any;
+  setValues: (values: any) => void;
+};
+
+type Address = {
+  name: string;
+  city: string;
+  postcode: string;
+};
+
+export const PlaceInfosBox = ({
+  control,
+  errors,
+  values,
+  setValues,
+}: PlaceInfosBoxProps) => {
+  const [addresses, setAddresses] = useState<Address[]>([]);
+  const [arrivalAddresses, setArrivalAddresses] = useState<Address[]>([]);
+  const theme = useTheme<Theme>();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
   // manage address input with API call
-  const handleAddressInput = async (e) => {
+  const handleAddressInput = async (e: any) => {
     if (e.target.value?.length > 3) {
       try {
         const response = await fetch(
@@ -21,7 +40,7 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
         );
         const data = await response.json();
         const formattedAddresses = data.features.map(
-          (feature) => feature.properties
+          (feature: any) => feature.properties
         );
         setAddresses(formattedAddresses);
       } catch (error) {
@@ -29,7 +48,7 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
       }
     }
   };
-  const handleArrivalAddressInput = async (e) => {
+  const handleArrivalAddressInput = async (e: any) => {
     if (e.target.value?.length > 3) {
       try {
         const response = await fetch(
@@ -37,7 +56,7 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
         );
         const data = await response.json();
         const formattedAddresses = data.features.map(
-          (feature) => feature.properties
+          (feature: any) => feature.properties
         );
         setArrivalAddresses(formattedAddresses);
       } catch (error) {
@@ -46,7 +65,7 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
     }
   };
 
-  const handleDepartureAddressSelection = (e, value) => {
+  const handleDepartureAddressSelection = (value: any) => {
     if (value === null) {
       return;
     }
@@ -57,7 +76,7 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
       zipcode: value.postcode,
     });
   };
-  const handleArrivalAddressSelection = (e, value) => {
+  const handleArrivalAddressSelection = (value: any) => {
     if (value === null) {
       return;
     }
@@ -77,9 +96,8 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
 
           <Autocomplete
             id="departure_address"
-            size={matches ? 'small' : 'normal'}
+            size={matches ? "small" : "medium"}
             options={addresses}
-            // options={addresses.map((address) => address.label)}
             onChange={handleDepartureAddressSelection}
             onInputChange={handleAddressInput}
             renderInput={(params) => (
@@ -91,14 +109,14 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                   <TextField
                     {...field}
                     type="text"
-                    sx={{ width: '16rem' }}
+                    sx={{ width: "16rem" }}
                     {...params}
                     name="departure_address"
                     placeholder="1 Avenue des Champs-Elysée, 75008 PARIS"
                     helperText={
                       errors?.departure_address
                         ? errors?.departure_address?.message
-                        : ''
+                        : ""
                     }
                     error={errors?.departure_address ? true : false}
                   />
@@ -118,12 +136,12 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                 {...field}
                 placeholder="06 01 02 03 04"
                 type="tel"
-                sx={{ width: '12rem' }}
-                size={matches ? 'small' : 'normal'}
+                sx={{ width: "12rem" }}
+                size={matches ? "small" : "medium"}
                 helperText={
                   errors?.departure_phone_number
                     ? errors?.departure_phone_number?.message
-                    : ''
+                    : ""
                 }
                 error={errors?.departure_phone_number ? true : false}
               />
@@ -136,7 +154,7 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
           <Typo>Adresse d'arrivée :</Typo>
           <Autocomplete
             id="arrival_address"
-            size={matches ? 'small' : 'normal'}
+            size={matches ? "small" : "medium"}
             options={arrivalAddresses}
             onChange={handleArrivalAddressSelection}
             onInputChange={handleArrivalAddressInput}
@@ -148,13 +166,13 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    sx={{ width: '16rem' }}
+                    sx={{ width: "16rem" }}
                     {...params}
                     placeholder="1 Avenue des Champs-Elysée, 75008 PARIS"
                     helperText={
                       errors?.arrival_address
                         ? errors?.arrival_address?.message
-                        : ''
+                        : ""
                     }
                     error={errors?.arrival_address ? true : false}
                   />
@@ -175,12 +193,12 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                 {...field}
                 placeholder="06 01 02 03 04"
                 type="tel"
-                sx={{ width: '12rem' }}
-                size={matches ? 'small' : 'normal'}
+                sx={{ width: "12rem" }}
+                size={matches ? "small" : "medium"}
                 helperText={
                   errors?.arrival_phone_number
                     ? errors?.arrival_phone_number?.message
-                    : ''
+                    : ""
                 }
                 error={errors?.arrival_phone_number ? true : false}
               />
@@ -198,12 +216,12 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                 <TextField
                   {...field}
                   type="date"
-                  sx={{ maxWidth: '16rem' }}
-                  size={matches ? 'small' : 'normal'}
+                  sx={{ maxWidth: "16rem" }}
+                  size={matches ? "small" : "medium"}
                   helperText={
                     errors?.departure_date
                       ? errors?.departure_date?.message
-                      : ''
+                      : ""
                   }
                   error={errors?.departure_date ? true : false}
                 />
@@ -220,10 +238,10 @@ export const PlaceInfosBox = ({ control, errors, values, setValues }) => {
                 <TextField
                   {...field}
                   type="date"
-                  sx={{ maxWidth: '16rem' }}
-                  size={matches ? 'small' : 'normal'}
+                  sx={{ maxWidth: "16rem" }}
+                  size={matches ? "small" : "medium"}
                   helperText={
-                    errors?.arrival_date ? errors?.arrival_date?.message : ''
+                    errors?.arrival_date ? errors?.arrival_date?.message : ""
                   }
                   error={errors?.arrival_date ? true : false}
                 />

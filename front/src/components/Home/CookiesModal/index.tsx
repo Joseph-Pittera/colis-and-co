@@ -2,6 +2,12 @@ import * as React from "react";
 import { Box, Typography, Modal, Stack } from "@mui/material";
 import { LinkButton } from "@/components/CustomsMuiComp/LinkButton";
 
+type CookiesModalProps = {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  setShowCookieModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 const style = {
   position: "absolute",
   bottom: "0",
@@ -17,9 +23,13 @@ const style = {
   outline: 0,
 };
 
-export function CookiesModal({ isOpen, onRequestClose, setShowCookieModal }) {
+export function CookiesModal({
+  isOpen,
+  onRequestClose,
+  setShowCookieModal,
+}: CookiesModalProps) {
   const handleAcceptCookies = () => {
-    localStorage.setItem("colisandcoCookieConsent", true);
+    localStorage.setItem("colisandcoCookieConsent", "true");
     setShowCookieModal(false);
   };
 
@@ -28,9 +38,10 @@ export function CookiesModal({ isOpen, onRequestClose, setShowCookieModal }) {
       <Modal
         id="cookies-modal"
         open={isOpen}
-        onRequestClose={onRequestClose}
+        onClose={onRequestClose}
         aria-labelledby="Cookies preferences"
         aria-describedby="Choice of cookies preferences"
+        component="div"
       >
         <Box sx={style}>
           <Typography variant="h5" component="h2">

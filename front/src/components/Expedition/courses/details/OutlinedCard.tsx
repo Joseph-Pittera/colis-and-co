@@ -1,10 +1,22 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "@/utils/context/auth";
-
 import { Card, CardActions, CardContent, Button } from "@mui/material";
 import { Typography, Box, Stack, Alert } from "@mui/material";
 
-export function OutlinedCard({ data }) {
+export type OutlinedCardProps = {
+  id: number;
+  type_of_marchandise: string;
+  length: number;
+  width: number;
+  height: number;
+  departure_address: string;
+  arrival_address: string;
+  departure_date: string;
+  price: number;
+  creator_id: number;
+};
+
+export function OutlinedCard({ data }: { data: OutlinedCardProps }) {
   const { isLoggedIn } = useContext(AuthContext);
   return (
     <Box sx={{ minWidth: 275 }}>
@@ -17,7 +29,11 @@ export function OutlinedCard({ data }) {
   );
 }
 
-const InsideCard = ({ courseData }) => {
+type InsideCardProps = {
+  courseData: OutlinedCardProps;
+};
+
+const InsideCard = ({ courseData }: InsideCardProps) => {
   const { userData } = useContext(AuthContext);
   const [courseDeleted, setCourseDeleted] = useState(false);
   const [courseAccepted, setCourseAccepted] = useState(false);
@@ -34,7 +50,7 @@ const InsideCard = ({ courseData }) => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userData.user.token}`,
+            Authorization: `Bearer ${userData?.user?.token}`,
           },
         }
       );
@@ -59,24 +75,24 @@ const InsideCard = ({ courseData }) => {
           <Stack direction="row" spacing={12} mt={1} fontSize={24}>
             <Stack>
               <Box my={3}>
-                <Typography componant="h3" fontWeight="bold" my={1}>
+                <Typography component="h3" fontWeight="bold" my={1}>
                   Description de l'objet :
                 </Typography>
-                <Typography componant="p">
+                <Typography component="p">
                   {courseData.type_of_marchandise}
                 </Typography>
               </Box>
               <Box>
-                <Typography componant="h3" fontWeight="bold">
+                <Typography component="h3" fontWeight="bold">
                   Dimensions en cm :
                 </Typography>
-                <Typography componant="p">
+                <Typography component="p">
                   Longueur : {courseData.length}cm
                 </Typography>
-                <Typography componant="p">
+                <Typography component="p">
                   Largeur : {courseData.width}cm
                 </Typography>
-                <Typography componant="p">
+                <Typography component="p">
                   Hauteur : {courseData.height}cm
                 </Typography>
               </Box>
@@ -84,26 +100,26 @@ const InsideCard = ({ courseData }) => {
             <Stack>
               <Box>
                 <Box my={3}>
-                  <Typography componant="h3" fontWeight="bold">
+                  <Typography component="h3" fontWeight="bold">
                     Adresse de départ :
                   </Typography>
-                  <Typography componant="p">
+                  <Typography component="p">
                     {courseData.departure_address}
                   </Typography>
                 </Box>
                 <Box my={3}>
-                  <Typography componant="h3" fontWeight="bold">
+                  <Typography component="h3" fontWeight="bold">
                     Adresse d'arrivée :
                   </Typography>
-                  <Typography componant="p">
+                  <Typography component="p">
                     {courseData.arrival_address}
                   </Typography>
                 </Box>
                 <Box my={3}>
-                  <Typography componant="h3" fontWeight="bold">
+                  <Typography component="h3" fontWeight="bold">
                     Date de livraison :
                   </Typography>
-                  <Typography componant="p">
+                  <Typography component="p">
                     {courseData.departure_date}
                   </Typography>
                 </Box>
@@ -111,10 +127,10 @@ const InsideCard = ({ courseData }) => {
             </Stack>
           </Stack>
           <Box textAlign="center" mt={4}>
-            <Typography componant="h3" fontWeight="bold">
+            <Typography component="h3" fontWeight="bold">
               Prix proposé :
             </Typography>
-            <Typography componant="p">{courseData.price}€</Typography>
+            <Typography component="p">{courseData.price}€</Typography>
           </Box>
         </CardContent>
       )}

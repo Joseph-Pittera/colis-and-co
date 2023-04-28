@@ -168,7 +168,7 @@ export const MainComponent: React.FC = () => {
     }
   };
 
-  const handleAddressSelection = (e: any, value: any) => {
+  const handleAddressSelection = (value: any) => {
     if (value === null) {
       return;
     }
@@ -226,10 +226,7 @@ export const MainComponent: React.FC = () => {
                 serverDataErrors?.status === 409
               }
               helperText={errorDataValidation?.email && "Email incorrect"}
-              autoComplete={undefined}
-              type={undefined}
-              props={undefined}
-              placeholder={undefined}
+              type="email"
               sx={undefined}
             />
             <FormControl
@@ -312,10 +309,8 @@ export const MainComponent: React.FC = () => {
               placeholder="Nom"
               sx={{ maxWidth: "16rem" }}
               onChange={handleChange}
-              autoComplete={undefined}
-              type={undefined}
-              props={undefined}
-              error={undefined}
+              type="text"
+              error={false}
             />
             <ResponsiveTextField
               label="Prénom"
@@ -323,10 +318,8 @@ export const MainComponent: React.FC = () => {
               placeholder="Prénom"
               sx={{ maxWidth: "16rem" }}
               onChange={handleChange}
-              autoComplete={undefined}
-              type={undefined}
-              props={undefined}
-              error={undefined}
+              type="text"
+              error={false}
             />
           </Stack>
           <Stack
@@ -352,9 +345,7 @@ export const MainComponent: React.FC = () => {
               type="tel"
               sx={{ maxWidth: "16rem" }}
               onChange={handleChange}
-              autoComplete={undefined}
-              props={undefined}
-              error={undefined}
+              error={false}
             />
             <Box>
               <Autocomplete
