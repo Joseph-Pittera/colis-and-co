@@ -37,7 +37,7 @@ export const MainContainer: React.FC = () => {
   };
 
   // handle form submit
-  const handleForm = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
     setServerDataError((c) => (c = null));
     setConnexionToServerError((c) => (c = false));
     try {
