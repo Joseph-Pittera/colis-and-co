@@ -39,7 +39,7 @@ export const Footer = () => {
         >
           <p>A propos:</p>
           {apropos.map((item, i) => (
-            <BlueLink href="/" underline="hover" key={`${item}-${i}`}>
+            <BlueLink href="/" key={`${item}-${i}`}>
               {item}
             </BlueLink>
           ))}
