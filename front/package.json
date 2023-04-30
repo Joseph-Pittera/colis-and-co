@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev -p 8000",
     "build": "next build",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "cypress open"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -25,7 +26,10 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "styled-components": "^5.3.9",
-    "typescript": "5.0.3",
     "yup": "^1.0.2"
+  },
+  "devDependencies": {
+    "cypress": "^12.10.0",
+    "typescript": "5.0.3"
   }
 }

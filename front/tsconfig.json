@@ -16,8 +16,9 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "allowImportingTsExtensions": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Navbar/Logo/index.tsx", "src/components/Navbar/Logo/index.tsx", "src/components/Navbar/functions/stringAvatar.js"],
   "exclude": ["node_modules"]
 }
