@@ -8,8 +8,8 @@ import { Typo } from "../../CustomsMuiComp/LabelTypo";
 import { FormSubBox } from "./FormSubBox";
 
 type PlaceInfosBoxProps = {
-  control: Control;
-  errors: any;
+  control: Control<any>;
+  errors: Record<string, any>;
   values: any;
   setValues: (values: any) => void;
 };
@@ -20,12 +20,12 @@ type Address = {
   postcode: string;
 };
 
-export const PlaceInfosBox = ({
+export const PlaceInfosBox: React.FC<PlaceInfosBoxProps> = ({
   control,
   errors,
   values,
   setValues,
-}: PlaceInfosBoxProps) => {
+}) => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [arrivalAddresses, setArrivalAddresses] = useState<Address[]>([]);
   const theme = useTheme<Theme>();

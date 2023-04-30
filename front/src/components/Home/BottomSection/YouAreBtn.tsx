@@ -10,12 +10,12 @@ type YouAreBtnProps = {
 export default function YouAreBtn({ youAre, setYouAre }: YouAreBtnProps) {
   const [isOutlined, setIsOutlined] = useState(false);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsOutlined(!isOutlined);
     const target = e.target as HTMLElement;
     if (
       (target.textContent === "Expéditeur" && youAre === "deliverer") ||
       (target.textContent === "Livreur" && youAre === "expeditor")
     ) {
+      setIsOutlined(!isOutlined);
       setYouAre((c) => {
         return c === "expeditor" ? "deliverer" : "expeditor";
       });
