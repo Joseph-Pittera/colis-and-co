@@ -124,7 +124,6 @@ export function MainContainer() {
           </Alert>
         )}
         <Button
-          // href={variant === "register" ? "/registration" : "/"}
           type="submit"
           variant="contained"
           sx={{ mt: 3, mx: "auto", maxWidth: 250, textAlign: "center" }}
