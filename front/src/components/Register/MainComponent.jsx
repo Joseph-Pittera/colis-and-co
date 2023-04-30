@@ -60,6 +60,37 @@ export const MainComponent = () => {
     } else setDataErrors(false);
   };
 
+  // handle address input with gouvernment API
+  const [addresses, setAddresses] = useState([]);
+  const handleAddressInput = async (e) => {
+    // handleChange(e);
+    if (e.target.value?.length > 3) {
+      try {
+        const response = await fetch(
+          `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
+        );
+        const data = await response.json();
+        const formattedAddresses = data.features.map(
+          (feature) => feature.properties
+        );
+        setAddresses(formattedAddresses);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  const handleAddressSelection = (e, value) => {
+    if (value === null) {
+      return;
+    }
+    setValues({
+      ...values,
+      address: value.name,
+      city: value.city,
+      zipcode: value.postcode,
+    });
+  };
+
   // handle form submit with Data Validation
   const [errorDataValidation, setErrorDataValidation] = useState(null);
   const handleForm = async (e) => {
@@ -68,7 +99,6 @@ export const MainComponent = () => {
       return;
     }
     try {
-      //*********************************** PROD *******************************/
       const bodyRequest = JSON.stringify({
         email: values.email,
         password: values.password,
@@ -101,7 +131,6 @@ export const MainComponent = () => {
       }
 
       const respData = await response.json(); // extraire les données JSON de la réponse
-      //*********************************** PROD *******************************/
 
       login(respData); // add user data to context and local storage
       router.push("/");
@@ -111,37 +140,6 @@ export const MainComponent = () => {
         setConnexionToServerErrors(true);
       }
     }
-  };
-
-  // handle address input with gouvernment API
-  const [addresses, setAddresses] = useState([]);
-  const handleAddressInput = async (e) => {
-    // handleChange(e);
-    if (e.target.value?.length > 3) {
-      try {
-        const response = await fetch(
-          `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
-        );
-        const data = await response.json();
-        const formattedAddresses = data.features.map(
-          (feature) => feature.properties
-        );
-        setAddresses(formattedAddresses);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-  const handleAddressSelection = (e, value) => {
-    if (value === null) {
-      return;
-    }
-    setValues({
-      ...values,
-      address: value.name,
-      city: value.city,
-      zipcode: value.postcode,
-    });
   };
 
   return (

@@ -5,11 +5,11 @@ import { useState } from "react";
 export default function YouAreBtn({ youAre, setYouAre }) {
   const [isOutlined, setIsOutlined] = useState(false);
   const handleClick = (e) => {
-    setIsOutlined(!isOutlined);
     if (
       (e.target.textContent === "Expéditeur" && youAre === "deliverer") ||
       (e.target.textContent === "Livreur" && youAre === "expeditor")
     ) {
+      setIsOutlined(!isOutlined);
       setYouAre((c) => {
         return c === "expeditor" ? "deliverer" : "expeditor";
       });
