@@ -39,10 +39,6 @@ const InsideCard = ({ courseData }: InsideCardProps) => {
   const [courseAccepted, setCourseAccepted] = useState(false);
 
   const deleteCourse = async () => {
-    console.log(
-      "url",
-      `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/${courseData.id}`
-    );
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries/${courseData.id}`,

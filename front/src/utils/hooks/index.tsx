@@ -46,7 +46,8 @@ export function useFetch<T>(
       }
     }
     fetchData();
-  }, [url, options]);
+  }, [url]);
+  console.log("data", data, "isLoading", isLoading, "error", error);
 
   return { isLoading, data, error };
 }

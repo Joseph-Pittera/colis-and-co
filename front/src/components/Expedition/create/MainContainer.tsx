@@ -11,21 +11,34 @@ import { SizeInfosBox } from "@/components/Expedition/create/SizeInfosBox";
 import { PlaceInfosBox } from "@/components/Expedition/create/PlaceInfosBox";
 import { PriceBox } from "./PriceBox";
 import { schema } from "./yupSchema";
+import { formatDate } from "./formatDate";
 // import { Map } from "@/components/Expedition/create/Map";
 
-interface Values {
+interface FormInputs {
+  departure_address: string;
+  zipcode: string;
+  city: string;
+  departure_date: Date | string;
+  arrival_address: string;
+  arrival_zipcode: string;
+  arrival_city: string;
+  arrival_date: Date | string;
+  creator_id: number;
+  length: number;
+  width: number;
+  height: number;
+  weight: number;
+  price: number;
+  volume: number;
+}
+
+interface AddressValues {
   departure_address: string;
   zipcode: string;
   city: string;
   arrival_address: string;
   arrival_zipcode: string;
   arrival_city: string;
-  creator_id?: number;
-  length: number;
-  width: number;
-  height: number;
-  weight: number;
-  volume?: number;
 }
 
 interface ServerDataErrors {
@@ -42,23 +55,17 @@ export function MainContainer() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Values>({
+  } = useForm<FormInputs>({
     resolver: yupResolver(schema),
   });
 
-  const [values, setValues] = useState<Values>({
+  const [values, setValues] = useState<AddressValues>({
     departure_address: "",
     zipcode: "",
     city: "",
     arrival_address: "",
     arrival_zipcode: "",
     arrival_city: "",
-    creator_id: userData?.user?.id,
-    length: 0,
-    width: 0,
-    height: 0,
-    weight: 0,
-    volume: 0,
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -66,14 +73,17 @@ export function MainContainer() {
   const [serverDataErrors, setServerDataErrors] =
     useState<ServerDataErrors | null>(null);
 
-  const handleForm: SubmitHandler<Values> = async (data) => {
+  const handleForm: SubmitHandler<FormInputs> = async (data) => {
     if (!isLoggedIn) {
       setLoginError(true);
       return;
     } else setLoginError(false);
     try {
       const volume = data.length * data.width * data.height;
-      data = { ...data, ...values, volume };
+      data.departure_date = formatDate(data.departure_date);
+      data.arrival_date = formatDate(data.arrival_date);
+      data = { ...data, ...values, volume, creator_id: userData?.user?.id };
+      console.log("data3", data);
       const bodyRequest = JSON.stringify(data);
       console.log("bodyRequest", bodyRequest);
       const response = await fetch(
@@ -97,6 +107,7 @@ export function MainContainer() {
         return;
       }
       setIsSubmitted(true);
+
       reset();
     } catch (error) {
       console.log(error);

@@ -25,11 +25,11 @@ export const SizeInfosBox: React.FC<SizeInfosBoxProps> = ({
         <Controller
           name="length"
           control={control}
-          defaultValue={0}
+          defaultValue="0"
           render={({ field }) => (
             <TextField
               {...field}
-              type="number"
+              type={"number"}
               label="Longueur"
               sx={{ width: "8rem" }}
               size={matches ? "small" : "medium"}
@@ -45,7 +45,7 @@ export const SizeInfosBox: React.FC<SizeInfosBoxProps> = ({
           render={({ field }) => (
             <TextField
               {...field}
-              type="number"
+              type={"number"}
               label="Largeur"
               sx={{ width: "8rem" }}
               size={matches ? "small" : "medium"}
@@ -61,7 +61,7 @@ export const SizeInfosBox: React.FC<SizeInfosBoxProps> = ({
           render={({ field }) => (
             <TextField
               {...field}
-              type="number"
+              type={"number"}
               label="Hauteur"
               sx={{ width: "8rem" }}
               size={matches ? "small" : "medium"}

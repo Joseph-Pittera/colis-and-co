@@ -26,6 +26,14 @@ export const PlaceInfosBox: React.FC<PlaceInfosBoxProps> = ({
   values,
   setValues,
 }) => {
+  const [departureAddressValue, setDepartureAddressValue] =
+    useState<Address | null>(null);
+  const [departureAddressInputValue, setDepartureAddressInputValue] =
+    useState<string>("");
+  const [arrivalAddressValue, setArrivalAddressValue] =
+    useState<Address | null>(null);
+  const [arrivalAddressInputValue, setArrivalAddressInputValue] =
+    useState<string>("");
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [arrivalAddresses, setArrivalAddresses] = useState<Address[]>([]);
   const theme = useTheme<Theme>();
@@ -65,7 +73,7 @@ export const PlaceInfosBox: React.FC<PlaceInfosBoxProps> = ({
     }
   };
 
-  const handleDepartureAddressSelection = (value: any) => {
+  const handleDepartureAddressSelection = (value: Address | null) => {
     if (value === null) {
       return;
     }
@@ -76,7 +84,7 @@ export const PlaceInfosBox: React.FC<PlaceInfosBoxProps> = ({
       zipcode: value.postcode,
     });
   };
-  const handleArrivalAddressSelection = (value: any) => {
+  const handleArrivalAddressSelection = (value: Address | null) => {
     if (value === null) {
       return;
     }
@@ -98,8 +106,16 @@ export const PlaceInfosBox: React.FC<PlaceInfosBoxProps> = ({
             id="departure_address"
             size={matches ? "small" : "medium"}
             options={addresses}
-            onChange={handleDepartureAddressSelection}
-            onInputChange={handleAddressInput}
+            value={departureAddressValue}
+            onChange={(event: any, newValue: Address | null) => {
+              handleDepartureAddressSelection(newValue);
+              setDepartureAddressValue(newValue);
+            }}
+            inputValue={departureAddressInputValue}
+            onInputChange={(event, newInputValue) => {
+              handleAddressInput(event);
+              setDepartureAddressInputValue(newInputValue);
+            }}
             renderInput={(params) => (
               <Controller
                 name="departure_address"
@@ -156,8 +172,16 @@ export const PlaceInfosBox: React.FC<PlaceInfosBoxProps> = ({
             id="arrival_address"
             size={matches ? "small" : "medium"}
             options={arrivalAddresses}
-            onChange={handleArrivalAddressSelection}
-            onInputChange={handleArrivalAddressInput}
+            value={arrivalAddressValue}
+            onChange={(event: any, newValue: Address | null) => {
+              handleArrivalAddressSelection(newValue);
+              setArrivalAddressValue(newValue);
+            }}
+            inputValue={arrivalAddressInputValue}
+            onInputChange={(event, newInputValue) => {
+              handleArrivalAddressInput(event);
+              setArrivalAddressInputValue(newInputValue);
+            }}
             renderInput={(params) => (
               <Controller
                 name="arrival_address"
