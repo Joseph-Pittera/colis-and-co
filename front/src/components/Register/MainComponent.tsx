@@ -365,7 +365,7 @@ export const MainComponent: React.FC = () => {
         </Box>
         {accountCreated ? (
           <Alert variant="outlined" severity="success" sx={{ m: "1rem" }}>
-            Votre compte a bien été créé, vous pouvez vous connecter !
+            Votre compte a bien été créé !
           </Alert>
         ) : (
           <Button
