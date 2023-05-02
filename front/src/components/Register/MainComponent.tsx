@@ -107,15 +107,17 @@ export const MainComponent: React.FC = () => {
         password: values.password,
         first_name: values.first_name,
         last_name: values.last_name,
-        address: values.address,
-        zipcode: values.zipcode || 11111,
+        address: addresses[0].label,
+        zipcode: addresses[0].postcode || 11111,
         birth_date: values.birth_date,
         phone_number: values.phone_number,
-        city: values.city,
+        city: addresses[0].city,
         carrier: true,
         identity_verified: true,
         role: "user",
       });
+      console.log("bodyRequest", bodyRequest);
+
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/users/register`,
         {
