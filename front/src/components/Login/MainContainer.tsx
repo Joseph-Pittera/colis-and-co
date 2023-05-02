@@ -59,7 +59,7 @@ export const MainContainer: React.FC = () => {
       }
 
       const respData = await response.json(); // extraire les données JSON de la réponse
-      console.log("respData", respData);
+      // console.log("respData", respData);
       //*********************************** PROD *******************************/
 
       login(respData); // add user data to context and local storage

@@ -26,7 +26,7 @@ export function useFetch<T>(
     async function fetchData() {
       let response: Response | undefined;
       try {
-        console.log("url", url);
+        // console.log("url", url);
         response = await fetch(url, options);
         const respData = (await response.json()) as T;
         setData(respData);
@@ -47,7 +47,6 @@ export function useFetch<T>(
     }
     fetchData();
   }, [url]);
-  console.log("data", data, "isLoading", isLoading, "error", error);
 
   return { isLoading, data, error };
 }

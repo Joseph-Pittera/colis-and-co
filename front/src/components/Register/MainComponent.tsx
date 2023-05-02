@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { useRouter } from "next/router";
 import { AuthContext } from "@/utils/context/auth";
 
 import { Button, Typography, Box, Stack, Alert } from "@mui/material";
@@ -41,7 +40,7 @@ export const MainComponent: React.FC = () => {
   }>({ message: "" });
   const [connexionToServerErrors, setConnexionToServerErrors] =
     useState<boolean>(false);
-  const router = useRouter();
+  const [accountCreated, setAccountCreated] = useState<boolean>(false);
   const { login } = useContext(AuthContext);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
@@ -92,64 +91,6 @@ export const MainComponent: React.FC = () => {
     } else setDataErrors(false);
   };
 
-  // handle form submit with Data Validation
-  const [errorDataValidation, setErrorDataValidation] =
-    useState<ErrorDataValidation>({});
-  const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    setErrorDataValidation(connexionDataValidation(values));
-    if (Object.keys(errorDataValidation).length !== 0) {
-      return;
-    }
-    try {
-      //*********************************** PROD *******************************/
-      const bodyRequest = JSON.stringify({
-        email: values.email,
-        password: values.password,
-        first_name: values.first_name,
-        last_name: values.last_name,
-        address: addresses[0].label,
-        zipcode: addresses[0].postcode || 11111,
-        birth_date: values.birth_date,
-        phone_number: values.phone_number,
-        city: addresses[0].city,
-        carrier: true,
-        identity_verified: true,
-        role: "user",
-      });
-      console.log("bodyRequest", bodyRequest);
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACK_URL}/api/users/register`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: bodyRequest,
-        }
-      );
-      if (!response.ok) {
-        const respData = await response.json();
-        setServerDataErrors({
-          status: response.status,
-          message: respData.message,
-        });
-        return;
-      }
-
-      const respData = await response.json(); // extraire les données JSON de la réponse
-      //*********************************** PROD *******************************/
-
-      login(respData); // add user data to context and local storage
-      router.push("/");
-    } catch (error) {
-      if (error instanceof Error) {
-        console.log(error);
-        if (error.message === "Failed to fetch") {
-          setConnexionToServerErrors(true);
-        }
-      }
-    }
-  };
-
   // handle address input with gouvernment API
   const [addresses, setAddresses] = useState<Array<any>>([]);
   const handleAddressInput = async (e: any, value: string) => {
@@ -162,7 +103,6 @@ export const MainComponent: React.FC = () => {
         const formattedAddresses = data.features.map(
           (feature: any) => feature.properties
         );
-        console.log("formattedAddresses", formattedAddresses);
         setAddresses(formattedAddresses);
       } catch (error) {
         console.log(error);
@@ -180,6 +120,59 @@ export const MainComponent: React.FC = () => {
       city: value.city,
       zipcode: value.postcode,
     });
+  };
+
+  // handle FORM SUBMIT with Data Validation
+  const [errorDataValidation, setErrorDataValidation] =
+    useState<ErrorDataValidation>({});
+  const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    setErrorDataValidation(connexionDataValidation(values));
+    if (Object.keys(errorDataValidation).length !== 0) {
+      return;
+    }
+    try {
+      const bodyRequest = JSON.stringify({
+        email: values.email,
+        password: values.password,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        address: addresses[0].label,
+        zipcode: addresses[0].postcode || 11111,
+        birth_date: values.birth_date,
+        phone_number: values.phone_number,
+        city: addresses[0].city,
+        carrier: true,
+        identity_verified: true,
+        role: "user",
+      });
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACK_URL}/api/users/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: bodyRequest,
+        }
+      );
+      if (!response.ok) {
+        const respData = await response.json();
+        setServerDataErrors({
+          status: response.status,
+          message: respData.message,
+        });
+        return;
+      }
+      const respData = await response.json(); // extraire les données JSON de la réponse
+      login(respData); // add user data to context and local storage
+      setAccountCreated(true);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error);
+        if (error.message === "Failed to fetch") {
+          setConnexionToServerErrors(true);
+        }
+      }
+    }
   };
 
   return (
@@ -370,13 +363,19 @@ export const MainComponent: React.FC = () => {
             </Box>
           </Stack>
         </Box>
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{ mt: 3, width: 160, textAlign: "center" }}
-        >
-          Inscription
-        </Button>
+        {accountCreated ? (
+          <Alert variant="outlined" severity="success" sx={{ m: "1rem" }}>
+            Votre compte a bien été créé, vous pouvez vous connecter !
+          </Alert>
+        ) : (
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3, width: 160, textAlign: "center" }}
+          >
+            Inscription
+          </Button>
+        )}
       </ConnexionBox>
     </>
   );

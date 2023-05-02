@@ -83,9 +83,9 @@ export function MainContainer() {
       data.departure_date = formatDate(data.departure_date);
       data.arrival_date = formatDate(data.arrival_date);
       data = { ...data, ...values, volume, creator_id: userData?.user?.id };
-      console.log("data3", data);
+      // console.log("data3", data);
       const bodyRequest = JSON.stringify(data);
-      console.log("bodyRequest", bodyRequest);
+      // console.log("bodyRequest", bodyRequest);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACK_URL}/api/deliveries`,
         {
@@ -107,7 +107,6 @@ export function MainContainer() {
         return;
       }
       setIsSubmitted(true);
-
       reset();
     } catch (error) {
       console.log(error);

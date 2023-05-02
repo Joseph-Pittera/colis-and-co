@@ -12,7 +12,7 @@ type Errors = {
 };
 
 export const connexionDataValidation = (values: Values): Errors => {
-  console.log("values", values);
+  // console.log("values", values);
   let error: Errors = {};
   const email_pattern =
     /^[a-zA-Z0-9.!#$%&''+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/;
