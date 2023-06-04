@@ -19,6 +19,6 @@
     },
     "allowImportingTsExtensions": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Navbar/Logo/index.tsx", "src/components/Navbar/Logo/index.tsx", "src/components/Navbar/functions/stringAvatar.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Navbar/Logo/index.tsx", "src/components/Navbar/Logo/index.tsx", "src/components/Navbar/functions/stringAvatar.js", "cypress/e2e/spec.cy.js", "cypress/support/commands.js", "cypress/support/component.ts", "cypress/support/e2e.js", "cypress.config.js"],
   "exclude": ["node_modules"]
 }

@@ -59,13 +59,12 @@ describe("The Home Page Links", () => {
   });
 });
 // ***************************** COURSE LIST PAGE ***************************** //
-describe("The Course list Page", () => {
+describe.only("The Course list Page", () => {
   beforeEach(() => {
     cy.intercept("GET", "/api/deliveries", { fixture: "courses.json" });
     cy.visit(Cypress.env("baseUrl") + "/expedition/courses");
   });
   it("successfully loads with header, main and footer", () => {
-    cy.visit(Cypress.env("baseUrl") + "/expedition/courses");
     cy.get("header").should("exist");
     cy.get("main").should("exist");
     cy.get("footer").should("exist");

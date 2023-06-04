@@ -18,7 +18,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Poisson', 
@@ -60,7 +59,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Chapeau', 
@@ -102,7 +100,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Serviettes', 
@@ -144,12 +141,11 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Fromage', 
         '10',
-        '11',
+        '1',
         '19',
         '77',
         '53',
@@ -186,7 +182,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Vélo', 
@@ -228,7 +223,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Chemise', 
@@ -270,7 +264,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Chapeau', 
@@ -312,7 +305,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Savon', 
@@ -354,7 +346,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Savon', 
@@ -396,7 +387,6 @@ BEGIN;
       "departure_date",
       "arrival_date",
       "price"
-      
       )
       VALUES(
         'Ordinateur', 

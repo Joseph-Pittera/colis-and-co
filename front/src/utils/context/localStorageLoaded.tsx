@@ -11,9 +11,9 @@ export const LocalStorageLoadedContext =
     setLocalStorageLoaded: () => {},
   });
 
-type LocalStorageLoadedProviderProps = {
+interface LocalStorageLoadedProviderProps {
   children: React.ReactNode;
-};
+}
 
 export const LocalStorageLoadedProvider = ({
   children,
