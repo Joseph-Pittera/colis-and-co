@@ -13,21 +13,21 @@ const port = process.env.PORT || 3000;
 const app = express();
 
 // to allow only target site to connect to the backend
-const allowedOrigins = ["https://colis-and-co.vercel.app"];
+// const allowedOrigins = ["https://colis-and-co.vercel.app"];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.includes(origin) || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
-// app.use(cors());
+app.use(cors());
 
 // Configure body-parser middleware
 app.use(bodyParser.json());
