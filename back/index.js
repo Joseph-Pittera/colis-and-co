@@ -28,9 +28,9 @@ const app = express();
 //   },
 // };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
-// app.use(cors());
+app.use(cors());
 
 // Configure body-parser middleware
 app.use(bodyParser.json());
